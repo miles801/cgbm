@@ -1,0 +1,141 @@
+<html >
+<head >
+    <title >代码生成器</title >
+    <link rel="stylesheet" href="vendor/bootstrap-v3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style/standard/css/eccrm-common-new.css" />
+    <script type="text/javascript" src="static/ycrl/javascript/jquery-all.js" ></script >
+    <script type="text/javascript" src="static/ycrl/javascript/angular-all.js" ></script >
+    <script type="text/javascript" src="static/ycrl/javascript/angular-strap-all.js" ></script >
+    <script type="text/javascript" src="index.js" ></script >
+    <style >
+        .row {
+            margin-top: 10px;
+        }
+    </style >
+</head >
+<body ng-app="code" >
+<div class="main" ng-controller="CodeCtrl" style="overflow: auto" >
+    <div class="ycrl title-3" >基础信息</div >
+    <div class="ycrl split" ></div >
+    <div class="row" >
+        <div class="row" >
+            <div class="form-label col-1-half" >
+                <label >工程路径:</label >
+            </div >
+            <div class="col-2-half" >
+                <input type="text" class="col-12" ng-model="common.rootPath" />
+            </div >
+            <div class="form-label col-1-half" >
+                <label >模块名称:</label >
+            </div >
+            <div class="col-2-half" >
+                <input type="text" class="col-12" ng-model="common.moduleName" />
+            </div >
+            <div class="form-label col-1-half" >
+                <label >包路径:</label >
+            </div >
+            <div class="col-2-half" >
+                <input type="text" class="col-12" ng-model="common.packageName" />
+            </div >
+        </div >
+        <div class="row" >
+            <div class="form-label col-1-half" >
+                <label >类名称:</label >
+            </div >
+            <div class="col-2-half" >
+                <input type="text" class="col-12" ng-model="common.className" />
+            </div >
+            <div class="form-label col-1-half" >
+                <label >作者:</label >
+            </div >
+            <div class="col-2-half" >
+                <input type="text" class="col-12" ng-model="common.auth" />
+            </div >
+            <div class="form-label col-1-half" >
+                <label >是否覆盖:</label >
+            </div >
+            <div class="col-2-half" >
+                <input type="checkbox" class="col" ng-model="common.overwrite" />
+            </div >
+        </div >
+    </div >
+
+    <div class="ycrl title-3" >服务端信息</div >
+    <div class="ycrl split" ></div >
+    <div class="row" style="padding: 10px 50px;" >
+        <label style="margin-left: 30px;margin-top:15px;float: left" ng-repeat="foo in server" >
+            <input type="checkbox" class="col" ng-model="foo.checked" /><span class="col" style="margin-left: 8px;" >{{foo.name}}</span >
+        </label >
+    </div >
+
+    <div class="ycrl title-3" >类信息</div >
+    <div class="ycrl split" ></div >
+    <div class="row" >
+        <div class="row" >
+            <div class="form-label col-1-half" >
+                <label >描述:</label >
+            </div >
+            <div class="col-10-half" >
+                <textarea class="col-12" rows="5" ng-model="serverOptions.description" ></textarea >
+            </div >
+        </div >
+        <div class="row" >
+            <div class="form-label col-1-half" >
+                <label >表名称:</label >
+            </div >
+            <div class="col-2-half" >
+                <input type="text" class="col-12" ng-model="serverOptions.tableName" />
+            </div >
+        </div >
+        <div class="row" ng-repeat="foo in attributes" >
+            <div class="form-label col-1-half" >
+                <label >属性名称:</label >
+            </div >
+            <div class="col-2-half" >
+                <input type="text" class="col-12" ng-model="foo.name" />
+            </div >
+            <div class="form-label col-1-half" >
+                <label >属性类型:</label >
+            </div >
+            <div class="col-2-half" >
+                <select ng-model="foo.type" >
+                    <option value="String" >String</option >
+                    <option value="Integer" >Integer</option >
+                    <option value="Boolean" >Boolean</option >
+                    <option value="Float" >Float</option >
+                    <option value="Double" >Double</option >
+                </select >
+            </div >
+            <div class="form-label col-1-half" >
+                <label >描述:</label >
+            </div >
+            <div class="col-2" >
+                <input type="text" class="col-12" ng-model="foo.description" event-keydown="addAttribute" >
+            </div >
+            <span class="icons add cp" ng-click="addAttr();" title="新增属性" style="margin-left: 10px;" ></span >
+            <span class="icons circle_minus cp" ng-click="removeAttr($index);" ng-if="$index>0" title="删除" ></span >
+        </div >
+    </div >
+
+    <div class="ycrl title-3" >构建清单</div >
+    <div class="ycrl split" ></div >
+    <div class="row" >
+        <span class="col-1-half" ></span >
+
+        <div class="col-10" >
+            <span ng-repeat="foo in items" >
+                    <label style="margin-left: 25px;margin-top: 10px;" >
+                        <input type="checkbox" name="items" ng-model="foo.checked" />
+                        <span style="margin-left: 8px;" >{{foo.name}}</span >
+                    </label >
+                </span >
+        </div >
+    </div >
+
+    <div class="row button-row" >
+        <button class="btn btn-success" ng-click="build();" >生成</button >
+    </div >
+</div >
+
+</body >
+</html >
