@@ -8,7 +8,7 @@
         var isSupport = true;
         var notInstallFlashMsg = '您没有安装Flash插件，附件上传功能将无法使用!\r\n请安装最新版Flash插件后重启浏览器!';
         var isIe = $.browser.msie;
-        if (isIe && parseInt($.browser.version) < 10) {
+        if (isIe) {
             // 判断是否安装了flash插件
             try {
                 new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
@@ -128,6 +128,8 @@
             width: 80,
             // 文件最大大小20M
             fileSizeLimit: 20 * 1000,
+            removeTimeout: 1,
+            removeCompleted: true,
             // 是否允许上传多个
             multi: false,
 
@@ -141,15 +143,38 @@
 
             // 附件要上传的地址
             uploader: CommonUtils.contextPathURL('/attachment/upload'),
+            onSelectError: function (file, errorCode, errorMsg) {
+                switch (errorCode) {
+                    case 'QUEUE_LIMIT_EXCEEDED':
+                        alert('超出允许上传的最大文件数!');
+                        break;
+                    case 'FILE_EXCEEDS_SIZE_LIMIT':
+                        alert('超出单个文件允许的大小!');
+                        break;
+                    case 'ZERO_BYTE_FILE':
+                        alert('不允许上传空文件!');
+                        break;
+                    case 'INVALID_FILETYPE':
+                        alert('不支持上传的文件类型!');
+                        break;
+                }
+            },
+            'overrideEvents': ['onUploadError', 'onDialogClose', 'onSelectError'],
 
-            // 上传成功后的回调
-            // 参数1：id，附件的id
-            // 参数2：file，文件信息
-            onUploadSuccess: function (id, file) {
+            onDialogClose: function () {
+                var swfUpload = this;
+                if (swfUpload.queue.length > swfUpload.settings.uploadLimit) {
+                    alert('超出允许上传的最大文件数' + swfUpload.uploadLimit + '!');
+                    return false;
+                }
 
             },
-            onUploadError: function () {
-                alert('上传失败!');
+            onUploadError: function (e, errorCode, m1, m2) {
+                if (errorCode == -240) {
+                    alert('上传失败：超出允许上传的最大文件数!');
+                } else {
+                    alert("上传失败：" + m1 + ":" + m2);
+                }
             },
             onFallback: function () {
                 alert('初始化附件上传失败,没有检测到当前浏览器安装Flash插件!');
@@ -191,6 +216,9 @@
                     var promise = CommonUtils.parseToPromise(scope.options);
                     promise.then(function (cfg) {
                         var options = angular.extend({}, defaults, cfg);
+                        // not limit file count,just limit queue size
+                        var SWFUpload;
+                        options.queueSizeLimit = cfg.uploadLimit;
                         options.onUploadSuccess = function (file, data, response) {
                             var obj = $.parseJSON(data);
                             if (!obj.success || obj.data.length < 1) {
@@ -207,7 +235,13 @@
                                 });
                             }
                         };
+                        options.onInit = function (instance) {
+                            SWFUpload = instance;
+                        };
                         elem.uploadify(options);
+
+                        cfg.remove = function (fileId) {
+                        };
                     });
                 };
 

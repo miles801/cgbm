@@ -20,14 +20,14 @@ label {
 
 input, .form-control {
     display: inline-block;
-    height: 25px;
+    height: 28px;
     padding: 0 5px;
     font-size: 12px;
     line-height: 1.428571429;
-    color: #555;
+    color: rgb(102, 102, 102);
     vertical-align: middle;
     background-color: #FFF;
-    border: 1px solid #CCC;
+    border: 1px solid #afd0ee;
 }
 
 input[type="checkbox"], input[type="radio"] {
@@ -41,14 +41,14 @@ input[type="checkbox"], input[type="radio"] {
 textarea, textarea.form-control {
     display: inline-block;
     width: 100%;
-    padding: 0 5px;
+    padding: 10px;
     margin: 0;
     font-size: 12px;
     line-height: 1.428571429;
-    color: #555;
+    color: rgb(102, 102, 102);
     vertical-align: middle;
     background: #FFF none;
-    border: 1px solid #CCC;
+    border: 1px solid #afd0ee;
     resize: none;
 }
 
@@ -59,9 +59,27 @@ input.error, textarea.error {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
+input[disabled], select[disabled], textarea[disabled] {
+    background-color: #ddd;
+    border-color: #ddd;
+    cursor: not-allowed !important;
+}
+
+[validate-error] .error {
+    color: #FF3412;
+}
+
+.picked,
+.picked > * {
+    background-color: #b5508c !important;
+    color: white !important;
+}
+
 /*文本框追加按钮*/
 .add-on {
     position: absolute;
+    top: 0;
+    right: 0;
     height: 0;
     width: 0;
 }
@@ -78,14 +96,14 @@ input.error, textarea.error {
 select, select.form-control {
     display: inline-block;
     width: 100%;
-    height: 25px;
+    height: 28px;
     padding: 0 5px;
     font-size: 12px;
-    line-height: 25px;
-    color: #555;
+    line-height: 28px;
+    color: rgb(102, 102, 102);
     vertical-align: middle;
     background: #FFF none;
-    border: 1px solid #CCC;
+    border: 1px solid #afd0ee;
 }
 
 /* 最外层的div ，跟bootstrap中的container具有相同的作用 */
@@ -135,9 +153,8 @@ div.inline {
 
 /* 默认为白底儿黑字 */
 .btn {
-    color: #1d1d1d;
+    color: #fff;
     font-size: 12px;
-    border: 1px solid #80b5dd;
     border-radius: 0;
 }
 
@@ -179,6 +196,87 @@ span.text-error, span.text-error span {
 
 /*===============通用页面===================*/
 
+.float > *,
+.float .item > * {
+    float: left;
+    color: #000000;
+    width: 80px;
+    margin-top: 5px;
+}
+
+.float .item.break {
+    clear: left;
+}
+
+.float .item {
+    margin-top: 0;
+    width: auto;
+}
+
+.float .w50 {
+    width: 50px;
+}
+
+.float .w80 {
+    width: 80px;
+}
+
+.float .w100 {
+    width: 100px;
+}
+
+.float .w120 {
+    width: 120px;
+}
+
+.float .w150 {
+    width: 150px;
+}
+
+.float .w180 {
+    width: 180px;
+}
+
+.float .w200 {
+    width: 200px;
+}
+
+.float .w240 {
+    width: 240px;
+}
+
+.float .w250 {
+    width: 250px;
+}
+
+.float .w300 {
+    width: 300px;
+}
+
+.float .w360 {
+    width: 360px;
+}
+
+.float .w400 {
+    width: 400px;
+}
+
+.float .w480 {
+    width: 480px;
+}
+
+.float .w500 {
+    width: 500px;
+}
+
+.float .w600 {
+    width: 600px;
+}
+
+.float .w720 {
+    width: 720px;
+}
+
 .list-condition {
     height: 130px;
     overflow: hidden;
@@ -191,27 +289,15 @@ span.text-error, span.text-error span {
 }
 
 .condition-row-1 .list-condition {
-    height: 70px;
+    height: 89px;
 }
 
 .condition-row-2 .list-condition {
-    height: 95px;
+    height: 122px;
 }
 
 .condition-row-3 .list-condition {
-    height: 125px;
-}
-
-.condition-row-1 .tab-wrap .list-condition {
-    height: 35px;
-}
-
-.condition-row-2 .tab-wrap .list-condition {
-    height: 60px;
-}
-
-.condition-row-3 .tab-wrap .list-condition {
-    height: 95px;
+    height: 155px;
 }
 
 .list-result {
@@ -219,38 +305,23 @@ span.text-error, span.text-error span {
     height: 100%;
     position: relative;
     overflow: hidden;
-    margin-bottom: -30px;
-    padding-bottom: 30px;
+    margin-bottom: -50px;
+    padding-bottom: 50px;
 }
 
 .condition-row-1 .list-result {
-    margin-top: -70px;
-    padding-top: 80px;
+    margin-top: -89px;
+    padding-top: 97px;
 }
 
 .condition-row-2 .list-result {
-    margin-top: -95px;
-    padding-top: 105px;
+    margin-top: -122px;
+    padding-top: 130px;
 }
 
 .condition-row-3 .list-result {
-    margin-top: -125px;
-    padding-top: 135px;
-}
-
-.condition-row-1 .tab-wrap .list-result {
-    margin-top: -35px;
-    padding-top: 40px;
-}
-
-.condition-row-2 .tab-wrap .list-result {
-    margin-top: -60px;
-    padding-top: 65px;
-}
-
-.condition-row-3 .tab-wrap .list-result {
-    margin-top: -95px;
-    padding-top: 100px;
+    margin-top: -155px;
+    padding-top: 163px;
 }
 
 .list-result.no-pagination {
@@ -260,13 +331,12 @@ span.text-error, span.text-error span {
 }
 
 .list-pagination {
-    height: 30px;
+    height: 50px;
+    line-height: 50px;
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
-    border: 1px solid #B7C1CB;
     position: relative;
-    border-top: none;
     z-index: 2;
 }
 
@@ -275,31 +345,33 @@ span.text-error, span.text-error span {
     overflow: hidden;
     font: normal 12px/1.5 '微软雅黑', Verdana;
     background: #FFF;
+    border: 1px solid #d3d5d7;
 }
 
 /*块：标题*/
 .block .block-header {
-    line-height: 30px;
     position: relative;
     overflow: hidden;
     white-space: nowrap;
-    height: 30px;
     z-index: 10;
-    background: #e3f7fe;
-    border: 1px solid #B7C1CB;
+    background-color: #f0f3f6;
+    border-bottom: 1px solid #d3d5d7;
+    box-sizing: border-box;
     width: 100%;
-    /*padding-left: 12px;*/
     margin: 0;
-    color: #3E81CC;
+    color: rgb(0, 0, 0);
     font-weight: 700;
-    background: url(../images/tab_darkblue_bg.jpg) repeat-x;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    font-size: 14px;
 }
 
 .block .block-header .header-text {
-    /*background: url(../images/tab_darkblue.jpg) left no-repeat;*/
-    line-height: 28px;
+    line-height: 40px;
+    height: 40px;
     display: inline-block;
-    color: #000;
+    color: rgb(0, 0, 0);
     padding-left: 10px;
     font-size: 14px;
 }
@@ -329,8 +401,7 @@ span.text-error, span.text-error span {
 }
 
 .block .block-header .header-text span {
-    /*background: url(../images/tab_darkblue.jpg) right no-repeat;*/
-    line-height: 28px;
+    line-height: 40px;
     display: inline-block;
     padding-right: 15px;
 }
@@ -340,21 +411,23 @@ span.text-error, span.text-error span {
 }
 
 .block-header-nocolor {
-    height: 28px;
-    line-height: 28px;
+    height: 40px;
+    line-height: 40px;
     padding: 2px 4px;
     position: relative;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.block-header .header-button, .block-header-nocolor .header-button,
+.block-header .header-button,
+.block-header-nocolor .header-button,
 .content-head .header-button {
     display: inline-block;
+    height: 40px;
+    line-height: 40px;
     position: absolute;
-    right: 0;
-    top: -1px;
-    padding-right: 15px;
+    right: 15px;
+    top: 0;
 }
 
 .block .block-header .header-button i.icons {
@@ -362,14 +435,16 @@ span.text-error, span.text-error span {
     top: 4px
 }
 
-.block .header-button .btn {
+.block .header-button > .btn {
     border-radius: 0;
-    border: 1px solid #0087ae;
-    line-height: 22px;
+    height: 28px;
+    line-height: 28px;
     padding: 0 12px;
     color: #FFF;
-    margin: 0 5px 4px 0;
-    background: url(../images/btn_A.png) repeat-x left;
+    font-size: 14px;
+    margin: 5px 5px 0 0;
+    background-color: #004b92;
+    float: left;
 }
 
 .block .table tr td {
@@ -381,7 +456,6 @@ span.text-error, span.text-error span {
     font-size: 12px;
     height: 100%;
     font-weight: normal;
-    border: 1px solid #B7C1CB;
     border-top: 0;
     padding: 0;
     z-index: 2;
@@ -389,19 +463,19 @@ span.text-error, span.text-error span {
 }
 
 .block .block-content.border-top {
-    border-top: 1px solid #B7C1CB;
+    border-top: 1px solid #d3d5d7;
 
 }
 
 .block .block-content .row {
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 .block .block-header + .block-content,
 .block .content-head + .block-content {
     height: 100%;
-    margin-top: -30px;
-    padding-top: 30px;
+    margin-top: -40px;
+    padding-top: 40px;
 }
 
 .block .block-header + .block-content div.content-wrap,
@@ -448,28 +522,22 @@ span.text-error, span.text-error span {
 
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
-    background-color: #EBF8FF;
+    background-color: #ecf6ff;
 }
 
 /*列表头*/
 .block thead tr.tableHeader {
-    font-size: 12px;
-    background-image: -o-linear-gradient(top, #FEFEFE 0%, #E9E9E9 100%);
-    background-image: -moz-linear-gradient(top, #FEFEFE 0%, #E9E9E9 100%);
-    background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #E9E9E9 100%);
-    background-image: -ms-linear-gradient(top, #FEFEFE 0%, #E9E9E9 100%);
+    font-size: 14px;
     height: 30px;
 }
 
 .block thead tr.tableHeader td {
     /*兼容firefox下不识别跨行的渐变色*/
-    font-size: 12px;
-    background-image: linear-gradient(top, #FEFEFE 0%, #E9E9E9 100%);
-    background-image: -o-linear-gradient(top, #FEFEFE 0%, #E9E9E9 100%);
-    background-image: -moz-linear-gradient(top, #FEFEFE 0%, #E9E9E9 100%);
-    background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #E9E9E9 100%);
-    background-image: -ms-linear-gradient(top, #FEFEFE 0%, #E9E9E9 100%);
+    font-size: 14px;
+    text-align: center;
+    color: rgb(0, 75, 146);
     height: 30px;
+
 }
 
 .block thead.table-header tr td:last-child {
@@ -481,7 +549,7 @@ span.text-error, span.text-error span {
 }
 
 .block table tr td:not(:last-child) {
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #afd0ee;
 }
 
 table.editable tr td {
@@ -514,13 +582,13 @@ table.editable tr td {
 /*表单中label标签*/
 .form-label {
     text-align: right;
-    height: 25px;
+    height: 28px;
     padding-left: 8px;
     padding-right: 5px;
 }
 
 .form-label label {
-    line-height: 25px;
+    line-height: 28px;
     padding: 0;
     margin: 0;
     width: 100%;
@@ -550,6 +618,10 @@ span.middle {
 .col-12, .col-12-half {
     position: relative;
     float: left;
+}
+
+.form-label + .sl {
+    line-height: 28px;
 }
 
 span.col,
@@ -748,7 +820,7 @@ div.panel {
     width: 140px;
     height: 100%;
     overflow: auto;
-    border: 1px solid #dddddd;
+    border: 1px solid #d3d5d7;
 }
 
 .panel.panel-tree .content {
@@ -763,7 +835,7 @@ div.panel {
     width: 100%;
     height: 100%;
     overflow: auto;
-    padding: 0;
+    padding: 20px;
     margin: 0;
 }
 
@@ -771,6 +843,8 @@ div.panel {
     white-space: nowrap; /*强制单元格不换行*/
     border-collapse: collapse;
     border-spacing: 0;
+    border: 1px solid #afd0ee;
+    text-align: center;
 }
 
 .panel.panel-table.with-header {
@@ -785,13 +859,23 @@ div.panel {
 }
 
 .panel.panel-table thead.table-header {
-    font-size: 12px;
+    font-size: 14px;
     height: 30px;
-    font-weight: 700;
-    color: #3e81cc;
-    background: url("../images/grid_header.png") repeat-x center;
+    color: rgb(0, 75, 146);
     line-height: 30px;
     text-align: center;
+}
+
+.panel.panel-table thead.table-header.multi2 {
+    height: 60px;
+    line-height: 60px;
+    background: url("../images/grid_header60.png") repeat-x center;
+}
+
+.panel.panel-table thead.table-header.multi3 {
+    height: 90px;
+    line-height: 90px;
+    background: url("../images/grid_header90.png") repeat-x center;
 }
 
 .block .panel.panel-table thead.table-header {
@@ -799,8 +883,8 @@ div.panel {
 }
 
 .panel.panel-table thead tr {
-    height: 30px;
-    line-height: 30px;
+    height: 35px;
+    line-height: 35px;
 }
 
 .panel.panel-table tbody.table-body {
@@ -812,26 +896,26 @@ div.panel {
 .panel.panel-table .table tfoot > tr > th,
 .panel.panel-table .table tbody > tr > td,
 .panel.panel-table .table tfoot > tr > td {
-    height: 24px; /*border还有一个像素*/
+    height: 30px; /*border还有一个像素*/
     padding: 0 8px;
     vertical-align: middle;
-    border: 1px solid #b4d0e8;
+    border: 1px solid #afd0ee;
 }
 
 .panel.panel-table .table thead > tr > th,
 .panel.panel-table .table thead > tr > td {
-    height: 30px;
+    height: 32px;
     padding: 0 8px;
     vertical-align: middle;
-    border: 1px solid #b4d0e8;
+    border: 1px solid #afd0ee;
     border-left: 0;
 }
 
 .panel.panel-table tbody.table-body tr {
     /*兼容firefox下不识别跨行的渐变色*/
     font-size: 12px;
-    height: 25px;
-    line-height: 25px;
+    height: 32px;
+    line-height: 32px;
     padding: 2px 8px;
 }
 
@@ -853,32 +937,36 @@ div.panel {
 
 .panel-tab .nav-tabs {
     margin-bottom: 5px;
-    height: 30px;
-    border-bottom: 3px solid #016FAA;
-    background: url(../images/tab_darkblue_bg.jpg) repeat-x bottom;
+    height: 35px;
+    border-bottom: 3px solid #004b92;
     z-index: 10;
     overflow: hidden;
     white-space: nowrap;
     position: relative;
+    background-color: #fff;
 }
 
 .panel-tab .nav-tabs li {
-    background: url(../images/tab_lightblue.jpg) left top no-repeat;
-    line-height: 27px;
-    height: 27px;
+    line-height: 32px;
+    height: 32px;
     margin-left: 10px;
     padding-left: 20px;
     display: inline-block;
+    border-bottom: 0;
     color: #FFF;
+    font-size: 16px;
 }
 
 .nav-tabs li.active {
-    background: url(../images/tab_darkblue.jpg) left top no-repeat;
+    background-color: #004b92;
+}
+
+.nav.nav-tabs + .tab-content {
+    padding-top: 40px !important;
 }
 
 .panel-tab .nav-tabs li a,
 .panel-tab .nav-tabs li i {
-    background: url(../images/tab_lightblue.jpg) right top no-repeat;
     height: 27px;
     display: inline-block;
     line-height: 27px;
@@ -890,13 +978,12 @@ div.panel {
     font-size: 14px;
     font-weight: 700;
     font-style: normal;
-    color: #669DBC;
+    color: #004896;
     outline: none;
 }
 
 .panel-tab .nav-tabs li.active a,
 .panel-tab .nav-tabs li.active i {
-    background: url(../images/tab_darkblue.jpg) right top no-repeat;
     cursor: pointer;
     border: 0;
     color: #ffffff;
@@ -947,7 +1034,7 @@ div.panel {
 
 .row.legend > .block {
     border-radius: 5px;
-    border: 1px solid #dddddd;
+    border: 1px solid #afd0ee;
 }
 
 .row.legend .legend-title {
@@ -1011,13 +1098,12 @@ div.panel {
 }
 
 .modal-body div.panel-table {
-    border: 1px solid #ddd;
+    border: 1px solid #7acac1;
     max-height: 200px;
     overflow: auto;
 }
 
 /*防止checkbox被撑大*/
-.modal-body div.panel-table tr td:first-child,
 div.first-min.panel-table tr td:first-child {
     width: 10px;
     white-space: nowrap;
@@ -1025,29 +1111,40 @@ div.first-min.panel-table tr td:first-child {
     vertical-align: middle;
 }
 
-.modal-header {
-    background-color: #428bca;
-    color: #FFFFFF;
-}
-
-.modal .modal-title {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.modal-header .close {
-    margin-top: 0;
-    color: #ffffff;
-    opacity: 0.8;
-}
-
-.modal .modal-body .row {
-    margin: 0 0 5px 0;
-}
-
 /*angularjs ng-cloak样式*/
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
+}
+
+/* 覆盖由angular-addition.css引起的验证 */
+.tooltip.tooltip-info.top .tooltip-arrow {
+    border-top-color: #000000
+}
+
+.tooltip.tooltip-info.right .tooltip-arrow {
+    border-right-color: #000000
+}
+
+.tooltip.tooltip-info.bottom .tooltip-arrow {
+    border-bottom-color: #000000
+}
+
+.tooltip.tooltip-info.left .tooltip-arrow {
+    border-left-color: #000000;
+}
+
+.tooltip.tooltip-info .tooltip-inner {
+    background-color: #000000;
+    border-color: #000000;
+    color: #ffffff;
+}
+
+.tooltip.tooltip-info .tooltip-inner hr {
+    border-top-color: #000000
+}
+
+.tooltip.tooltip-info .tooltip-inner .alert-link {
+    color: #000000
 }
 
 .tooltip.right, .tooltip.top {
@@ -1265,9 +1362,9 @@ table.aui_border, table.aui_dialog {
 
 .aui_buttons button[disabled] {
     cursor: default;
-    color: #666;
-    background: #DDD;
-    border: solid 1px #999;
+    color: #fff;
+    background: #999999;
+    border: solid 1px #999999;
     filter: alpha(opacity=50);
     opacity: .5;
     box-shadow: none;
@@ -1543,7 +1640,7 @@ button.aui_state_highlight:active {
 }
 
 .icons.yes {
-    background-position: -260px 0;
+    background-position: -260px 4px;
 }
 
 .icons.tip {
@@ -1640,6 +1737,22 @@ button.aui_state_highlight:active {
     background-position: -60px -40px;
 }
 
+.icons.out {
+    background-position: -280px -42px;
+}
+
+.icons.in {
+    background-position: -300px -42px;
+}
+
+.icons.deny {
+    background-position: -320px -42px;
+}
+
+.icons.accept {
+    background-position: -340px -42px;
+}
+
 .pr {
     position: relative;
 }
@@ -1663,28 +1776,26 @@ button.aui_state_highlight:active {
 }
 
 .btn.btn-blue {
-    border: 1px solid #0087ae;
+    border: 0;
     line-height: 22px;
-    padding: 0 12px;
+    padding: 2px 12px;
     color: #FFF;
-    margin: 2px;
-    background: url(../images/btn_A.png) repeat-x left;
+    background-color: #004b92;
 }
 
 .btn.btn-blue-dark {
-    border: 1px solid #0087ae;
+    border: 0;
     line-height: 22px;
-    padding: 0 12px;
-    color: #FFF;
-    margin: 2px;
-    background: url(../images/btn_B.png) repeat-x left;
+    color: #FFF !important;
+    background-color: #004b92;
+    padding: 2px 12px;
 }
 
 button[disabled], .btn[disabled], .btnA[disabled], .btnB[disabled], input[type="button"][disabled] {
     cursor: not-allowed !important;
-    color: #000 !important;
-    background: #dddddd !important;
-    border: 1px solid #666 !important;
+    color: #fff !important;
+    background: #999999 !important;
+    border: 1px solid #999999 !important;
 }
 
 table.tableForm {
@@ -1763,7 +1874,6 @@ table caption {
     line-height: 27px;
     background: url(../images/grid_header.png) repeat-x left;
     border: 1px solid #b4d1e7;
-    border-bottom: 0;
     text-align: left;
     padding: 0 5px;
 }
@@ -1811,7 +1921,7 @@ table.process td {
 
 /* 表格分割线 */
 .ycrl.split {
-    border: 3px solid #ddd;
+    border: 3px solid #7acac1;
     width: 97%;
     margin: 5px auto;
     border-radius: 3px;
@@ -1823,7 +1933,7 @@ table.process td {
     margin-bottom: 5px;
     text-align: center;
     font-weight: 700;
-    margin-top: 25px;
+    margin-top: 5px;
 }
 
 .cp {
@@ -1843,10 +1953,11 @@ table.process td {
     border-radius: 0;
     border: 1px solid #0087ae;
     width: 100px;
-    font-size: 21px;
-    height: 50px;
-    color: #FFF;
-    background: url(../images/btn_A.png) repeat-x left;
+    font-size: 20px;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    background: #004b92;
     font-family: "微软雅黑", "Arial", "Helvetica", "sans-serif";
 }
 
@@ -1949,4 +2060,120 @@ table.process td {
 
 .ta-c {
     text-align: center;
+}
+
+/*
+bootstrap 样式覆盖
+*/
+
+.nav-tabs {
+    background-color: #fff;
+}
+
+.modal .modal-header {
+    background-color: #004b92;
+    color: #FFFFFF;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 0;
+}
+
+.modal .modal-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+}
+
+.modal .modal-header .close {
+    margin-top: 0;
+    color: #ffffff;
+    opacity: 0.8;
+}
+
+.modal .modal-body .row {
+    margin: 0 0 8px 0;
+}
+
+.modal .modal-footer .btn-primary,
+.btn-primary {
+    color: #ffffff;
+    background-color: #004b92 !important;
+    border-color: #004b92 !important;
+    padding: 6px 25px;
+    font-size: 14px;
+}
+
+.modal .modal-footer .btn-primary[disabled] {
+    background-color: #999999 !important;
+    border-color: #fff !important;
+    color: #fff !important;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    background: none;
+}
+
+.panel.panel-table .table tbody > tr > td > .btn-danger {
+    color: #ffffff !important;
+    background-color: #d9534f !important;
+    border-color: #d43f3a !important;
+}
+
+.panel.panel-table .table tbody > tr > td > .btn-success {
+    color: #ffffff !important;
+    background-color: #5cb85c !important;
+    border-color: #4cae4c !important;
+}
+
+.panel.panel-table .table tbody > tr > td > .btn-info {
+    color: #ffffff !important;
+    background-color: #5bc0de !important;
+    border-color: #46b8da !important;
+}
+
+a[disabled],
+a[disabled] > .icons,
+button[disabled],
+button[disabled] > .icons,
+.add-on > .icons[disabled],
+.btn[disabled] {
+    cursor: not-allowed !important;
+}
+
+a.btn-op {
+    margin: 0;
+    color: #fff;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 2px 6px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.btn-op.blue {
+    background-color: #3fbff0;
+}
+
+a.btn-op.red {
+    background-color: #e62129;
+}
+
+a.btn-op.yellow {
+    background-color: #f08519;
+}
+
+a.btn-op.gray {
+    background-color: #999999;
+}
+
+a.btn-op.green {
+    background-color: #72bb38;
+}
+
+a.btn-op[disabled] {
+    background-color: #999999;
+    cursor: not-allowed;
 }

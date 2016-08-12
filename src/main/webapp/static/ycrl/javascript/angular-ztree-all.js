@@ -1,58 +1,6 @@
 (function (p) {
-    var G, H, I, J, K, L, r = {}, u = {}, v = {}, M = {
-            treeId: "",
-            treeObj: null,
-            view: {
-                addDiyDom: null,
-                autoCancelSelected: !0,
-                dblClickExpand: !0,
-                expandSpeed: "fast",
-                fontCss: {},
-                nameIsHTML: !1,
-                selectedMulti: !0,
-                showIcon: !0,
-                showLine: !0,
-                showTitle: !0,
-                txtSelectedEnable: !1
-            },
-            data: {
-                key: {children: "children", name: "name", title: "", url: "url"},
-                simpleData: {enable: !1, idKey: "id", pIdKey: "pId", rootPId: null},
-                keep: {parent: !1, leaf: !1}
-            },
-            async: {
-                enable: !1,
-                contentType: "application/x-www-form-urlencoded",
-                type: "post",
-                dataType: "text",
-                url: "",
-                autoParam: [],
-                otherParam: [],
-                dataFilter: null
-            },
-            callback: {
-                beforeAsync: null,
-                beforeClick: null,
-                beforeDblClick: null,
-                beforeRightClick: null,
-                beforeMouseDown: null,
-                beforeMouseUp: null,
-                beforeExpand: null,
-                beforeCollapse: null,
-                beforeRemove: null,
-                onAsyncError: null,
-                onAsyncSuccess: null,
-                onNodeCreated: null,
-                onClick: null,
-                onDblClick: null,
-                onRightClick: null,
-                onMouseDown: null,
-                onMouseUp: null,
-                onExpand: null,
-                onCollapse: null,
-                onRemove: null
-            }
-        }, w = [function (b) {
+    var G, H, I, J, K, L, r = {}, u = {}, v = {}, M = {treeId: "", treeObj: null, view: {addDiyDom: null, autoCancelSelected: !0, dblClickExpand: !0, expandSpeed: "fast", fontCss: {}, nameIsHTML: !1, selectedMulti: !0, showIcon: !0, showLine: !0, showTitle: !0, txtSelectedEnable: !1}, data: {key: {children: "children", name: "name", title: "", url: "url"}, simpleData: {enable: !1, idKey: "id", pIdKey: "pId", rootPId: null}, keep: {parent: !1, leaf: !1}}, async: {enable: !1, contentType: "application/x-www-form-urlencoded", type: "post", dataType: "text", url: "", autoParam: [],
+            otherParam: [], dataFilter: null}, callback: {beforeAsync: null, beforeClick: null, beforeDblClick: null, beforeRightClick: null, beforeMouseDown: null, beforeMouseUp: null, beforeExpand: null, beforeCollapse: null, beforeRemove: null, onAsyncError: null, onAsyncSuccess: null, onNodeCreated: null, onClick: null, onDblClick: null, onRightClick: null, onMouseDown: null, onMouseUp: null, onExpand: null, onCollapse: null, onRemove: null}}, w = [function (b) {
             var a = b.treeObj, c = e.event;
             a.bind(c.NODECREATED, function (a, c, g) {
                 j.apply(b.callback.onNodeCreated,
@@ -139,7 +87,7 @@
                 case "contextmenu":
                     n = L
             }
-            return {stop: !1, node: f, nodeEventType: g, nodeEventCallback: i, treeEventType: l, treeEventCallback: n}
+            return{stop: !1, node: f, nodeEventType: g, nodeEventCallback: i, treeEventType: l, treeEventCallback: n}
         }], A = [function (b) {
             var a = h.getRoot(b);
             a || (a = {}, h.setRoot(b, a));
@@ -150,28 +98,27 @@
             a.createdNodes = [];
             a.zId = 0;
             a._ver = (new Date).getTime()
-        }], B = [], C = [], D = [], E = [], F = [], h = {
-            addNodeCache: function (b, a) {
-                h.getCache(b).nodes[h.getNodeCacheId(a.tId)] = a
-            }, getNodeCacheId: function (b) {
-                return b.substring(b.lastIndexOf("_") + 1)
-            }, addAfterA: function (b) {
-                C.push(b)
-            }, addBeforeA: function (b) {
-                B.push(b)
-            }, addInnerAfterA: function (b) {
-                E.push(b)
-            }, addInnerBeforeA: function (b) {
-                D.push(b)
-            }, addInitBind: function (b) {
-                w.push(b)
-            }, addInitUnBind: function (b) {
-                x.push(b)
-            }, addInitCache: function (b) {
-                y.push(b)
-            }, addInitNode: function (b) {
-                z.push(b)
-            },
+        }], B = [], C = [], D = [], E = [], F = [], h = {addNodeCache: function (b, a) {
+            h.getCache(b).nodes[h.getNodeCacheId(a.tId)] = a
+        }, getNodeCacheId: function (b) {
+            return b.substring(b.lastIndexOf("_") + 1)
+        }, addAfterA: function (b) {
+            C.push(b)
+        }, addBeforeA: function (b) {
+            B.push(b)
+        }, addInnerAfterA: function (b) {
+            E.push(b)
+        }, addInnerBeforeA: function (b) {
+            D.push(b)
+        }, addInitBind: function (b) {
+            w.push(b)
+        }, addInitUnBind: function (b) {
+            x.push(b)
+        }, addInitCache: function (b) {
+            y.push(b)
+        }, addInitNode: function (b) {
+            z.push(b)
+        },
             addInitProxy: function (b, a) {
                 a ? s.splice(0, 0, b) : s.push(b)
             }, addInitRoot: function (b) {
@@ -707,203 +654,160 @@
             d == null || d.length == 0 ? c.removeAttr("href") : c.attr("href", d)
         }, switchNode: function (b, a) {
             a.open || !j.canAsync(b, a) ? i.expandCollapseNode(b, a, !a.open) : b.async.enable ? i.asyncNode(b, a) || i.expandCollapseNode(b, a, !a.open) : a && i.expandCollapseNode(b, a, !a.open)
-        }
-    };
-    p.fn.zTree = {
-        consts: {
-            className: {BUTTON: "button", LEVEL: "level", ICO_LOADING: "ico_loading", SWITCH: "switch"},
-            event: {
-                NODECREATED: "ztree_nodeCreated",
-                CLICK: "ztree_click",
-                EXPAND: "ztree_expand",
-                COLLAPSE: "ztree_collapse",
-                ASYNC_SUCCESS: "ztree_async_success",
-                ASYNC_ERROR: "ztree_async_error"
-            },
-            id: {A: "_a", ICON: "_ico", SPAN: "_span", SWITCH: "_switch", UL: "_ul"},
-            line: {
-                ROOT: "root",
-                ROOTS: "roots", CENTER: "center", BOTTOM: "bottom", NOLINE: "noline", LINE: "line"
-            },
-            folder: {OPEN: "open", CLOSE: "close", DOCU: "docu"},
-            node: {CURSELECTED: "curSelectedNode"}
-        }, _z: {tools: j, view: i, event: m, data: h}, getZTreeObj: function (b) {
-            return (b = h.getZTreeTools(b)) ? b : null
-        }, destroy: function (b) {
-            if (b && b.length > 0)i.destroy(h.getSetting(b)); else for (var a in r)i.destroy(r[a])
-        }, init: function (b, a, c) {
-            var d = j.clone(M);
-            p.extend(!0, d, a);
-            d.treeId = b.attr("id");
-            d.treeObj = b;
-            d.treeObj.empty();
-            r[d.treeId] = d;
-            if (typeof document.body.style.maxHeight ===
-                "undefined")d.view.expandSpeed = "";
-            h.initRoot(d);
-            b = h.getRoot(d);
-            a = d.data.key.children;
-            c = c ? j.clone(j.isArray(c) ? c : [c]) : [];
-            b[a] = d.data.simpleData.enable ? h.transformTozTreeFormat(d, c) : c;
-            h.initCache(d);
-            m.unbindTree(d);
-            m.bindTree(d);
-            m.unbindEvent(d);
-            m.bindEvent(d);
-            c = {
-                setting: d, addNodes: function (a, b, c) {
-                    function e() {
-                        i.addNodes(d, a, h, c == !0)
-                    }
+        }};
+    p.fn.zTree = {consts: {className: {BUTTON: "button", LEVEL: "level", ICO_LOADING: "ico_loading", SWITCH: "switch"}, event: {NODECREATED: "ztree_nodeCreated", CLICK: "ztree_click", EXPAND: "ztree_expand", COLLAPSE: "ztree_collapse", ASYNC_SUCCESS: "ztree_async_success", ASYNC_ERROR: "ztree_async_error"}, id: {A: "_a", ICON: "_ico", SPAN: "_span", SWITCH: "_switch", UL: "_ul"}, line: {ROOT: "root",
+        ROOTS: "roots", CENTER: "center", BOTTOM: "bottom", NOLINE: "noline", LINE: "line"}, folder: {OPEN: "open", CLOSE: "close", DOCU: "docu"}, node: {CURSELECTED: "curSelectedNode"}}, _z: {tools: j, view: i, event: m, data: h}, getZTreeObj: function (b) {
+        return(b = h.getZTreeTools(b)) ? b : null
+    }, destroy: function (b) {
+        if (b && b.length > 0)i.destroy(h.getSetting(b)); else for (var a in r)i.destroy(r[a])
+    }, init: function (b, a, c) {
+        var d = j.clone(M);
+        p.extend(!0, d, a);
+        d.treeId = b.attr("id");
+        d.treeObj = b;
+        d.treeObj.empty();
+        r[d.treeId] = d;
+        if (typeof document.body.style.maxHeight ===
+            "undefined")d.view.expandSpeed = "";
+        h.initRoot(d);
+        b = h.getRoot(d);
+        a = d.data.key.children;
+        c = c ? j.clone(j.isArray(c) ? c : [c]) : [];
+        b[a] = d.data.simpleData.enable ? h.transformTozTreeFormat(d, c) : c;
+        h.initCache(d);
+        m.unbindTree(d);
+        m.bindTree(d);
+        m.unbindEvent(d);
+        m.bindEvent(d);
+        c = {setting: d, addNodes: function (a, b, c) {
+            function e() {
+                i.addNodes(d, a, h, c == !0)
+            }
 
-                    if (!b)return null;
-                    a || (a = null);
-                    if (a && !a.isParent && d.data.keep.leaf)return null;
-                    var h = j.clone(j.isArray(b) ? b : [b]);
-                    j.canAsync(d, a) ? i.asyncNode(d, a, c, e) : e();
-                    return h
-                }, cancelSelectedNode: function (a) {
-                    i.cancelPreSelectedNode(d,
-                        a)
-                }, destroy: function () {
-                    i.destroy(d)
-                }, expandAll: function (a) {
-                    a = !!a;
-                    i.expandCollapseSonNode(d, null, a, !0);
-                    return a
-                }, expandNode: function (a, b, c, e, n) {
-                    if (!a || !a.isParent)return null;
-                    b !== !0 && b !== !1 && (b = !a.open);
-                    if ((n = !!n) && b && j.apply(d.callback.beforeExpand, [d.treeId, a], !0) == !1)return null; else if (n && !b && j.apply(d.callback.beforeCollapse, [d.treeId, a], !0) == !1)return null;
-                    b && a.parentTId && i.expandCollapseParentNode(d, a.getParentNode(), b, !1);
-                    if (b === a.open && !c)return null;
-                    h.getRoot(d).expandTriggerFlag = n;
-                    if (!j.canAsync(d,
-                            a) && c)i.expandCollapseSonNode(d, a, b, !0, function () {
-                        if (e !== !1)try {
+            if (!b)return null;
+            a || (a = null);
+            if (a && !a.isParent && d.data.keep.leaf)return null;
+            var h = j.clone(j.isArray(b) ? b : [b]);
+            j.canAsync(d, a) ? i.asyncNode(d, a, c, e) : e();
+            return h
+        }, cancelSelectedNode: function (a) {
+            i.cancelPreSelectedNode(d,
+                a)
+        }, destroy: function () {
+            i.destroy(d)
+        }, expandAll: function (a) {
+            a = !!a;
+            i.expandCollapseSonNode(d, null, a, !0);
+            return a
+        }, expandNode: function (a, b, c, e, n) {
+            if (!a || !a.isParent)return null;
+            b !== !0 && b !== !1 && (b = !a.open);
+            if ((n = !!n) && b && j.apply(d.callback.beforeExpand, [d.treeId, a], !0) == !1)return null; else if (n && !b && j.apply(d.callback.beforeCollapse, [d.treeId, a], !0) == !1)return null;
+            b && a.parentTId && i.expandCollapseParentNode(d, a.getParentNode(), b, !1);
+            if (b === a.open && !c)return null;
+            h.getRoot(d).expandTriggerFlag = n;
+            if (!j.canAsync(d,
+                    a) && c)i.expandCollapseSonNode(d, a, b, !0, function () {
+                if (e !== !1)try {
+                    k(a, d).focus().blur()
+                } catch (b) {
+                }
+            }); else if (a.open = !b, i.switchNode(this.setting, a), e !== !1)try {
+                k(a, d).focus().blur()
+            } catch (m) {
+            }
+            return b
+        }, getNodes: function () {
+            return h.getNodes(d)
+        }, getNodeByParam: function (a, b, c) {
+            return!a ? null : h.getNodeByParam(d, c ? c[d.data.key.children] : h.getNodes(d), a, b)
+        }, getNodeByTId: function (a) {
+            return h.getNodeCache(d, a)
+        }, getNodesByParam: function (a, b, c) {
+            return !a ? null : h.getNodesByParam(d, c ? c[d.data.key.children] : h.getNodes(d),
+                a, b)
+        }, getNodesByParamFuzzy: function (a, b, c) {
+            return !a ? null : h.getNodesByParamFuzzy(d, c ? c[d.data.key.children] : h.getNodes(d), a, b)
+        }, getNodesByFilter: function (a, b, c, e) {
+            b = !!b;
+            return !a || typeof a != "function" ? b ? null : [] : h.getNodesByFilter(d, c ? c[d.data.key.children] : h.getNodes(d), a, b, e)
+        }, getNodeIndex: function (a) {
+            if (!a)return null;
+            for (var b = d.data.key.children, c = a.parentTId ? a.getParentNode() : h.getRoot(d), e = 0, i = c[b].length; e < i; e++)if (c[b][e] == a)return e;
+            return -1
+        }, getSelectedNodes: function () {
+            for (var a = [], b = h.getRoot(d).curSelectedList,
+                     c = 0, e = b.length; c < e; c++)a.push(b[c]);
+            return a
+        }, isSelectedNode: function (a) {
+            return h.isSelectedNode(d, a)
+        }, reAsyncChildNodes: function (a, b, c) {
+            if (this.setting.async.enable) {
+                var j = !a;
+                j && (a = h.getRoot(d));
+                if (b == "refresh") {
+                    for (var b = this.setting.data.key.children, m = 0, p = a[b] ? a[b].length : 0; m < p; m++)h.removeNodeCache(d, a[b][m]);
+                    h.removeSelectedNode(d);
+                    a[b] = [];
+                    j ? this.setting.treeObj.empty() : k(a, e.id.UL, d).empty()
+                }
+                i.asyncNode(this.setting, j ? null : a, !!c)
+            }
+        }, refresh: function () {
+            this.setting.treeObj.empty();
+            var a = h.getRoot(d),
+                b = a[d.data.key.children];
+            h.initRoot(d);
+            a[d.data.key.children] = b;
+            h.initCache(d);
+            i.createNodes(d, 0, a[d.data.key.children])
+        }, removeChildNodes: function (a) {
+            if (!a)return null;
+            var b = a[d.data.key.children];
+            i.removeChildNodes(d, a);
+            return b ? b : null
+        }, removeNode: function (a, b) {
+            a && (b = !!b, b && j.apply(d.callback.beforeRemove, [d.treeId, a], !0) == !1 || (i.removeNode(d, a), b && this.setting.treeObj.trigger(e.event.REMOVE, [d.treeId, a])))
+        }, selectNode: function (a, b) {
+            if (a && j.uCanDo(d)) {
+                b = d.view.selectedMulti && b;
+                if (a.parentTId)i.expandCollapseParentNode(d,
+                    a.getParentNode(), !0, !1, function () {
+                        try {
                             k(a, d).focus().blur()
                         } catch (b) {
                         }
-                    }); else if (a.open = !b, i.switchNode(this.setting, a), e !== !1)try {
-                        k(a, d).focus().blur()
-                    } catch (m) {
-                    }
-                    return b
-                }, getNodes: function () {
-                    return h.getNodes(d)
-                }, getNodeByParam: function (a, b, c) {
-                    return !a ? null : h.getNodeByParam(d, c ? c[d.data.key.children] : h.getNodes(d), a, b)
-                }, getNodeByTId: function (a) {
-                    return h.getNodeCache(d, a)
-                }, getNodesByParam: function (a, b, c) {
-                    return !a ? null : h.getNodesByParam(d, c ? c[d.data.key.children] : h.getNodes(d),
-                        a, b)
-                }, getNodesByParamFuzzy: function (a, b, c) {
-                    return !a ? null : h.getNodesByParamFuzzy(d, c ? c[d.data.key.children] : h.getNodes(d), a, b)
-                }, getNodesByFilter: function (a, b, c, e) {
-                    b = !!b;
-                    return !a || typeof a != "function" ? b ? null : [] : h.getNodesByFilter(d, c ? c[d.data.key.children] : h.getNodes(d), a, b, e)
-                }, getNodeIndex: function (a) {
-                    if (!a)return null;
-                    for (var b = d.data.key.children, c = a.parentTId ? a.getParentNode() : h.getRoot(d), e = 0, i = c[b].length; e < i; e++)if (c[b][e] == a)return e;
-                    return -1
-                }, getSelectedNodes: function () {
-                    for (var a = [], b = h.getRoot(d).curSelectedList,
-                             c = 0, e = b.length; c < e; c++)a.push(b[c]);
-                    return a
-                }, isSelectedNode: function (a) {
-                    return h.isSelectedNode(d, a)
-                }, reAsyncChildNodes: function (a, b, c) {
-                    if (this.setting.async.enable) {
-                        var j = !a;
-                        j && (a = h.getRoot(d));
-                        if (b == "refresh") {
-                            for (var b = this.setting.data.key.children, m = 0, p = a[b] ? a[b].length : 0; m < p; m++)h.removeNodeCache(d, a[b][m]);
-                            h.removeSelectedNode(d);
-                            a[b] = [];
-                            j ? this.setting.treeObj.empty() : k(a, e.id.UL, d).empty()
-                        }
-                        i.asyncNode(this.setting, j ? null : a, !!c)
-                    }
-                }, refresh: function () {
-                    this.setting.treeObj.empty();
-                    var a = h.getRoot(d),
-                        b = a[d.data.key.children];
-                    h.initRoot(d);
-                    a[d.data.key.children] = b;
-                    h.initCache(d);
-                    i.createNodes(d, 0, a[d.data.key.children])
-                }, removeChildNodes: function (a) {
-                    if (!a)return null;
-                    var b = a[d.data.key.children];
-                    i.removeChildNodes(d, a);
-                    return b ? b : null
-                }, removeNode: function (a, b) {
-                    a && (b = !!b, b && j.apply(d.callback.beforeRemove, [d.treeId, a], !0) == !1 || (i.removeNode(d, a), b && this.setting.treeObj.trigger(e.event.REMOVE, [d.treeId, a])))
-                }, selectNode: function (a, b) {
-                    if (a && j.uCanDo(d)) {
-                        b = d.view.selectedMulti && b;
-                        if (a.parentTId)i.expandCollapseParentNode(d,
-                            a.getParentNode(), !0, !1, function () {
-                                try {
-                                    k(a, d).focus().blur()
-                                } catch (b) {
-                                }
-                            }); else try {
-                            k(a, d).focus().blur()
-                        } catch (c) {
-                        }
-                        i.selectNode(d, a, b)
-                    }
-                }, transformTozTreeNodes: function (a) {
-                    return h.transformTozTreeFormat(d, a)
-                }, transformToArray: function (a) {
-                    return h.transformToArrayFormat(d, a)
-                }, updateNode: function (a) {
-                    a && k(a, d).get(0) && j.uCanDo(d) && (i.setNodeName(d, a), i.setNodeTarget(d, a), i.setNodeUrl(d, a), i.setNodeLineIcos(d, a), i.setNodeFontCss(d, a))
+                    }); else try {
+                    k(a, d).focus().blur()
+                } catch (c) {
                 }
-            };
-            b.treeTools = c;
-            h.setZTreeTools(d, c);
-            b[a] && b[a].length > 0 ? i.createNodes(d,
-                0, b[a]) : d.async.enable && d.async.url && d.async.url !== "" && i.asyncNode(d);
-            return c
+                i.selectNode(d, a, b)
+            }
+        }, transformTozTreeNodes: function (a) {
+            return h.transformTozTreeFormat(d, a)
+        }, transformToArray: function (a) {
+            return h.transformToArrayFormat(d, a)
+        }, updateNode: function (a) {
+            a && k(a, d).get(0) && j.uCanDo(d) && (i.setNodeName(d, a), i.setNodeTarget(d, a), i.setNodeUrl(d, a), i.setNodeLineIcos(d, a), i.setNodeFontCss(d, a))
         }
+        };
+        b.treeTools = c;
+        h.setZTreeTools(d, c);
+        b[a] && b[a].length > 0 ? i.createNodes(d,
+            0, b[a]) : d.async.enable && d.async.url && d.async.url !== "" && i.asyncNode(d);
+        return c
+    }
     };
     var N = p.fn.zTree, k = j.$, e = N.consts
 })(jQuery);
 
 // ztree-excheck.min.js
 (function (m) {
-    var p, q, r, o = {
-        event: {CHECK: "ztree_check"},
-        id: {CHECK: "_check"},
-        checkbox: {
-            STYLE: "checkbox",
-            DEFAULT: "chk",
-            DISABLED: "disable",
-            FALSE: "false",
-            TRUE: "true",
-            FULL: "full",
-            PART: "part",
-            FOCUS: "focus"
-        },
-        radio: {STYLE: "radio", TYPE_ALL: "all", TYPE_LEVEL: "level"}
-    }, v = {
-        check: {
-            enable: !1,
-            autoCheckTrigger: !1,
-            chkStyle: o.checkbox.STYLE,
-            nocheckInherit: !1,
-            chkDisabledInherit: !1,
-            radioType: o.radio.TYPE_LEVEL,
-            chkboxType: {Y: "ps", N: "ps"}
-        }, data: {key: {checked: "checked"}}, callback: {beforeCheck: null, onCheck: null}
-    };
+    var p, q, r, o = {event: {CHECK: "ztree_check"}, id: {CHECK: "_check"}, checkbox: {STYLE: "checkbox", DEFAULT: "chk", DISABLED: "disable", FALSE: "false", TRUE: "true", FULL: "full", PART: "part", FOCUS: "focus"}, radio: {STYLE: "radio", TYPE_ALL: "all", TYPE_LEVEL: "level"}}, v = {check: {enable: !1, autoCheckTrigger: !1, chkStyle: o.checkbox.STYLE, nocheckInherit: !1, chkDisabledInherit: !1, radioType: o.radio.TYPE_LEVEL, chkboxType: {Y: "ps", N: "ps"}}, data: {key: {checked: "checked"}}, callback: {beforeCheck: null, onCheck: null}};
     p = function (b, a) {
-        if (a.chkDisabled === !0)return !1;
+        if (a.chkDisabled === !0)return!1;
         var c = f.getSetting(b.data.treeId), d = c.data.key.checked;
-        if (k.apply(c.callback.beforeCheck, [c.treeId, a], !0) == !1)return !0;
+        if (k.apply(c.callback.beforeCheck, [c.treeId, a], !0) == !1)return!0;
         a[d] = !a[d];
         e.checkNodeRelation(c, a);
         d = n(a, j.id.CHECK, c);
@@ -924,156 +828,149 @@
         var c = f.getSetting(b.data.treeId), d = n(a, j.id.CHECK, c);
         a.check_Focus = !1;
         e.setChkClass(c, d, a);
-        return !0
+        return!0
     };
     m.extend(!0, m.fn.zTree.consts, o);
-    m.extend(!0, m.fn.zTree._z, {
-        tools: {}, view: {
-            checkNodeRelation: function (b, a) {
-                var c, d, h, i = b.data.key.children, l = b.data.key.checked;
-                c = j.radio;
-                if (b.check.chkStyle == c.STYLE) {
-                    var g = f.getRadioCheckedList(b);
-                    if (a[l])if (b.check.radioType == c.TYPE_ALL) {
-                        for (d = g.length - 1; d >= 0; d--)c = g[d], c[l] = !1, g.splice(d, 1), e.setChkClass(b, n(c, j.id.CHECK, b), c), c.parentTId != a.parentTId &&
-                        e.repairParentChkClassWithSelf(b, c);
-                        g.push(a)
-                    } else {
-                        g = a.parentTId ? a.getParentNode() : f.getRoot(b);
-                        for (d = 0, h = g[i].length; d < h; d++)c = g[i][d], c[l] && c != a && (c[l] = !1, e.setChkClass(b, n(c, j.id.CHECK, b), c))
-                    } else if (b.check.radioType == c.TYPE_ALL)for (d = 0, h = g.length; d < h; d++)if (a == g[d]) {
-                        g.splice(d, 1);
-                        break
-                    }
-                } else a[l] && (!a[i] || a[i].length == 0 || b.check.chkboxType.Y.indexOf("s") > -1) && e.setSonNodeCheckBox(b, a, !0), !a[l] && (!a[i] || a[i].length == 0 || b.check.chkboxType.N.indexOf("s") > -1) && e.setSonNodeCheckBox(b, a, !1), a[l] &&
-                b.check.chkboxType.Y.indexOf("p") > -1 && e.setParentNodeCheckBox(b, a, !0), !a[l] && b.check.chkboxType.N.indexOf("p") > -1 && e.setParentNodeCheckBox(b, a, !1)
-            }, makeChkClass: function (b, a) {
-                var c = b.data.key.checked, d = j.checkbox, h = j.radio, i = "", i = a.chkDisabled === !0 ? d.DISABLED : a.halfCheck ? d.PART : b.check.chkStyle == h.STYLE ? a.check_Child_State < 1 ? d.FULL : d.PART : a[c] ? a.check_Child_State === 2 || a.check_Child_State === -1 ? d.FULL : d.PART : a.check_Child_State < 1 ? d.FULL : d.PART, c = b.check.chkStyle + "_" + (a[c] ? d.TRUE : d.FALSE) + "_" + i, c = a.check_Focus &&
-                a.chkDisabled !== !0 ? c + "_" + d.FOCUS : c;
-                return j.className.BUTTON + " " + d.DEFAULT + " " + c
-            }, repairAllChk: function (b, a) {
-                if (b.check.enable && b.check.chkStyle === j.checkbox.STYLE)for (var c = b.data.key.checked, d = b.data.key.children, h = f.getRoot(b), i = 0, l = h[d].length; i < l; i++) {
-                    var g = h[d][i];
-                    g.nocheck !== !0 && g.chkDisabled !== !0 && (g[c] = a);
-                    e.setSonNodeCheckBox(b, g, a)
-                }
-            }, repairChkClass: function (b, a) {
-                if (a && (f.makeChkFlag(b, a), a.nocheck !== !0)) {
-                    var c = n(a, j.id.CHECK, b);
-                    e.setChkClass(b, c, a)
-                }
-            }, repairParentChkClass: function (b, a) {
-                if (a &&
-                    a.parentTId) {
-                    var c = a.getParentNode();
-                    e.repairChkClass(b, c);
-                    e.repairParentChkClass(b, c)
-                }
-            }, repairParentChkClassWithSelf: function (b, a) {
-                if (a) {
-                    var c = b.data.key.children;
-                    a[c] && a[c].length > 0 ? e.repairParentChkClass(b, a[c][0]) : e.repairParentChkClass(b, a)
-                }
-            }, repairSonChkDisabled: function (b, a, c, d) {
-                if (a) {
-                    var h = b.data.key.children;
-                    if (a.chkDisabled != c)a.chkDisabled = c;
-                    e.repairChkClass(b, a);
-                    if (a[h] && d)for (var i = 0, l = a[h].length; i < l; i++)e.repairSonChkDisabled(b, a[h][i], c, d)
-                }
-            }, repairParentChkDisabled: function (b, a, c, d) {
-                if (a) {
-                    if (a.chkDisabled != c && d)a.chkDisabled = c;
-                    e.repairChkClass(b, a);
-                    e.repairParentChkDisabled(b, a.getParentNode(), c, d)
-                }
-            }, setChkClass: function (b, a, c) {
-                a && (c.nocheck === !0 ? a.hide() : a.show(), a.removeClass(), a.addClass(e.makeChkClass(b, c)))
-            }, setParentNodeCheckBox: function (b, a, c, d) {
-                var h = b.data.key.children, i = b.data.key.checked, l = n(a, j.id.CHECK, b);
-                d || (d = a);
-                f.makeChkFlag(b, a);
-                a.nocheck !== !0 && a.chkDisabled !== !0 && (a[i] = c, e.setChkClass(b, l, a), b.check.autoCheckTrigger && a != d && b.treeObj.trigger(j.event.CHECK,
-                    [null, b.treeId, a]));
-                if (a.parentTId) {
-                    l = !0;
-                    if (!c)for (var h = a.getParentNode()[h], g = 0, k = h.length; g < k; g++)if (h[g].nocheck !== !0 && h[g].chkDisabled !== !0 && h[g][i] || (h[g].nocheck === !0 || h[g].chkDisabled === !0) && h[g].check_Child_State > 0) {
-                        l = !1;
-                        break
-                    }
-                    l && e.setParentNodeCheckBox(b, a.getParentNode(), c, d)
-                }
-            }, setSonNodeCheckBox: function (b, a, c, d) {
-                if (a) {
-                    var h = b.data.key.children, i = b.data.key.checked, l = n(a, j.id.CHECK, b);
-                    d || (d = a);
-                    var g = !1;
-                    if (a[h])for (var k = 0, m = a[h].length; k < m && a.chkDisabled !== !0; k++) {
-                        var o = a[h][k];
-                        e.setSonNodeCheckBox(b,
-                            o, c, d);
-                        o.chkDisabled === !0 && (g = !0)
-                    }
-                    if (a != f.getRoot(b) && a.chkDisabled !== !0) {
-                        g && a.nocheck !== !0 && f.makeChkFlag(b, a);
-                        if (a.nocheck !== !0 && a.chkDisabled !== !0) {
-                            if (a[i] = c, !g)a.check_Child_State = a[h] && a[h].length > 0 ? c ? 2 : 0 : -1
-                        } else a.check_Child_State = -1;
-                        e.setChkClass(b, l, a);
-                        b.check.autoCheckTrigger && a != d && a.nocheck !== !0 && a.chkDisabled !== !0 && b.treeObj.trigger(j.event.CHECK, [null, b.treeId, a])
-                    }
-                }
+    m.extend(!0, m.fn.zTree._z, {tools: {}, view: {checkNodeRelation: function (b, a) {
+        var c, d, h, i = b.data.key.children, l = b.data.key.checked;
+        c = j.radio;
+        if (b.check.chkStyle == c.STYLE) {
+            var g = f.getRadioCheckedList(b);
+            if (a[l])if (b.check.radioType == c.TYPE_ALL) {
+                for (d = g.length - 1; d >= 0; d--)c = g[d], c[l] = !1, g.splice(d, 1), e.setChkClass(b, n(c, j.id.CHECK, b), c), c.parentTId != a.parentTId &&
+                e.repairParentChkClassWithSelf(b, c);
+                g.push(a)
+            } else {
+                g = a.parentTId ? a.getParentNode() : f.getRoot(b);
+                for (d = 0, h = g[i].length; d < h; d++)c = g[i][d], c[l] && c != a && (c[l] = !1, e.setChkClass(b, n(c, j.id.CHECK, b), c))
+            } else if (b.check.radioType == c.TYPE_ALL)for (d = 0, h = g.length; d < h; d++)if (a == g[d]) {
+                g.splice(d, 1);
+                break
             }
-        }, event: {}, data: {
-            getRadioCheckedList: function (b) {
-                for (var a = f.getRoot(b).radioCheckedList, c = 0, d = a.length; c < d; c++)f.getNodeCache(b,
-                    a[c].tId) || (a.splice(c, 1), c--, d--);
-                return a
-            }, getCheckStatus: function (b, a) {
-                if (!b.check.enable || a.nocheck || a.chkDisabled)return null;
-                var c = b.data.key.checked;
-                return {
-                    checked: a[c],
-                    half: a.halfCheck ? a.halfCheck : b.check.chkStyle == j.radio.STYLE ? a.check_Child_State === 2 : a[c] ? a.check_Child_State > -1 && a.check_Child_State < 2 : a.check_Child_State > 0
-                }
-            }, getTreeCheckedNodes: function (b, a, c, d) {
-                if (!a)return [];
-                for (var h = b.data.key.children, i = b.data.key.checked, e = c && b.check.chkStyle == j.radio.STYLE && b.check.radioType == j.radio.TYPE_ALL,
-                         d = !d ? [] : d, g = 0, k = a.length; g < k; g++) {
-                    if (a[g].nocheck !== !0 && a[g].chkDisabled !== !0 && a[g][i] == c && (d.push(a[g]), e))break;
-                    f.getTreeCheckedNodes(b, a[g][h], c, d);
-                    if (e && d.length > 0)break
-                }
-                return d
-            }, getTreeChangeCheckedNodes: function (b, a, c) {
-                if (!a)return [];
-                for (var d = b.data.key.children, h = b.data.key.checked, c = !c ? [] : c, i = 0, e = a.length; i < e; i++)a[i].nocheck !== !0 && a[i].chkDisabled !== !0 && a[i][h] != a[i].checkedOld && c.push(a[i]), f.getTreeChangeCheckedNodes(b, a[i][d], c);
-                return c
-            }, makeChkFlag: function (b, a) {
-                if (a) {
-                    var c = b.data.key.children,
-                        d = b.data.key.checked, h = -1;
-                    if (a[c])for (var i = 0, e = a[c].length; i < e; i++) {
-                        var g = a[c][i], f = -1;
-                        if (b.check.chkStyle == j.radio.STYLE)if (f = g.nocheck === !0 || g.chkDisabled === !0 ? g.check_Child_State : g.halfCheck === !0 ? 2 : g[d] ? 2 : g.check_Child_State > 0 ? 2 : 0, f == 2) {
-                            h = 2;
-                            break
-                        } else f == 0 && (h = 0); else if (b.check.chkStyle == j.checkbox.STYLE)if (f = g.nocheck === !0 || g.chkDisabled === !0 ? g.check_Child_State : g.halfCheck === !0 ? 1 : g[d] ? g.check_Child_State === -1 || g.check_Child_State === 2 ? 2 : 1 : g.check_Child_State > 0 ? 1 : 0, f === 1) {
-                            h = 1;
-                            break
-                        } else if (f ===
-                            2 && h > -1 && i > 0 && f !== h) {
-                            h = 1;
-                            break
-                        } else if (h === 2 && f > -1 && f < 2) {
-                            h = 1;
-                            break
-                        } else f > -1 && (h = f)
-                    }
-                    a.check_Child_State = h
-                }
+        } else a[l] && (!a[i] || a[i].length == 0 || b.check.chkboxType.Y.indexOf("s") > -1) && e.setSonNodeCheckBox(b, a, !0), !a[l] && (!a[i] || a[i].length == 0 || b.check.chkboxType.N.indexOf("s") > -1) && e.setSonNodeCheckBox(b, a, !1), a[l] &&
+        b.check.chkboxType.Y.indexOf("p") > -1 && e.setParentNodeCheckBox(b, a, !0), !a[l] && b.check.chkboxType.N.indexOf("p") > -1 && e.setParentNodeCheckBox(b, a, !1)
+    }, makeChkClass: function (b, a) {
+        var c = b.data.key.checked, d = j.checkbox, h = j.radio, i = "", i = a.chkDisabled === !0 ? d.DISABLED : a.halfCheck ? d.PART : b.check.chkStyle == h.STYLE ? a.check_Child_State < 1 ? d.FULL : d.PART : a[c] ? a.check_Child_State === 2 || a.check_Child_State === -1 ? d.FULL : d.PART : a.check_Child_State < 1 ? d.FULL : d.PART, c = b.check.chkStyle + "_" + (a[c] ? d.TRUE : d.FALSE) + "_" + i, c = a.check_Focus &&
+        a.chkDisabled !== !0 ? c + "_" + d.FOCUS : c;
+        return j.className.BUTTON + " " + d.DEFAULT + " " + c
+    }, repairAllChk: function (b, a) {
+        if (b.check.enable && b.check.chkStyle === j.checkbox.STYLE)for (var c = b.data.key.checked, d = b.data.key.children, h = f.getRoot(b), i = 0, l = h[d].length; i < l; i++) {
+            var g = h[d][i];
+            g.nocheck !== !0 && g.chkDisabled !== !0 && (g[c] = a);
+            e.setSonNodeCheckBox(b, g, a)
+        }
+    }, repairChkClass: function (b, a) {
+        if (a && (f.makeChkFlag(b, a), a.nocheck !== !0)) {
+            var c = n(a, j.id.CHECK, b);
+            e.setChkClass(b, c, a)
+        }
+    }, repairParentChkClass: function (b, a) {
+        if (a &&
+            a.parentTId) {
+            var c = a.getParentNode();
+            e.repairChkClass(b, c);
+            e.repairParentChkClass(b, c)
+        }
+    }, repairParentChkClassWithSelf: function (b, a) {
+        if (a) {
+            var c = b.data.key.children;
+            a[c] && a[c].length > 0 ? e.repairParentChkClass(b, a[c][0]) : e.repairParentChkClass(b, a)
+        }
+    }, repairSonChkDisabled: function (b, a, c, d) {
+        if (a) {
+            var h = b.data.key.children;
+            if (a.chkDisabled != c)a.chkDisabled = c;
+            e.repairChkClass(b, a);
+            if (a[h] && d)for (var i = 0, l = a[h].length; i < l; i++)e.repairSonChkDisabled(b, a[h][i], c, d)
+        }
+    }, repairParentChkDisabled: function (b, a, c, d) {
+        if (a) {
+            if (a.chkDisabled != c && d)a.chkDisabled = c;
+            e.repairChkClass(b, a);
+            e.repairParentChkDisabled(b, a.getParentNode(), c, d)
+        }
+    }, setChkClass: function (b, a, c) {
+        a && (c.nocheck === !0 ? a.hide() : a.show(), a.removeClass(), a.addClass(e.makeChkClass(b, c)))
+    }, setParentNodeCheckBox: function (b, a, c, d) {
+        var h = b.data.key.children, i = b.data.key.checked, l = n(a, j.id.CHECK, b);
+        d || (d = a);
+        f.makeChkFlag(b, a);
+        a.nocheck !== !0 && a.chkDisabled !== !0 && (a[i] = c, e.setChkClass(b, l, a), b.check.autoCheckTrigger && a != d && b.treeObj.trigger(j.event.CHECK,
+            [null, b.treeId, a]));
+        if (a.parentTId) {
+            l = !0;
+            if (!c)for (var h = a.getParentNode()[h], g = 0, k = h.length; g < k; g++)if (h[g].nocheck !== !0 && h[g].chkDisabled !== !0 && h[g][i] || (h[g].nocheck === !0 || h[g].chkDisabled === !0) && h[g].check_Child_State > 0) {
+                l = !1;
+                break
+            }
+            l && e.setParentNodeCheckBox(b, a.getParentNode(), c, d)
+        }
+    }, setSonNodeCheckBox: function (b, a, c, d) {
+        if (a) {
+            var h = b.data.key.children, i = b.data.key.checked, l = n(a, j.id.CHECK, b);
+            d || (d = a);
+            var g = !1;
+            if (a[h])for (var k = 0, m = a[h].length; k < m && a.chkDisabled !== !0; k++) {
+                var o = a[h][k];
+                e.setSonNodeCheckBox(b,
+                    o, c, d);
+                o.chkDisabled === !0 && (g = !0)
+            }
+            if (a != f.getRoot(b) && a.chkDisabled !== !0) {
+                g && a.nocheck !== !0 && f.makeChkFlag(b, a);
+                if (a.nocheck !== !0 && a.chkDisabled !== !0) {
+                    if (a[i] = c, !g)a.check_Child_State = a[h] && a[h].length > 0 ? c ? 2 : 0 : -1
+                } else a.check_Child_State = -1;
+                e.setChkClass(b, l, a);
+                b.check.autoCheckTrigger && a != d && a.nocheck !== !0 && a.chkDisabled !== !0 && b.treeObj.trigger(j.event.CHECK, [null, b.treeId, a])
             }
         }
+    }}, event: {}, data: {getRadioCheckedList: function (b) {
+        for (var a = f.getRoot(b).radioCheckedList, c = 0, d = a.length; c < d; c++)f.getNodeCache(b,
+            a[c].tId) || (a.splice(c, 1), c--, d--);
+        return a
+    }, getCheckStatus: function (b, a) {
+        if (!b.check.enable || a.nocheck || a.chkDisabled)return null;
+        var c = b.data.key.checked;
+        return{checked: a[c], half: a.halfCheck ? a.halfCheck : b.check.chkStyle == j.radio.STYLE ? a.check_Child_State === 2 : a[c] ? a.check_Child_State > -1 && a.check_Child_State < 2 : a.check_Child_State > 0}
+    }, getTreeCheckedNodes: function (b, a, c, d) {
+        if (!a)return[];
+        for (var h = b.data.key.children, i = b.data.key.checked, e = c && b.check.chkStyle == j.radio.STYLE && b.check.radioType == j.radio.TYPE_ALL,
+                 d = !d ? [] : d, g = 0, k = a.length; g < k; g++) {
+            if (a[g].nocheck !== !0 && a[g].chkDisabled !== !0 && a[g][i] == c && (d.push(a[g]), e))break;
+            f.getTreeCheckedNodes(b, a[g][h], c, d);
+            if (e && d.length > 0)break
+        }
+        return d
+    }, getTreeChangeCheckedNodes: function (b, a, c) {
+        if (!a)return[];
+        for (var d = b.data.key.children, h = b.data.key.checked, c = !c ? [] : c, i = 0, e = a.length; i < e; i++)a[i].nocheck !== !0 && a[i].chkDisabled !== !0 && a[i][h] != a[i].checkedOld && c.push(a[i]), f.getTreeChangeCheckedNodes(b, a[i][d], c);
+        return c
+    }, makeChkFlag: function (b, a) {
+        if (a) {
+            var c = b.data.key.children,
+                d = b.data.key.checked, h = -1;
+            if (a[c])for (var i = 0, e = a[c].length; i < e; i++) {
+                var g = a[c][i], f = -1;
+                if (b.check.chkStyle == j.radio.STYLE)if (f = g.nocheck === !0 || g.chkDisabled === !0 ? g.check_Child_State : g.halfCheck === !0 ? 2 : g[d] ? 2 : g.check_Child_State > 0 ? 2 : 0, f == 2) {
+                    h = 2;
+                    break
+                } else f == 0 && (h = 0); else if (b.check.chkStyle == j.checkbox.STYLE)if (f = g.nocheck === !0 || g.chkDisabled === !0 ? g.check_Child_State : g.halfCheck === !0 ? 1 : g[d] ? g.check_Child_State === -1 || g.check_Child_State === 2 ? 2 : 1 : g.check_Child_State > 0 ? 1 : 0, f === 1) {
+                    h = 1;
+                    break
+                } else if (f ===
+                    2 && h > -1 && i > 0 && f !== h) {
+                    h = 1;
+                    break
+                } else if (h === 2 && f > -1 && f < 2) {
+                    h = 1;
+                    break
+                } else f > -1 && (h = f)
+            }
+            a.check_Child_State = h
+        }
+    }
+    }
     });
     var m = m.fn.zTree, k = m._z.tools, j = m.consts, e = m._z.view, f = m._z.data, n = k.$;
     f.exSetting(v);
@@ -1127,14 +1024,7 @@
             case "mouseoutCheck":
                 l = r
         }
-        return {
-            stop: e === "checkNode",
-            node: h,
-            nodeEventType: e,
-            nodeEventCallback: l,
-            treeEventType: "",
-            treeEventCallback: null
-        }
+        return{stop: e === "checkNode", node: h, nodeEventType: e, nodeEventCallback: l, treeEventType: "", treeEventCallback: null}
     }, !0);
     f.addInitRoot(function (b) {
         f.getRoot(b).radioCheckedList = []
@@ -1213,7 +1103,8 @@
         async: angular.noop,// 异步函数,异步函数参数（选中的节点，数据返回后的回调函数）
         maxHeight: 300, // 树的最大高度：值为数字
         treeSetting: null,// 树的展示方式（一般使用默认值即可）
-        backgroundColor: '#F0F6E4'// 树的背景色
+        position: 'fixed',// 定位方式，默认使用悬浮定位
+        backgroundColor: '#f0f3f6'// 树的背景色
     };
     //单选树
     //<input ztree-single="ztreeOptions"/>
@@ -1226,16 +1117,30 @@
             },
             link: function (scope, element, attrs, ctrl) {
                 treeCount++;
-                var ztreeObj; // ztree对象
-                var tree; // tree
-                var ztreeSetting; // ztree设置
+                var scrollTop = 0;  // 有滚动条时的偏移量
+                var ztreeObj, // ztree对象
+                    tree, // tree
+                    ztreeSetting, // ztree设置
+                    treeContainer;  // ztree容器
                 var promise = CommonUtils.parseToPromise(scope.options);
-                promise.then(function (options) {
-                    options = angular.extend({}, defaults, options);
-                    var treeId = options.treeId || ('_tree' + treeCount);
+                var init = function (o) {
+                    // 初始化参数
+                    var options = angular.extend({}, defaults, o);
+                    var treeId = options.treeId || CommonUtils.randomID(6);
 
+                    // 给原对象新增一个reload方法，用于重新加载树
+                    if (o.reload === undefined) {
+                        scope.options.reload = function (p) {
+                            element.unbind('click');    // 取消click绑定
+                            ztreeObj.destroy();         // 销毁树
+                            ztreeObj=null;
+                            treeContainer.remove();     // 销毁树容器
+                            tree=null;
+                            init(p || o);               // 重新加载树
+                        };
+                    }
                     // 只有当树没有被初始化时才会初始化，该方法保证树只被初始化一次
-                    var init = function (data) {
+                    var initTree = function (data) {
                         if (!ztreeObj && tree) {
                             ztreeObj = $.fn.zTree.init(tree, ztreeSetting, data);
                             tree.parent().slideDown();
@@ -1246,7 +1151,7 @@
                         if (!data) return;
                         // 数据来源：结果数组
                         if (angular.isArray(data)) {
-                            init(data);
+                            initTree(data);
                             return;
                         }
 
@@ -1254,7 +1159,7 @@
                         if (angular.isObject(data)) {
                             var promise = data.$promise || data.promise || $q.when(data);
                             promise.then(function (value) {
-                                init(value);
+                                initTree(value);
                             });
                             return;
                         }
@@ -1280,13 +1185,16 @@
                                     }
                                 }
                             };
-                            var treeSpan = $('<span style="position: absolute;z-index: ' + options.zindex + ';top:0;right:0"></span>');
-                            var treeDiv = $('<div style="display: none;border: 1px solid #9fb5ac;padding-bottom: 5px;position: fixed;background-color: ' + options.backgroundColor + ';" >' + '</div >');
+                            treeContainer = $('<span style="position: absolute;z-index: ' + options.zindex + ';top:0;right:0"></span>');
+                            var treeDiv = $('<div style="display: none;border: 1px solid #afd0ee;padding-bottom: 5px;position: ' + options.position + ';background-color: ' + options.backgroundColor + ';" >' + '</div >');
                             tree = $('<ul class="ztree" style="max-height:' + options.maxHeight + 'px;overflow:auto;padding-right: 20px;" id="' + treeId + '"></ul >');
-                            treeSpan.insertAfter(element);
-                            treeSpan.append(treeDiv);
+                            treeContainer.insertAfter(element);
+                            treeContainer.append(treeDiv);
                             treeDiv.append(tree);
                             var speed = options.speed;
+                            if (options.position == 'fixed' && scrollTop) {
+                                treeDiv.css('top', (scrollTop - element.offset().top - 10) + 'px');
+                            }
 
                             // 获得树的初始化参数
                             // 设置树的点击事件
@@ -1321,18 +1229,36 @@
                             }
                             loadTreeData(options.data);
                         } else {
+                            // 在fixed定位下重置树的位置
+                            if (options.position == 'fixed') {
+                                if (scrollTop > 0) {
+                                    tree.parent().css('top', (scrollTop - element.offset().top - 10) + 'px');
+                                } else {
+                                    tree.parent().css('top', 'auto');
+                                }
+                            }
                             // 切换显示/隐藏树
                             tree.parent().slideToggle(speed);
                         }
                     });
 
+                };
+                promise.then(init);
+
+                // 有滚动元素时，设置偏移量
+                element.parents().find('div').bind('scroll', function (event) {
+                    scrollTop = $(event.currentTarget).scrollTop();
+                    event.preventDefault();
                 });
 
-
+                // 销毁时接触绑定
+                scope.$on('destroy', function () {
+                    element.parents().unbind('scroll');
+                    element.unbind('click');
+                });
             }
         }
-    })
-    ;
+    });
 
 //多选树
     app.directive('ztreeMulti', function () {

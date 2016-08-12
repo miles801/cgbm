@@ -13,14 +13,28 @@
         'eccrm.angularstrap.modal',
         'eccrm.angularstrap.aside',
         'eccrm.angularstrap.validation'
-    ]).config(['$datepickerProvider', function ($datepickerProvider) {
-        angular.extend($datepickerProvider.defaults, {
-            dateFormat: 'yyyy-MM-dd',
-            autoclose: true,
-            dateType: 'number',
-            container: 'body',
-            trigger: 'click'
-        });
+    ]).factory('eccrmHttpInterceptor', ['$q', '$injector', function ($q, $injector) {
+        return function (promise) {
+            return promise.then(function (response) {
+                var defer = $q.defer();
+                var data = angular.isObject(response) && response.data;
+                if (angular.isObject(data) && data.error == true) {
+                    defer.reject(response);
+                    var AlertFactory = $injector.get('AlertFactory');
+                    if (angular.isFunction(AlertFactory.error)) {
+                        AlertFactory.error(null, data.message, '');
+                    } else {
+                        alert(data.message);
+                    }
+                } else {
+                    defer.resolve(response);
+                }
+                return defer.promise;
+            });
+        }
+    }
+    ]).config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.responseInterceptors.push('eccrmHttpInterceptor');    // 请求拦截器
     }]);
 
     angular.module('eccrm.angularstrap.alert', ['mgcrea.ngStrap', 'eccrm.angular'])
@@ -39,45 +53,70 @@
             return {
                 //优先使用msg，然后才是使用scope.content
                 success: function (scope, msg, title) {
-                    msg = $sce.trustAsHtml(msg || scope.content || '');
-                    title = title || scope.title || '成功!';
-                    var foo = $alert(angular.extend({}, defaults, {scope: scope, type: 'success'}));
+                    if (typeof scope == 'string') {
+                        title = msg;
+                        msg = scope;
+                    }
+                    msg = $sce.trustAsHtml(msg || '');
+                    title = title || '成功!';
+                    var foo = $alert(angular.extend({}, defaults, {type: 'success', duration: 2}));
                     change.call(foo.$scope, msg, title);
                 },
                 warning: function (scope, msg, title) {
-                    msg = $sce.trustAsHtml(msg || scope.content || '');
-                    title = title || scope.title || '警告!';
-                    var foo = $alert(angular.extend({}, defaults, {scope: scope, type: 'warning'}));
+                    if (typeof scope == 'string') {
+                        title = msg;
+                        msg = scope;
+                    }
+                    msg = $sce.trustAsHtml(msg || '');
+                    title = title || '警告!';
+                    var foo = $alert(angular.extend({}, defaults, {type: 'warning'}));
                     change.call(foo.$scope, msg, title);
                 },
                 info: function (scope, msg, title) {
-                    msg = $sce.trustAsHtml(msg || scope.content || '');
-                    title = title || scope.title || '提示!';
-                    var foo = $alert(angular.extend({}, defaults, {scope: scope, type: 'info'}));
+                    if (typeof scope == 'string') {
+                        title = msg;
+                        msg = scope;
+                    }
+                    msg = $sce.trustAsHtml(msg || '');
+                    title = title || '提示!';
+                    var foo = $alert(angular.extend({}, defaults, {type: 'info', duration: 3}));
                     change.call(foo.$scope, msg, title);
                 },
                 error: function (scope, msg, title) {
-                    msg = $sce.trustAsHtml(msg || scope.content || '');
-                    title = title || scope.title || '错误!';
-                    var foo = $alert(angular.extend({}, defaults, {scope: scope, type: 'danger', duration: false}));
+                    if (typeof scope == 'string') {
+                        title = msg;
+                        msg = scope;
+                    }
+                    msg = $sce.trustAsHtml(msg || '');
+                    title = title || '错误!';
+                    var foo = $alert(angular.extend({}, defaults, {type: 'danger', duration: false}));
                     change.call(foo.$scope, msg, title);
                 },
                 saveError: function (scope, data) {
-                    var msg = $sce.trustAsHtml(data.error || data.fail || '');
+                    if (typeof scope === 'string') {
+                        data = scope;
+                    }
+                    var msg = $sce.trustAsHtml(data.message);
                     var title = '保存失败';
-                    var foo = $alert(angular.extend({}, defaults, {scope: scope, type: 'danger'}));
+                    var foo = $alert(angular.extend({}, defaults, {type: 'danger', duration: false}));
                     change.call(foo.$scope, msg, title);
                 },
                 updateError: function (scope, data) {
-                    var msg = $sce.trustAsHtml(data.error || data.fail || '');
+                    if (typeof scope === 'string') {
+                        data = scope;
+                    }
+                    var msg = $sce.trustAsHtml(data.message);
                     var title = '更新失败';
-                    var foo = $alert(angular.extend({}, defaults, {scope: scope, type: 'danger'}));
+                    var foo = $alert(angular.extend({}, defaults, {type: 'danger', duration: false}));
                     change.call(foo.$scope, msg, title);
                 },
                 deleteError: function (scope, data) {
-                    var msg = $sce.trustAsHtml(data.error || data.fail || '');
+                    if (typeof scope === 'string') {
+                        data = scope;
+                    }
+                    var msg = $sce.trustAsHtml(data.message);
                     var title = '删除失败';
-                    var foo = $alert(angular.extend({}, defaults, {scope: scope, type: 'danger', duration: false}));
+                    var foo = $alert(angular.extend({}, defaults, {type: 'danger', duration: false}));
                     change.call(foo.$scope, msg, title);
                 },
                 //执行结果处理：
@@ -115,7 +154,11 @@
                                 return;
                             }
                             if (title) {
-                                var foo = $alert(angular.extend({}, defaults, {scope: scope, type: 'danger', duration: false}));
+                                var foo = $alert(angular.extend({}, defaults, {
+                                    scope: scope,
+                                    type: 'danger',
+                                    duration: false
+                                }));
                                 change.call(foo.$scope, $sce.trustAsHtml(content), title);
                                 if (fail && angular.isFunction(failCallback)) {
                                     failCallback.call(scope, data);
@@ -145,6 +188,22 @@
     angular.module('eccrm.angularstrap.modal', ['mgcrea.ngStrap', 'eccrm.angular'])
         .factory('ModalFactory', ['$modal', '$sce', 'CommonUtils', function ($modal, $sce, CommonUtils) {
             return {
+                alert: function (title, content) {
+                    $modal({
+                        title: title,
+                        content: content
+                    });
+                },
+                open: function ($scope, url) {
+                    var options = {};
+                    if (arguments.length == 1 && typeof arguments[0] === 'object') {
+                        options = $scope;
+                    } else {
+                        options.scope = $scope;
+                        options.template = url;
+                    }
+                    return $modal(options);
+                },
                 //使用方式：
                 //ModalFactory.confirm({
                 //    content:'',//要提示的内容
@@ -159,7 +218,10 @@
                     }, config);
                     if (!cfg.scope) throw '使用模态对话框时必须指定scope!';
                     var _t = this;
-                    var modal = $modal({scope: cfg.scope, template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-confirm.tpl.html')});
+                    var modal = $modal({
+                        scope: cfg.scope,
+                        template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-confirm.tpl.html')
+                    });
                     var content = cfg.content || '确定执行【 ' + cfg.keywords + ' 】操作?';
                     modal.$scope.content = $sce.trustAsHtml(content);
                     modal.$scope.confirm = function () {
@@ -175,7 +237,10 @@
                 remove: function (scope, callback) {
                     if (!scope) throw '使用模态对话框时必须指定scope!';
                     var _t = this;
-                    var modal = $modal({scope: scope, template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-delete.tpl.html')});
+                    var modal = $modal({
+                        scope: scope,
+                        template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-delete.tpl.html')
+                    });
                     modal.$scope.confirm = function () {
                         if (callback && angular.isFunction(callback)) {
                             callback.call(_t, arguments);
@@ -188,7 +253,10 @@
                 start: function (scope, callback) {
                     if (!scope) throw '使用模态对话框时必须指定scope!';
                     var _t = this;
-                    var modal = $modal({scope: scope, template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-start.tpl.html')});
+                    var modal = $modal({
+                        scope: scope,
+                        template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-start.tpl.html')
+                    });
                     modal.$scope.confirm = function () {
                         if (callback && angular.isFunction(callback)) {
                             callback.call(_t, arguments);
@@ -201,7 +269,10 @@
                 close: function (scope, callback) {
                     if (!scope) throw '使用模态对话框时必须指定scope!';
                     var _t = this;
-                    var modal = $modal({scope: scope, template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-close.tpl.html')});
+                    var modal = $modal({
+                        scope: scope,
+                        template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-close.tpl.html')
+                    });
                     modal.$scope.confirm = function () {
                         if (callback && angular.isFunction(callback)) {
                             callback.call(_t, arguments);
@@ -213,7 +284,10 @@
                 top: function (scope, callback) {
                     if (!scope) throw '使用模态对话框时必须指定scope!';
                     var _t = this;
-                    var modal = $modal({scope: scope, template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-top.tpl.html')});
+                    var modal = $modal({
+                        scope: scope,
+                        template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-top.tpl.html')
+                    });
                     modal.$scope.confirm = function () {
                         if (callback && angular.isFunction(callback)) {
                             callback.call(_t, arguments);
@@ -226,7 +300,10 @@
                 cancel: function (scope, callback) {
                     if (!scope) throw '使用模态对话框时必须指定scope!';
                     var _t = this;
-                    var modal = $modal({scope: scope, template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-cancel.tpl.html')});
+                    var modal = $modal({
+                        scope: scope,
+                        template: CommonUtils.contextPathURL('/static/ycrl/javascript/template/common-modal-cancel.tpl.html')
+                    });
                     modal.$scope.confirm = function () {
                         if (callback && angular.isFunction(callback)) {
                             callback.call(_t, arguments);
@@ -247,10 +324,43 @@
                             }
                         }, 50)
                     });
+                },
+                /**
+                 * 创建一个弹出层
+                 * {
+                 * url:'',              // 必须，弹出层所引用的HTML的地址
+                 * scope:null,          // 可选
+                 * backdrop:'static',   // 可选，点击非弹出层时，是否关闭当前弹出层
+                 * callback:$.noop      // 可选，成功创建弹出层后的回调，this为弹出层对象，接收一个scope参数
+                 * }
+                 * @param options
+                 * @param callback
+                 */
+                create: function (options, callback) {
+                    // 初始化参数
+                    options = options || {};
+                    if (!options.template) {
+                        var message = '创建弹出层失败!没有获得URL地址或模板内容!';
+                        alert(message);
+                        throw message;
+                    }
+                    var config = {
+                        template: options.template,
+                        scope: options.scope || null,
+                        backdrop: options.backdrop || 'static'
+                    };
+
+                    // 创建弹出层
+                    var modal = $modal(config);
+                    var scope = modal.$scope;
+
+                    // 弹出层创建成功后的回调
+                    callback = callback || options.callback;
+                    angular.isFunction(callback) && callback.call(modal, scope)
                 }
 
 
-            }
+            };
         }]);
 
     angular.module('eccrm.angularstrap.aside', ['mgcrea.ngStrap', 'eccrm.angular'])
@@ -262,18 +372,21 @@
             return {
                 //右下角的提示信息
                 info: function (options) {
-                    var modal = $aside(angular.extend({container: 'body', show: true, template: CommonUtils.contextPathURL('static/ycrl/javascript/template/aside.html')}, options));
+                    var modal = $aside(angular.extend({
+                        container: 'body',
+                        show: true,
+                        backdrop: 'static'
+                        //template: CommonUtils.contextPathURL('static/ycrl/javascript/template/aside.html')
+                    }, options));
                     var $scope = modal.$scope;
                     $scope.$hide = modal.hide;
                     return $scope;
                 },
-                aside: {
-
-                }
+                aside: {}
             }
         }]);
 
-    // 表单验证器
+// 表单验证器
     angular.module('eccrm.angularstrap.validation', ['mgcrea.ngStrap', 'eccrm.angular.base'])
         .config(['$tooltipProvider', function ($tooltipProvider) {
             angular.extend($tooltipProvider.defaults, {
@@ -461,8 +574,9 @@
                         'validateMobile', 'validateZipcode', 'validateMaxValue', 'validateMinValue',
                         'validateUrl', 'validateEmail', 'validateNaming', 'validateOptions'];
                     var placement = attrs['placement'] || 'top';
-                    var tool = $tooltip(elm, { placement: placement, trigger: 'hover'});
+                    var tool = $tooltip(elm, {placement: placement, trigger: 'hover'});
                     var waitValidate = 'waitValidate';// 等待验证
+                    var errorMsg = attrs['validateMsg'];
                     var wait = false;//
                     // 处理验证结果
                     // 参数1：处理结果（false表示验证失败，其余的均为验证成功）
@@ -483,17 +597,20 @@
                             elm.addClass('error');
                             ctrl.$setValidity(type, false);
                             tool.$scope.title = msg || '验证失败';
+                            elm.attr('validate-msg', tool.$scope.title);
                             return false;
                         }
                         ctrl.$setValidity(type, true);
                         if (wait == true) {
                             tool.$scope.title = '等待验证';
+                            elm.attr('validate-msg', tool.$scope.title);
                             ctrl.$setValidity(waitValidate, false);
                         }
                         //验证通过
                         if (ctrl.$valid) {
                             tool.$scope.title = '';
                             elm.removeClass('error');
+                            elm.removeAttr('validate-msg');
                             tool.$promise.then(tool.hide);
                         }
                     };
@@ -509,7 +626,7 @@
                         }
                         var result = validateOptions.validateFn.call(scope, viewValue, directiveValue, validateOptions);
                         if (result === true || result === false) {
-                            handle(result, validateOptions.validateType, validateOptions.validateMsg, isOption);
+                            handle(result, validateOptions.validateType, errorMsg || validateOptions.validateMsg, isOption);
                         } else if (angular.isObject(result)) {
                             var promise = angular.isFunction(result.then) ? result : (result.promise || result.$promise);
                             angular.isFunction(promise.then) && promise.then(function (v) {
@@ -593,6 +710,33 @@
                     });
                 }
             };
+        }])
+        /**
+         * 用于在指定表单元素验证失败时，给当前元素的子元素添加error属性
+         * 需要依赖的样式：[validate-error] .error{ // 验证失败时需要显示的样式 }
+         * 用法：<label validate-error="form.property">姓名:</label>
+         */
+        .directive('validateError', ['$compile', function ($compile) {
+            return {
+                restrict: 'A',
+                compile: function (ele, attrs) {
+                    return {
+                        pre: function (scope, iEle, iAttrs) {
+                            var child = iEle.children();
+                            var valid = attrs['validateError'] + '.$invalid';
+                            //var error = attrs['validateError'] + '.$error';
+                            var span = $('<span ng-class="{error:' + valid + '}"><span ng-show="' + valid + '"> * </span></span>');
+                            if (child.length == 0) {
+                                span.append(iEle.html());
+                                iEle.html(span);
+                            } else {
+                                child.wrap(span);
+                            }
+                            $compile(span)(scope);
+                        }
+                    }
+                }
+            }
         }]);
 
 
