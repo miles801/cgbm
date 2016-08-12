@@ -14,7 +14,7 @@
     var settings = {}, roots = {}, caches = {},
     //default consts of core
         _consts = {
-            className: {
+            entity: {
                 BUTTON: "button",
                 LEVEL: "level",
                 ICO_LOADING: "ico_loading",
@@ -920,7 +920,7 @@
                 if (node) {
                     node.isAjaxing = true;
                     var icoObj = $$(node, consts.id.ICON, setting);
-                    icoObj.attr({"style": "", "class": consts.className.BUTTON + " " + consts.className.ICO_LOADING});
+                    icoObj.attr({"style": "", "class": consts.entity.BUTTON + " " + consts.entity.ICO_LOADING});
                 }
 
                 var tmpParam = {};
@@ -1148,7 +1148,7 @@
                 html.push("</li>");
             },
             makeDOMNodeMainBefore: function (html, setting, node) {
-                html.push("<li id='", node.tId, "' class='", consts.className.LEVEL, node.level, "' tabindex='0' hidefocus='true' treenode>");
+                html.push("<li id='", node.tId, "' class='", consts.entity.LEVEL, node.level, "' tabindex='0' hidefocus='true' treenode>");
             },
             makeDOMNodeNameAfter: function (html, setting, node) {
                 html.push("</a>");
@@ -1161,7 +1161,7 @@
                 for (var f in fontcss) {
                     fontStyle.push(f, ":", fontcss[f], ";");
                 }
-                html.push("<a id='", node.tId, consts.id.A, "' class='", consts.className.LEVEL, node.level, "' treeNode", consts.id.A, " onclick=\"", (node.click || ''),
+                html.push("<a id='", node.tId, consts.id.A, "' class='", consts.entity.LEVEL, node.level, "' treeNode", consts.id.A, " onclick=\"", (node.click || ''),
                     "\" ", ((url != null && url.length > 0) ? "href='" + url + "'" : ""), " target='", view.makeNodeTarget(node), "' style='", fontStyle.join(''),
                     "'");
                 if (tools.apply(setting.view.showTitle, [setting.treeId, node], setting.view.showTitle) && title) {
@@ -1183,7 +1183,7 @@
                         icoCss.push(consts.folder.DOCU);
                     }
                 }
-                return consts.className.BUTTON + " " + icoCss.join('_');
+                return consts.entity.BUTTON + " " + icoCss.join('_');
             },
             makeNodeIcoStyle: function (setting, node) {
                 var icoStyle = [];
@@ -1219,7 +1219,7 @@
                 return view.makeNodeLineClassEx(node) + lineClass.join('_');
             },
             makeNodeLineClassEx: function (node) {
-                return consts.className.BUTTON + " " + consts.className.LEVEL + node.level + " " + consts.className.SWITCH + " ";
+                return consts.entity.BUTTON + " " + consts.entity.LEVEL + node.level + " " + consts.entity.SWITCH + " ";
             },
             makeNodeTarget: function (node) {
                 return (node.target || "_blank");
@@ -1229,7 +1229,7 @@
                 return node[urlKey] ? node[urlKey] : null;
             },
             makeUlHtml: function (setting, node, html, content) {
-                html.push("<ul id='", node.tId, consts.id.UL, "' class='", consts.className.LEVEL, node.level, " ", view.makeUlLineClass(setting, node), "' style='display:", (node.open ? "block" : "none"), "'>");
+                html.push("<ul id='", node.tId, consts.id.UL, "' class='", consts.entity.LEVEL, node.level, " ", view.makeUlLineClass(setting, node), "' style='display:", (node.open ? "block" : "none"), "'>");
                 html.push(content);
                 html.push("</ul>");
             },

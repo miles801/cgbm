@@ -14,7 +14,7 @@
     var settings = {}, roots = {}, caches = {},
     //default consts of core
         _consts = {
-            className: {
+            entity: {
                 BUTTON: "button",
                 LEVEL: "level",
                 ICO_LOADING: "ico_loading",
@@ -920,7 +920,7 @@
                 if (node) {
                     node.isAjaxing = true;
                     var icoObj = $$(node, consts.id.ICON, setting);
-                    icoObj.attr({"style": "", "class": consts.className.BUTTON + " " + consts.className.ICO_LOADING});
+                    icoObj.attr({"style": "", "class": consts.entity.BUTTON + " " + consts.entity.ICO_LOADING});
                 }
 
                 var tmpParam = {};
@@ -1148,7 +1148,7 @@
                 html.push("</li>");
             },
             makeDOMNodeMainBefore: function (html, setting, node) {
-                html.push("<li id='", node.tId, "' class='", consts.className.LEVEL, node.level, "' tabindex='0' hidefocus='true' treenode>");
+                html.push("<li id='", node.tId, "' class='", consts.entity.LEVEL, node.level, "' tabindex='0' hidefocus='true' treenode>");
             },
             makeDOMNodeNameAfter: function (html, setting, node) {
                 html.push("</a>");
@@ -1161,7 +1161,7 @@
                 for (var f in fontcss) {
                     fontStyle.push(f, ":", fontcss[f], ";");
                 }
-                html.push("<a id='", node.tId, consts.id.A, "' class='", consts.className.LEVEL, node.level, "' treeNode", consts.id.A, " onclick=\"", (node.click || ''),
+                html.push("<a id='", node.tId, consts.id.A, "' class='", consts.entity.LEVEL, node.level, "' treeNode", consts.id.A, " onclick=\"", (node.click || ''),
                     "\" ", ((url != null && url.length > 0) ? "href='" + url + "'" : ""), " target='", view.makeNodeTarget(node), "' style='", fontStyle.join(''),
                     "'");
                 if (tools.apply(setting.view.showTitle, [setting.treeId, node], setting.view.showTitle) && title) {
@@ -1183,7 +1183,7 @@
                         icoCss.push(consts.folder.DOCU);
                     }
                 }
-                return consts.className.BUTTON + " " + icoCss.join('_');
+                return consts.entity.BUTTON + " " + icoCss.join('_');
             },
             makeNodeIcoStyle: function (setting, node) {
                 var icoStyle = [];
@@ -1219,7 +1219,7 @@
                 return view.makeNodeLineClassEx(node) + lineClass.join('_');
             },
             makeNodeLineClassEx: function (node) {
-                return consts.className.BUTTON + " " + consts.className.LEVEL + node.level + " " + consts.className.SWITCH + " ";
+                return consts.entity.BUTTON + " " + consts.entity.LEVEL + node.level + " " + consts.entity.SWITCH + " ";
             },
             makeNodeTarget: function (node) {
                 return (node.target || "_blank");
@@ -1229,7 +1229,7 @@
                 return node[urlKey] ? node[urlKey] : null;
             },
             makeUlHtml: function (setting, node, html, content) {
-                html.push("<ul id='", node.tId, consts.id.UL, "' class='", consts.className.LEVEL, node.level, " ", view.makeUlLineClass(setting, node), "' style='display:", (node.open ? "block" : "none"), "'>");
+                html.push("<ul id='", node.tId, consts.id.UL, "' class='", consts.entity.LEVEL, node.level, " ", view.makeUlLineClass(setting, node), "' style='display:", (node.open ? "block" : "none"), "'>");
                 html.push(content);
                 html.push("</ul>");
             },
@@ -2161,7 +2161,7 @@
                 }
                 var chkName = setting.check.chkStyle + "_" + (node[checkedKey] ? c.TRUE : c.FALSE) + "_" + fullStyle;
                 chkName = (node.check_Focus && node.chkDisabled !== true) ? chkName + "_" + c.FOCUS : chkName;
-                return consts.className.BUTTON + " " + c.DEFAULT + " " + chkName;
+                return consts.entity.BUTTON + " " + c.DEFAULT + " " + chkName;
             },
             repairAllChk: function (setting, checked) {
                 if (setting.check.enable && setting.check.chkStyle === consts.checkbox.STYLE) {
@@ -3135,7 +3135,7 @@
                     return;
                 }
                 var aObj = $$(node, consts.id.A, setting),
-                    editStr = "<span class='" + consts.className.BUTTON + " edit' id='" + node.tId + consts.id.EDIT + "' title='" + tools.apply(setting.edit.renameTitle, [setting.treeId, node], setting.edit.renameTitle) + "' treeNode" + consts.id.EDIT + " style='display:none;'></span>";
+                    editStr = "<span class='" + consts.entity.BUTTON + " edit' id='" + node.tId + consts.id.EDIT + "' title='" + tools.apply(setting.edit.renameTitle, [setting.treeId, node], setting.edit.renameTitle) + "' treeNode" + consts.id.EDIT + " style='display:none;'></span>";
                 aObj.append(editStr);
 
                 $$(node, consts.id.EDIT, setting).bind('click',
@@ -3154,7 +3154,7 @@
                     return;
                 }
                 var aObj = $$(node, consts.id.A, setting),
-                    removeStr = "<span class='" + consts.className.BUTTON + " remove' id='" + node.tId + consts.id.REMOVE + "' title='" + tools.apply(setting.edit.removeTitle, [setting.treeId, node], setting.edit.removeTitle) + "' treeNode" + consts.id.REMOVE + " style='display:none;'></span>";
+                    removeStr = "<span class='" + consts.entity.BUTTON + " remove' id='" + node.tId + consts.id.REMOVE + "' title='" + tools.apply(setting.edit.removeTitle, [setting.treeId, node], setting.edit.removeTitle) + "' treeNode" + consts.id.REMOVE + " style='display:none;'></span>";
                 aObj.append(removeStr);
 
                 $$(node, consts.id.REMOVE, setting).bind('click',
@@ -3441,8 +3441,8 @@
                 var liObj = $$(node, setting),
                     aObj = $$(node, consts.id.A, setting),
                     ulObj = $$(node, consts.id.UL, setting),
-                    oldClass = consts.className.LEVEL + oldLevel,
-                    newClass = consts.className.LEVEL + node.level;
+                    oldClass = consts.entity.LEVEL + oldLevel,
+                    newClass = consts.entity.LEVEL + node.level;
                 liObj.removeClass(oldClass);
                 liObj.addClass(newClass);
                 aObj.removeClass(oldClass);

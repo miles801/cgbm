@@ -3,6 +3,7 @@ package com.michael.utils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Michael
@@ -17,6 +18,10 @@ public class TemplateUtils {
      * @throws IOException
      */
     public static String loadTemplate(String path) throws IOException {
-        return IOUtils.toString(TemplateUtils.class.getResourceAsStream(path));
+        InputStream resourceAsStream = TemplateUtils.class.getClassLoader().getResourceAsStream(path);
+        if (resourceAsStream == null) {
+            throw new RuntimeException("资源[" + path + "]不存在!");
+        }
+        return IOUtils.toString(resourceAsStream, "utf-8");
     }
 }

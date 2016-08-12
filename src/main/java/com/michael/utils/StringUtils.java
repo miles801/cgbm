@@ -1,79 +1,198 @@
 package com.michael.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 /**
- * @author Michael
+ * @author miles
+ * @datetime 2014/4/16 16:55
  */
 public class StringUtils {
-
     /**
-     * 将字符串的首字母变为小写
+     * 判断一个字符串是否为空或者空字符串
      */
-    public static String lowerCamel(String string) {
-        if (string == null) {
-            return null;
-        }
-        if (string.length() == 1) {
-            return string.toLowerCase();
-        }
-        return string.substring(0, 1).toLowerCase() + string.substring(1);
+    public static boolean isEmpty(String str) {
+        return str == null || "".equals(str.trim());
     }
 
-
-    /**
-     * 将字符串的首字母变为大写
-     */
-    public static String upperCamel(String string) {
-        if (string == null) {
-            return null;
-        }
-        if (string.length() == 1) {
-            return string.toUpperCase();
-        }
-        return string.substring(0, 1).toUpperCase() + string.substring(1);
-    }
-
-    public static boolean isBlank(String string) {
-        return string == null || "".equals(string.trim());
-    }
-
-    public static boolean isNotBlank(String string) {
-        return !isBlank(string);
+    public static boolean isNotEmpty(String str) {
+        return !isEmpty(str);
     }
 
     /**
-     * 给指定的字符串加上前缀
-     * 如果字符串已经有该前缀，则直接返回
+     * 判断指定字符串集合中是否有任何一个是空的
      *
-     * @param str    原字符串
-     * @param prefix 前缀
-     * @return 新字符串
+     * @return true:至少有一个是空的，false：无空的
      */
-    public static String addPrefix(String str, String prefix) {
-        if (isBlank(str) || isBlank(prefix)) {
-            return str;
+    public static boolean hasEmpty(String... str) {
+        if (str == null || str.length == 0) {
+            return true;
         }
-        if (str.startsWith(prefix)) {
-            return str;
+        for (String foo : str) {
+            if (isEmpty(foo)) {
+                return true;
+            }
         }
-        return prefix + str;
+        return false;
     }
 
     /**
-     * 给指定的字符串加上后缀
-     * 如果字符串已经有该后缀，则直接返回
+     * 查找指定的字符串是否在指定的数组中
      *
-     * @param str    原字符串
-     * @param suffix 后缀
-     * @return 新字符串
+     * @param src    需要查找的字符串
+     * @param arrays 要匹配的结果
+     * @return true 在，false不在
      */
-    public static String addSuffix(String str, String suffix) {
-        if (isBlank(str) || isBlank(suffix)) {
-            return str;
+    public static boolean include(String src, String... arrays) {
+        if (arrays == null || arrays.length == 0) {
+            return false;
         }
-        if (str.endsWith(suffix)) {
-            return str;
+        for (String arr : arrays) {
+            boolean isEq = equals(src, arr);
+            if (isEq) {
+                return true;
+            }
         }
-        return str + suffix;
+        return false;
     }
 
+    /**
+     * 判断两个字符串是否相等（简化了对null的判断）
+     *
+     * @param str1 字符串1
+     * @param str2 字符串1
+     * @return true相等，false不相等
+     */
+    public static boolean equals(String str1, String str2) {
+        if (str1 == null && str2 == null) {
+            return true;
+        }
+        return str1 != null && str2 != null && str1.equals(str2);
+    }
+
+    /**
+     * 判断两个字符串是否不等（是equals的取反）
+     *
+     * @param str1 字符串1
+     * @param str2 字符串2
+     * @return true不等，false相等
+     */
+    public static boolean notEquals(String str1, String str2) {
+        return !equals(str1, str2);
+    }
+
+    /**
+     * 字节转字符串
+     */
+    public static String byteToHexStr(byte mByte) {
+        char[] Digit = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+        char[] tempArr = new char[2];
+        tempArr[0] = Digit[(mByte >>> 4) & 0X0F];
+        tempArr[1] = Digit[mByte & 0X0F];
+        return new String(tempArr);
+    }
+
+    /**
+     * 将字节数组转换为十六进制字符串
+     */
+    public static String byteToStr(byte[] byteArray) {
+        StringBuilder buffer = new StringBuilder();
+        for (byte aByteArray : byteArray) {
+            buffer.append(byteToHexStr(aByteArray));
+        }
+        return buffer.toString();
+    }
+
+
+    /**
+     * 将一个字符串使用utf-8进行两次解码
+     */
+    public static String decodeByUTF8(String str) {
+        if (isEmpty(str)) return str;
+        try {
+            return URLDecoder.decode(URLDecoder.decode(str, "utf-8"), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException("无法解析的字符串或错误的编码!" + str);
+    }
+
+    /**
+     * 将一个字符串使用iso-8859-1解码，然后使用utf-8编码
+     */
+    public static String encodeByUTF8(String str) {
+        if (isEmpty(str)) return null;
+        try {
+            return new String(str.getBytes("iso-8859-1"), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        throw new RuntimeException("无法解析的字符串或错误的编码!" + str);
+    }
+
+    /**
+     * 获得字符串的长度
+     * 字母、英文标点一个长度
+     * 汉字、中文标点、非法字符都认为2个字符
+     */
+    public static int getStringLength(String str) {
+        int length = 0;
+        byte[] bytes = null;
+        for (char cn : str.toCharArray()) {
+            try {
+                bytes = (String.valueOf(cn)).getBytes("GBK");
+            } catch (UnsupportedEncodingException ex) {
+            }
+
+            if (bytes == null || bytes.length > 2 || bytes.length <= 0) { //错误
+                length += 2;
+            } else if (bytes.length == 1) { //英文字符
+                length++;
+            } else if (bytes.length == 2) { //中文字符
+                length += 2;
+            }
+        }
+        return length;
+    }
+
+    public static String join(String[] value, String split) {
+        if (value == null || value.length < 1) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder(value.length);
+        for (String v : value) {
+            builder.append(split).append(v);
+        }
+        return builder.substring(1);
+    }
+
+    /**
+     * 将字符串的首字母大写
+     *
+     * @param str 字符串，如果为空则返回""
+     */
+    public static String upperCaseFirst(String str) {
+        if (StringUtils.isEmpty(str)) {
+            return "";
+        }
+        if (str.length() == 1) {
+            return str.toUpperCase();
+        }
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+
+    /**
+     * 将字符串的首字母小写
+     *
+     * @param str 字符串，如果为空则返回""
+     */
+    public static String lowerCaseFirst(String str) {
+        if (StringUtils.isEmpty(str)) {
+            return "";
+        }
+        if (str.length() == 1) {
+            return str.toLowerCase();
+        }
+        return str.substring(0, 1).toLowerCase() + str.substring(1);
+    }
 }

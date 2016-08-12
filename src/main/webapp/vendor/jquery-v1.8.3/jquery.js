@@ -1257,7 +1257,7 @@
             div = document.createElement("div");
 
         // Setup
-        div.setAttribute("className", "t");
+        div.setAttribute("entity", "t");
         div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
 
         // Support tests won't run in some limited or non-browser environments
@@ -1312,7 +1312,7 @@
             optSelected: opt.selected,
 
             // Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
-            getSetAttribute: div.className !== "t",
+            getSetAttribute: div.entity !== "t",
 
             // Tests for enctype support on a form (#6743)
             enctype: !!document.createElement("form").enctype,
@@ -2030,34 +2030,34 @@
         },
 
         addClass: function (value) {
-            var classNames, i, l, elem,
+            var entitys, i, l, elem,
                 setClass, c, cl;
 
             if (jQuery.isFunction(value)) {
                 return this.each(function (j) {
-                    jQuery(this).addClass(value.call(this, j, this.className));
+                    jQuery(this).addClass(value.call(this, j, this.entity));
                 });
             }
 
             if (value && typeof value === "string") {
-                classNames = value.split(core_rspace);
+                entitys = value.split(core_rspace);
 
                 for (i = 0, l = this.length; i < l; i++) {
                     elem = this[ i ];
 
                     if (elem.nodeType === 1) {
-                        if (!elem.className && classNames.length === 1) {
-                            elem.className = value;
+                        if (!elem.entity && entitys.length === 1) {
+                            elem.entity = value;
 
                         } else {
-                            setClass = " " + elem.className + " ";
+                            setClass = " " + elem.entity + " ";
 
-                            for (c = 0, cl = classNames.length; c < cl; c++) {
-                                if (setClass.indexOf(" " + classNames[ c ] + " ") < 0) {
-                                    setClass += classNames[ c ] + " ";
+                            for (c = 0, cl = entitys.length; c < cl; c++) {
+                                if (setClass.indexOf(" " + entitys[ c ] + " ") < 0) {
+                                    setClass += entitys[ c ] + " ";
                                 }
                             }
-                            elem.className = jQuery.trim(setClass);
+                            elem.entity = jQuery.trim(setClass);
                         }
                     }
                 }
@@ -2067,11 +2067,11 @@
         },
 
         removeClass: function (value) {
-            var removes, className, elem, c, cl, i, l;
+            var removes, entity, elem, c, cl, i, l;
 
             if (jQuery.isFunction(value)) {
                 return this.each(function (j) {
-                    jQuery(this).removeClass(value.call(this, j, this.className));
+                    jQuery(this).removeClass(value.call(this, j, this.entity));
                 });
             }
             if ((value && typeof value === "string") || value === undefined) {
@@ -2079,18 +2079,18 @@
 
                 for (i = 0, l = this.length; i < l; i++) {
                     elem = this[ i ];
-                    if (elem.nodeType === 1 && elem.className) {
+                    if (elem.nodeType === 1 && elem.entity) {
 
-                        className = (" " + elem.className + " ").replace(rclass, " ");
+                        entity = (" " + elem.entity + " ").replace(rclass, " ");
 
                         // loop over each item in the removal list
                         for (c = 0, cl = removes.length; c < cl; c++) {
                             // Remove until there is nothing to remove,
-                            while (className.indexOf(" " + removes[ c ] + " ") >= 0) {
-                                className = className.replace(" " + removes[ c ] + " ", " ");
+                            while (entity.indexOf(" " + removes[ c ] + " ") >= 0) {
+                                entity = entity.replace(" " + removes[ c ] + " ", " ");
                             }
                         }
-                        elem.className = value ? jQuery.trim(className) : "";
+                        elem.entity = value ? jQuery.trim(entity) : "";
                     }
                 }
             }
@@ -2104,43 +2104,43 @@
 
             if (jQuery.isFunction(value)) {
                 return this.each(function (i) {
-                    jQuery(this).toggleClass(value.call(this, i, this.className, stateVal), stateVal);
+                    jQuery(this).toggleClass(value.call(this, i, this.entity, stateVal), stateVal);
                 });
             }
 
             return this.each(function () {
                 if (type === "string") {
                     // toggle individual class names
-                    var className,
+                    var entity,
                         i = 0,
                         self = jQuery(this),
                         state = stateVal,
-                        classNames = value.split(core_rspace);
+                        entitys = value.split(core_rspace);
 
-                    while ((className = classNames[ i++ ])) {
-                        // check each className given, space separated list
-                        state = isBool ? state : !self.hasClass(className);
-                        self[ state ? "addClass" : "removeClass" ](className);
+                    while ((entity = entitys[ i++ ])) {
+                        // check each entity given, space separated list
+                        state = isBool ? state : !self.hasClass(entity);
+                        self[ state ? "addClass" : "removeClass" ](entity);
                     }
 
                 } else if (type === "undefined" || type === "boolean") {
-                    if (this.className) {
-                        // store className if set
-                        jQuery._data(this, "__className__", this.className);
+                    if (this.entity) {
+                        // store entity if set
+                        jQuery._data(this, "__entity__", this.entity);
                     }
 
-                    // toggle whole className
-                    this.className = this.className || value === false ? "" : jQuery._data(this, "__className__") || "";
+                    // toggle whole entity
+                    this.entity = this.entity || value === false ? "" : jQuery._data(this, "__entity__") || "";
                 }
             });
         },
 
         hasClass: function (selector) {
-            var className = " " + selector + " ",
+            var entity = " " + selector + " ",
                 i = 0,
                 l = this.length;
             for (; i < l; i++) {
-                if (this[i].nodeType === 1 && (" " + this[i].className + " ").replace(rclass, " ").indexOf(className) >= 0) {
+                if (this[i].nodeType === 1 && (" " + this[i].entity + " ").replace(rclass, " ").indexOf(entity) >= 0) {
                     return true;
                 }
             }
@@ -2405,7 +2405,7 @@
             tabindex: "tabIndex",
             readonly: "readOnly",
             "for": "htmlFor",
-            "class": "className",
+            "class": "entity",
             maxlength: "maxLength",
             cellspacing: "cellSpacing",
             cellpadding: "cellPadding",
@@ -3842,7 +3842,7 @@
                 }
 
                 // Safari 3.2 caches class attributes and doesn't catch changes
-                div.lastChild.className = "e";
+                div.lastChild.entity = "e";
                 return div.getElementsByClassName("e").length === 2;
             }),
 
@@ -4145,9 +4145,9 @@
                     }
                 },
 
-                "CLASS": assertUsableClassName && function (className, context, xml) {
+                "CLASS": assertUsableClassName && function (entity, context, xml) {
                     if (typeof context.getElementsByClassName !== strundefined && !xml) {
-                        return context.getElementsByClassName(className);
+                        return context.getElementsByClassName(entity);
                     }
                 }
             },
@@ -4261,13 +4261,13 @@
                     };
                 },
 
-                "CLASS": function (className) {
-                    var pattern = classCache[ expando ][ className + " " ];
+                "CLASS": function (entity) {
+                    var pattern = classCache[ expando ][ entity + " " ];
 
                     return pattern ||
-                        (pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) &&
-                            classCache(className, function (elem) {
-                                return pattern.test(elem.className || (typeof elem.getAttribute !== strundefined && elem.getAttribute("class")) || "");
+                        (pattern = new RegExp("(^|" + whitespace + ")" + entity + "(" + whitespace + "|$)")) &&
+                            classCache(entity, function (elem) {
+                                return pattern.test(elem.entity || (typeof elem.getAttribute !== strundefined && elem.getAttribute("class")) || "");
                             });
                 },
 

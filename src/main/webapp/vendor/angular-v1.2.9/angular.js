@@ -1244,8 +1244,8 @@ function angularInit(element, bootstrap) {
 
   forEach(elements, function(element) {
     if (!appElement) {
-      var className = ' ' + element.className + ' ';
-      var match = NG_APP_CLASS_REGEXP.exec(className);
+      var entity = ' ' + element.entity + ' ';
+      var match = NG_APP_CLASS_REGEXP.exec(entity);
       if (match) {
         appElement = element;
         module = (match[2] || '').replace(/\s+/g, ',');
@@ -3898,24 +3898,24 @@ var $AnimateProvider = ['$provide', function($provide) {
 
   /**
    * @ngdoc function
-   * @name ng.$animateProvider#classNameFilter
+   * @name ng.$animateProvider#entityFilter
    * @methodOf ng.$animateProvider
    *
    * @description
    * Sets and/or returns the CSS class regular expression that is checked when performing
-   * an animation. Upon bootstrap the classNameFilter value is not set at all and will
+   * an animation. Upon bootstrap the entityFilter value is not set at all and will
    * therefore enable $animate to attempt to perform an animation on any element.
-   * When setting the classNameFilter value, animations will only be performed on elements
+   * When setting the entityFilter value, animations will only be performed on elements
    * that successfully match the filter expression. This in turn can boost performance
    * for low-powered devices as well as applications containing a lot of structural operations.
-   * @param {RegExp=} expression The className expression which will be checked against all animations
-   * @return {RegExp} The current CSS className expression value. If null then there is no expression value
+   * @param {RegExp=} expression The entity expression which will be checked against all animations
+   * @return {RegExp} The current CSS entity expression value. If null then there is no expression value
    */
-  this.classNameFilter = function(expression) {
+  this.entityFilter = function(expression) {
     if(arguments.length === 1) {
-      this.$$classNameFilter = (expression instanceof RegExp) ? expression : null;
+      this.$$entityFilter = (expression instanceof RegExp) ? expression : null;
     }
-    return this.$$classNameFilter;
+    return this.$$entityFilter;
   };
 
   this.$get = ['$timeout', function($timeout) {
@@ -4015,20 +4015,20 @@ var $AnimateProvider = ['$provide', function($provide) {
        * @name ng.$animate#addClass
        * @methodOf ng.$animate
        * @function
-       * @description Adds the provided className CSS class value to the provided element. Once
+       * @description Adds the provided entity CSS class value to the provided element. Once
        * complete, the done() callback will be fired (if provided).
-       * @param {jQuery/jqLite element} element the element which will have the className value
+       * @param {jQuery/jqLite element} element the element which will have the entity value
        *   added to it
-       * @param {string} className the CSS class which will be added to the element
+       * @param {string} entity the CSS class which will be added to the element
        * @param {function=} done the callback function (if provided) that will be fired after the
-       *   className value has been added to the element
+       *   entity value has been added to the element
        */
-      addClass : function(element, className, done) {
-        className = isString(className) ?
-                      className :
-                      isArray(className) ? className.join(' ') : '';
+      addClass : function(element, entity, done) {
+        entity = isString(entity) ?
+                      entity :
+                      isArray(entity) ? entity.join(' ') : '';
         forEach(element, function (element) {
-          jqLiteAddClass(element, className);
+          jqLiteAddClass(element, entity);
         });
         done && $timeout(done, 0, false);
       },
@@ -4039,20 +4039,20 @@ var $AnimateProvider = ['$provide', function($provide) {
        * @name ng.$animate#removeClass
        * @methodOf ng.$animate
        * @function
-       * @description Removes the provided className CSS class value from the provided element.
+       * @description Removes the provided entity CSS class value from the provided element.
        * Once complete, the done() callback will be fired (if provided).
-       * @param {jQuery/jqLite element} element the element which will have the className value
+       * @param {jQuery/jqLite element} element the element which will have the entity value
        *   removed from it
-       * @param {string} className the CSS class which will be removed from the element
+       * @param {string} entity the CSS class which will be removed from the element
        * @param {function=} done the callback function (if provided) that will be fired after the
-       *   className value has been removed from the element
+       *   entity value has been removed from the element
        */
-      removeClass : function(element, className, done) {
-        className = isString(className) ?
-                      className :
-                      isArray(className) ? className.join(' ') : '';
+      removeClass : function(element, entity, done) {
+        entity = isString(entity) ?
+                      entity :
+                      isArray(entity) ? entity.join(' ') : '';
         forEach(element, function (element) {
-          jqLiteRemoveClass(element, className);
+          jqLiteRemoveClass(element, entity);
         });
         done && $timeout(done, 0, false);
       },
@@ -5342,7 +5342,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
        * Adds the CSS class value specified by the classVal parameter to the element. If animations
        * are enabled then an animation will be triggered for the class addition.
        *
-       * @param {string} classVal The className value that will be added to the element
+       * @param {string} classVal The entity value that will be added to the element
        */
       $addClass : function(classVal) {
         if(classVal && classVal.length > 0) {
@@ -5360,7 +5360,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
        * Removes the CSS class value specified by the classVal parameter from the element. If
        * animations are enabled then an animation will be triggered for the class removal.
        *
-       * @param {string} classVal The className value that will be removed from the element
+       * @param {string} classVal The entity value that will be removed from the element
        */
       $removeClass : function(classVal) {
         if(classVal && classVal.length > 0) {
@@ -5378,8 +5378,8 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
        * Adds and removes the appropriate CSS class values to the element based on the difference
        * between the new and old CSS class values (specified as newClasses and oldClasses).
        *
-       * @param {string} newClasses The current CSS className value
-       * @param {string} oldClasses The former CSS className value
+       * @param {string} newClasses The current CSS entity value
+       * @param {string} oldClasses The former CSS entity value
        */
       $updateClass : function(newClasses, oldClasses) {
         this.$removeClass(tokenDifference(oldClasses, newClasses));
@@ -5543,9 +5543,9 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       };
     }
 
-    function safeAddClass($element, className) {
+    function safeAddClass($element, entity) {
       try {
-        $element.addClass(className);
+        $element.addClass(entity);
       } catch(e) {
         // ignore, since it means that we are trying to set class on
         // SVG element, where class name is read-only.
@@ -5674,7 +5674,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       var nodeType = node.nodeType,
           attrsMap = attrs.$attr,
           match,
-          className;
+          entity;
 
       switch(nodeType) {
         case 1: /* Element */
@@ -5717,14 +5717,14 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
           }
 
           // use class as directive
-          className = node.className;
-          if (isString(className) && className !== '') {
-            while (match = CLASS_DIRECTIVE_REGEXP.exec(className)) {
+          entity = node.entity;
+          if (isString(entity) && entity !== '') {
+            while (match = CLASS_DIRECTIVE_REGEXP.exec(entity)) {
               nName = directiveNormalize(match[2]);
               if (addDirective(directives, nName, 'C', maxPriority, ignoreDirective)) {
                 attrs[nName] = trim(match[3]);
               }
-              className = className.substr(match.index + match[0].length);
+              entity = entity.substr(match.index + match[0].length);
             }
           }
           break;
@@ -16526,7 +16526,7 @@ var VALID_CLASS = 'ng-valid',
         expect(contentEditable.text()).toEqual('Change me!');
         input('userContent').enter('');
         expect(contentEditable.text()).toEqual('');
-        expect(contentEditable.prop('className')).toMatch(/ng-invalid-required/);
+        expect(contentEditable.prop('entity')).toMatch(/ng-invalid-required/);
       });
     </file>
  * </example>
@@ -17341,28 +17341,28 @@ function classDirective(name, selector) {
      <file name="scenario.js">
        it('should let you toggle the class', function() {
 
-         expect(element('.doc-example-live p:first').prop('className')).not().toMatch(/bold/);
-         expect(element('.doc-example-live p:first').prop('className')).not().toMatch(/red/);
+         expect(element('.doc-example-live p:first').prop('entity')).not().toMatch(/bold/);
+         expect(element('.doc-example-live p:first').prop('entity')).not().toMatch(/red/);
 
          input('important').check();
-         expect(element('.doc-example-live p:first').prop('className')).toMatch(/bold/);
+         expect(element('.doc-example-live p:first').prop('entity')).toMatch(/bold/);
 
          input('error').check();
-         expect(element('.doc-example-live p:first').prop('className')).toMatch(/red/);
+         expect(element('.doc-example-live p:first').prop('entity')).toMatch(/red/);
        });
 
        it('should let you toggle string example', function() {
-         expect(element('.doc-example-live p:nth-of-type(2)').prop('className')).toBe('');
+         expect(element('.doc-example-live p:nth-of-type(2)').prop('entity')).toBe('');
          input('style').enter('red');
-         expect(element('.doc-example-live p:nth-of-type(2)').prop('className')).toBe('red');
+         expect(element('.doc-example-live p:nth-of-type(2)').prop('entity')).toBe('red');
        });
 
        it('array example should have 3 classes', function() {
-         expect(element('.doc-example-live p:last').prop('className')).toBe('');
+         expect(element('.doc-example-live p:last').prop('entity')).toBe('');
          input('style1').enter('bold');
          input('style2').enter('strike');
          input('style3').enter('red');
-         expect(element('.doc-example-live p:last').prop('className')).toBe('bold strike red');
+         expect(element('.doc-example-live p:last').prop('entity')).toBe('bold strike red');
        });
      </file>
    </example>
@@ -17391,17 +17391,17 @@ function classDirective(name, selector) {
      </file>
      <file name="scenario.js">
        it('should check ng-class', function() {
-         expect(element('.doc-example-live span').prop('className')).not().
+         expect(element('.doc-example-live span').prop('entity')).not().
            toMatch(/my-class/);
 
          using('.doc-example-live').element(':button:first').click();
 
-         expect(element('.doc-example-live span').prop('className')).
+         expect(element('.doc-example-live span').prop('entity')).
            toMatch(/my-class/);
 
          using('.doc-example-live').element(':button:last').click();
 
-         expect(element('.doc-example-live span').prop('className')).not().
+         expect(element('.doc-example-live span').prop('entity')).not().
            toMatch(/my-class/);
        });
      </file>
@@ -17455,9 +17455,9 @@ var ngClassDirective = classDirective('', true);
      </file>
      <file name="scenario.js">
        it('should check ng-class-odd and ng-class-even', function() {
-         expect(element('.doc-example-live li:first span').prop('className')).
+         expect(element('.doc-example-live li:first span').prop('entity')).
            toMatch(/odd/);
-         expect(element('.doc-example-live li:last span').prop('className')).
+         expect(element('.doc-example-live li:last span').prop('entity')).
            toMatch(/even/);
        });
      </file>
@@ -17503,9 +17503,9 @@ var ngClassOddDirective = classDirective('Odd', 0);
      </file>
      <file name="scenario.js">
        it('should check ng-class-odd and ng-class-even', function() {
-         expect(element('.doc-example-live li:first span').prop('className')).
+         expect(element('.doc-example-live li:first span').prop('entity')).
            toMatch(/odd/);
-         expect(element('.doc-example-live li:last span').prop('className')).
+         expect(element('.doc-example-live li:last span').prop('entity')).
            toMatch(/even/);
        });
      </file>

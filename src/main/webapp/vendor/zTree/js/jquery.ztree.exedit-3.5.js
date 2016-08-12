@@ -782,7 +782,7 @@
                     return;
                 }
                 var aObj = $$(node, consts.id.A, setting),
-                    editStr = "<span class='" + consts.className.BUTTON + " edit' id='" + node.tId + consts.id.EDIT + "' title='" + tools.apply(setting.edit.renameTitle, [setting.treeId, node], setting.edit.renameTitle) + "' treeNode" + consts.id.EDIT + " style='display:none;'></span>";
+                    editStr = "<span class='" + consts.entity.BUTTON + " edit' id='" + node.tId + consts.id.EDIT + "' title='" + tools.apply(setting.edit.renameTitle, [setting.treeId, node], setting.edit.renameTitle) + "' treeNode" + consts.id.EDIT + " style='display:none;'></span>";
                 aObj.append(editStr);
 
                 $$(node, consts.id.EDIT, setting).bind('click',
@@ -801,7 +801,7 @@
                     return;
                 }
                 var aObj = $$(node, consts.id.A, setting),
-                    removeStr = "<span class='" + consts.className.BUTTON + " remove' id='" + node.tId + consts.id.REMOVE + "' title='" + tools.apply(setting.edit.removeTitle, [setting.treeId, node], setting.edit.removeTitle) + "' treeNode" + consts.id.REMOVE + " style='display:none;'></span>";
+                    removeStr = "<span class='" + consts.entity.BUTTON + " remove' id='" + node.tId + consts.id.REMOVE + "' title='" + tools.apply(setting.edit.removeTitle, [setting.treeId, node], setting.edit.removeTitle) + "' treeNode" + consts.id.REMOVE + " style='display:none;'></span>";
                 aObj.append(removeStr);
 
                 $$(node, consts.id.REMOVE, setting).bind('click',
@@ -1088,8 +1088,8 @@
                 var liObj = $$(node, setting),
                     aObj = $$(node, consts.id.A, setting),
                     ulObj = $$(node, consts.id.UL, setting),
-                    oldClass = consts.className.LEVEL + oldLevel,
-                    newClass = consts.className.LEVEL + node.level;
+                    oldClass = consts.entity.LEVEL + oldLevel,
+                    newClass = consts.entity.LEVEL + node.level;
                 liObj.removeClass(oldClass);
                 liObj.addClass(newClass);
                 aObj.removeClass(oldClass);
