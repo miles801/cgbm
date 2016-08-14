@@ -18,8 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.InvalidParameterException;
-import java.util.Arrays;
-import java.util.Enumeration;
+import java.util.*;
 
 /**
  * @author Michael
@@ -34,44 +33,16 @@ public class CodeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BeanConfig beanConfig = wrapDataToEntity(req, BeanConfig.class);
         CodeEngine engine = new CodeEngine();
-        // entity
-        engine.generate(TemplateUtils.loadTemplate("template/domain.ftl"), beanConfig, getFile(beanConfig, "entity"));
-        // bo
-        engine.generate(TemplateUtils.loadTemplate("template/bo.ftl"), beanConfig, getFile(beanConfig, "bo"));
-        // service
-        engine.generate(TemplateUtils.loadTemplate("template/service.ftl"), beanConfig, getFile(beanConfig, "service"));
-        // serviceImpl
-        engine.generate(TemplateUtils.loadTemplate("template/service_impl.ftl"), beanConfig, getFile(beanConfig, "serviceImpl"));
-        // dao
-        engine.generate(TemplateUtils.loadTemplate("template/dao.ftl"), beanConfig, getFile(beanConfig, "dao"));
-        // daoImpl
-        engine.generate(TemplateUtils.loadTemplate("template/dao_impl.ftl"), beanConfig, getFile(beanConfig, "daoImpl"));
-        // vo
-        engine.generate(TemplateUtils.loadTemplate("template/vo.ftl"), beanConfig, getFile(beanConfig, "vo"));
-        // dto
+        List<String> items = beanConfig.getItems();
+        // 导入
         if (beanConfig.isImportData()) {
-            engine.generate(TemplateUtils.loadTemplate("template/dto.ftl"), beanConfig, getFile(beanConfig, "dto"));
+            items.add("import");
+            items.add("import_js");
         }
-        // ctrl
-        engine.generate(TemplateUtils.loadTemplate("template/ctrl.ftl"), beanConfig, getFile(beanConfig, "ctrl"));
-
-        // js
-        engine.generate(TemplateUtils.loadTemplate("template/js_root.ftl"), beanConfig, getFile(beanConfig, "js"));
-        // list.jsp
-        engine.generate(TemplateUtils.loadTemplate("template/list_page.ftl"), beanConfig, getFile(beanConfig, "list"));
-        // list.js
-        engine.generate(TemplateUtils.loadTemplate("template/list_js.ftl"), beanConfig, getFile(beanConfig, "list_js"));
-        // edit.jsp
-        engine.generate(TemplateUtils.loadTemplate("template/edit_page.ftl"), beanConfig, getFile(beanConfig, "edit"));
-        // edit.js
-        engine.generate(TemplateUtils.loadTemplate("template/edit_js.ftl"), beanConfig, getFile(beanConfig, "edit_js"));
-        if (beanConfig.isImportData()) {
-            // import.jsp
-            engine.generate(TemplateUtils.loadTemplate("template/import.ftl"), beanConfig, getFile(beanConfig, "import"));
-            // import.js
-            engine.generate(TemplateUtils.loadTemplate("template/import_js.ftl"), beanConfig, getFile(beanConfig, "import_js"));
+        for (String item : items) {
+            // entity
+            engine.generate(TemplateUtils.loadTemplate("template/" + item + ".ftl"), beanConfig, getFile(beanConfig, item));
         }
-
         System.out.println("文件生成完毕.....");
     }
 
@@ -93,18 +64,18 @@ public class CodeServlet extends HttpServlet {
             path += "/eccrm-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/dto/" + entity + "DTO.java";
         } else if ("dao".equals(type)) {
             path += "/eccrm-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/dao/" + entity + "Dao.java";
-        } else if ("daoImpl".equals(type)) {
+        } else if ("dao_impl".equals(type)) {
             path += "/eccrm-" + module + "/" + module + "-impl/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/dao/impl/" + entity + "DaoImpl.java";
         } else if ("service".equals(type)) {
             path += "/eccrm-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/service/" + entity + "Service.java";
-        } else if ("serviceImpl".equals(type)) {
+        } else if ("service_impl".equals(type)) {
             path += "/eccrm-" + module + "/" + module + "-impl/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/service/impl/" + entity + "ServiceImpl.java";
         } else if ("ctrl".equals(type)) {
             path += "/eccrm-" + module + "/" + module + "-web/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/web/" + entity + "Ctrl.java";
         } else {
             // 前台部分
             path += "/web/src/main/webapp/app/" + module + "/" + module2 + "/";
-            if ("js".equals(type)) {
+            if ("js_root".equals(type)) {
                 path += StringUtils.lowerCaseFirst(entity) + "/" + StringUtils.lowerCaseFirst(entity) + ".js";
             } else if ("list".equals(type)) {
                 path += StringUtils.lowerCaseFirst(entity) + "/" + StringUtils.lowerCaseFirst(entity) + "_list.jsp";

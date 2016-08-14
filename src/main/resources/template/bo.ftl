@@ -21,6 +21,7 @@ public class ${entity}Bo implements BO{
     <#list fields as attr>
         <#if attr.condition??>
             <#if attr.condition == true>
+    // ${attr.name}
     @Condition
     private ${attr.type} ${attr.field};
 

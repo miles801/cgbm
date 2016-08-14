@@ -78,6 +78,22 @@
             {name: '树', value: "tree"}
         ];
 
+        $scope.items = [
+            {name: "类", value: "entity", checked: true},
+            {name: "BO", value: "bo", checked: true},
+            {name: "vo", value: "vo", checked: true},
+            {name: "Dao", value: "dao", checked: true},
+            {name: "Dao实现", value: "dao_impl", checked: true},
+            {name: "Service", value: "service", checked: true},
+            {name: "Service实现", value: "service_impl", checked: true},
+            {name: "Controller", value: "ctrl", checked: true},
+            {name: "根js", value: "js_root", checked: true},
+            {name: "列表页面", value: "list", checked: true},
+            {name: "列表页面JS", value: "list_js", checked: true},
+            {name: "编辑页面", value: "edit", checked: true},
+            {name: "编辑页面JS", value: "edit_js", checked: true}
+        ];
+
         $scope.add = function (bean) {
             var fields = $scope.beans.fields || [];
             if (fields.length == 0) {
@@ -97,6 +113,17 @@
         $scope.remove = function (index) {
             $scope.beans.fields.splice(index, 1);
         };
+        var swapItems = function (index1, index2) {
+            var fields = $scope.beans.fields;
+            fields[index1] = fields.splice(index2, 1, fields[index1])[0];
+        };
+        $scope.up = function (index) {
+            swapItems(index, index - 1);
+        };
+
+        $scope.down = function (index) {
+            swapItems(index, index + 1);
+        };
 
 
         $scope.build = function () {
@@ -105,6 +132,18 @@
                 AlertFactory.error('请填写字段信息!');
                 return false;
             }
+
+            var items = [];
+            angular.forEach($scope.items, function (o) {
+                if (o.checked) {
+                    items.push(o.value);
+                }
+            });
+            if (items.length == 0) {
+                AlertFactory.error('请选择要生成的内容!');
+                return;
+            }
+            $scope.beans.items = items;
             var names = {};
             var error = false;
             angular.forEach(fields, function (o) {
@@ -122,7 +161,7 @@
                 .success(function () {
                     alert('成功');
                 })
-                .errors(function () {
+                .error(function () {
                     alert('请求失败!');
                 });
         };

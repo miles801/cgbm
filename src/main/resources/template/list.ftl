@@ -182,7 +182,7 @@
                                         <td bo-text="${field.field}"></td>
                                     </#if>
                                 </#list>
-                                <td>
+                                <td class="text-left">
                                     <a class="btn-op blue" ng-click="modify(foo.id);">编辑</a>
                                     <#if deleted>
                                     <a class="btn-op red" ng-click="remove(foo.id);">删除</a>

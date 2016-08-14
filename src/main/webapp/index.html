@@ -145,6 +145,14 @@
                     <span class="info">增加导出数据的功能!</span>
                 </div>
             </div>
+            <div class="row">
+                <div class="form-label col-1-half">
+                    <label>构建内容:</label>
+                </div>
+                <div class="col-10-half">
+                    <label ng-repeat="foo in items" style="margin-left:{{ $index==0?'0':'15px' }};"><input type="checkbox" ng-model="foo.checked" /> <span style="margin-left:5px;">{{ foo.name }}</span></label>
+                </div>
+            </div>
         </div>
 
         <div class="ycrl title-3">字段信息</div>
@@ -198,9 +206,11 @@
                         <td><input type="checkbox" ng-model="foo.edit"/></td>
                         <td><input type="checkbox" ng-model="foo.require"/></td>
                         <td><input type="checkbox" ng-model="foo.unique"/></td>
-                        <td>
+                        <td class="text-left">
                             <a ng-click="add(foo)" class="btn-op blue">复制</a>
-                            <a ng-click="remote($index)" class="btn-op red">删除</a>
+                            <a ng-click="remove($index)" class="btn-op red">删除</a>
+                            <a ng-click="up($index)" ng-show="$index!=0" class="btn-op yellow">↑</a>
+                            <a ng-click="down($index)" ng-show="$index<beans.fields.length-1" class="btn-op green">↓</a>
                         </td>
                     </tr>
                     </tbody>

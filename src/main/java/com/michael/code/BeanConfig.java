@@ -82,6 +82,17 @@ public class BeanConfig {
     // 是否允许导入数据
     private boolean importData = false;
 
+    // 要生成的选项
+    private List<String> items;
+
+    public List<String> getItems() {
+        return items;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
+    }
+
     public boolean isImportData() {
         return importData;
     }
