@@ -9,9 +9,28 @@
         '${module}.${module2}.${entity?uncap_first}'
     ]);
     app.controller('Ctrl', function ($scope, CommonUtils, AlertFactory, ModalFactory, ${entity}Service, ${entity}Param) {
-        $scope.condition = { };
+        var defaults = { }; // 默认查询条件
+
+        $scope.condition = angular.extend({}, defaults);
+
+        // 重置查询条件并查询
+        $scope.reset = function () {
+            $scope.condition = angular.extend({}, defaults);
+            $scope.query();
+        };
+
+    <#list fields as attr>
+        <#if attr.param??>
+
+        // 参数：${attr.name}
+        $scope.${attr.field}s = [{name:'全部'}];
+            ${entity}Param.${attr.field}(function(o) {
+            $scope.${attr.field}s.push.apply($scope.${attr.field}s, o);
+        });
+        </#if>
+    </#list>
     
-        //查询数据
+        // 查询数据
         <#if page==false>
         $scope.query = function() {
             var promise = ${entity}Service.pageQuery($scope.condition, function(data){
@@ -69,7 +88,7 @@
         $scope.add = function () {
             CommonUtils.addTab({
                 title: '新增${name}',
-                url: '/${module}/module2/${entity?uncap_first}/add',
+                url: '/${module}/${module2}/${entity?uncap_first}/add',
                 onUpdate: $scope.query
             });
         };
@@ -78,7 +97,7 @@
         $scope.modify = function (id) {
             CommonUtils.addTab({
                 title: '更新${name}',
-                url: '/${module}/module2/${entity?uncap_first}/modify?id=' + id,
+                url: '/${module}/${module2}/${entity?uncap_first}/modify?id=' + id,
                 onUpdate: $scope.query
             });
         };
@@ -87,7 +106,7 @@
         $scope.view = function (id) {
             CommonUtils.addTab({
                 title: '查看${name}',
-                url: '/${module}/module2/${entity?uncap_first}/detail?id=' + id
+                url: '/${module}/${module2}/${entity?uncap_first}/detail?id=' + id
             });
         };
 

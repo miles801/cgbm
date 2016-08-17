@@ -41,6 +41,16 @@ public class BeanField {
     // 3. 在service的update和save方法时，调用validate方法进行唯一性校验
     private boolean unique;
 
+    // 参数编号！如果该属性有值，则表示为参数，值为参数类型的编号
+    private String param;
+
+    public String getParam() {
+        return param;
+    }
+
+    public void setParam(String param) {
+        this.param = param;
+    }
 
     public String getField() {
         return field;

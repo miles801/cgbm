@@ -46,7 +46,7 @@
         <label validate-error="form.${field.field}">${name}:</label>
     </div>
     <select  class="w200" ng-model="${bname}.${field.field}" name="${field.field}" <#if field.require!false>validate validate-required</#if>
-             ng-options="foo.name as foo.value for foo in ${field.field}s">
+             ng-options="foo.value as foo.name for foo in ${field.field}s">
     </select >
 </div>
 <#elseif type == 'date'>

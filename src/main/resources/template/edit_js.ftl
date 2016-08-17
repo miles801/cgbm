@@ -6,6 +6,16 @@
     var app = angular.module('${module}.${module2}.${entity?uncap_first}.edit', [
         'eccrm.angular',
         'eccrm.angularstrap',
+<#if tree>
+        'eccrm.angular.ztree',
+<#else >
+    <#list fields as attr>
+        <#if attr.type2=='tree'>
+        'eccrm.angular.ztree',
+            <#break >
+        </#if>
+    </#list>
+</#if>
         '${module}.${module2}.${entity?uncap_first}'
     ]);
 
@@ -15,6 +25,35 @@
         var id = $('#id').val();
 
         $scope.back = CommonUtils.back;
+
+<#-- 参数 -->
+    <#list fields as attr>
+        <#if attr.param??>
+
+        // 参数：${attr.name}
+        $scope.${attr.field}s = [{name:'请选择...'}];
+        ${entity}Param.${attr.field}(function(o) {
+            $scope.${attr.field}s.push.apply($scope.${attr.field}s, o);
+        });
+        </#if>
+    </#list>
+
+<#-- 树形 -->
+<#list fields as field>
+    <#if field.type2=='tree'>
+
+    // 树：${field.name}
+    $scope.${field.field}Tree = ${entity}Param.${field.field}Tree(function (o) {
+        $scope.beans.${field.field} = o.id;
+        $scope.beans.${field.field?substring(0,field.field?length-2)}Name = o.name;
+    });
+    // 清除数据
+    $scope.clear${field.field?cap_first} = function () {
+        $scope.beans.${field.field} = null;
+        $scope.beans.${field.field?substring(0,field.field?length-2)}Name = null;
+    };
+    </#if>
+</#list>
 
         <#if attachment>
         <#-- 附件 -->

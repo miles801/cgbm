@@ -27,6 +27,9 @@
 
             // 批量禁用
             disable: {method: 'POST', params: {method: 'disable', ids:'@ids'}, isArray: false},
+
+            // 查询所有有效的数据，不带分页
+            queryValid: {method: 'POST', params: {method: 'query-valid'}, isArray: false},
 </#if>
 <#if importData>
             // 导入数据
@@ -44,10 +47,40 @@
         })
     });
 
-    app.service('${entity}Param', function(ParameterLoader) {
-        return {
-
+    app.service('${entity}Param', function(ParameterLoader<#if !deleted>,CommonUtils,${entity}Service</#if>) {
+        var o = {
+<#if !deleted>
+            /**
+            * 查询有效的数据并返回一个树形对象，适用于ztree-single
+            * @param callback 选中节点后的回调
+            */
+            validTree: function (callback) {
+                return {
+                    data: function () {
+                        return CommonUtils.promise(function (defer) {
+                            var promise = ${entity}Service.queryValid(function (data) {
+                                defer.resolve(data.data || []);
+                            });
+                            CommonUtils.loading(promise);
+                        });
+                    },
+                    position: 'fixed',
+                    click: callback
+                };
+            }
+</#if>
         };
+<#list fields as attr>
+    <#if attr.param??>
+
+        // ${attr.name}
+        o[${attr.field}] = function(callback){
+            ParameterLoader.loadSysParam('${attr.param}', callback);
+        };
+
+    </#if>
+</#list>
+        return o;
     });
 
 <#if modal == true>
@@ -61,7 +94,7 @@
             options = angular.extend({}, defaults, options);
             callback = callback || options.callback;
             var modal = $modal({
-                template: CommonUtils.contextPathURL('/app/base/parameter/template/param-type-modal.ftl.html'),
+                template: CommonUtils.contextPathURL('/app/${module}/${module2}/${entity?uncap_first}/template/${entity?uncap_first}-modal.ftl.html'),
                 backdrop: 'static'
             });
             var $scope = modal.$scope;

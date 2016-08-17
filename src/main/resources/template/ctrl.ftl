@@ -120,6 +120,16 @@ public class ${entity}Ctrl extends BaseController {
         ${entity?uncap_first}Service.disable(idArr);
         GsonUtils.printSuccess(response);
     }
+
+    // 查询所有有效的数据，不使用分页
+    @ResponseBody
+    @RequestMapping(value = "/query-valid", method = RequestMethod.POST)
+    public void queryValid(HttpServletRequest request, HttpServletResponse response) {
+        ${entity}Bo bo = GsonUtils.wrapDataToEntity(request, ${entity}Bo.class);
+        List<${entity}> data = ${entity?uncap_first}Service.queryValid(bo);
+        GsonUtils.printData(response, data);
+    }
+
     </#if>
     @ResponseBody
     @RequestMapping(value = "/delete", params = {"ids"}, method = RequestMethod.DELETE)

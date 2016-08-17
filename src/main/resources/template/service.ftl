@@ -51,6 +51,13 @@ public interface ${entity}Service {
     * 批量禁用
     */
     void disable(String []ids);
+
+    /**
+    * 查询所有有效的数据（不使用分页）
+    * @param bo 可选的查询条件
+    */
+    List<${entity}> queryValid(${entity}Bo bo);
+
 </#if>
 
 <#if importData>

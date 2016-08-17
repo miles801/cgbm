@@ -169,6 +169,7 @@
                         <td>页面类型</td>
                         <td>长度</td>
                         <td>默认值</td>
+                        <td>参数编号</td>
                         <td>是否作为条件</td>
                         <td>列表展示</td>
                         <td>可编辑</td>
@@ -179,7 +180,7 @@
                     </thead>
                     <tbody class="table-body">
                     <tr ng-show="!beans.fields.length">
-                        <td colspan="13" class="text-center">
+                        <td colspan="14" class="text-center">
                             <a ng-click="add({})" class="btn-op green">添加</a>
                         </td>
                     </tr>
@@ -201,6 +202,7 @@
                         </td>
                         <td><input type="text" ng-model="foo.length"/></td>
                         <td><input type="text" ng-model="foo.defaultValue"/></td>
+                        <td><input type="text" ng-model="foo.param"/></td>
                         <td><input type="checkbox" ng-model="foo.condition"/></td>
                         <td><input type="checkbox" ng-model="foo.list"/></td>
                         <td><input type="checkbox" ng-model="foo.edit"/></td>

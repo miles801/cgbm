@@ -38,6 +38,7 @@ public class CodeServlet extends HttpServlet {
         if (beanConfig.isImportData()) {
             items.add("import");
             items.add("import_js");
+            items.add("dto");
         }
         for (String item : items) {
             // entity

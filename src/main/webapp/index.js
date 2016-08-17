@@ -8,50 +8,27 @@
         $scope.beans = {
             project: 'd:/workspace/lr/itsm',
             module: 'itsm',
-            module2: 'survey',
-            entity: 'Subject',
-            table: 'itms_subject',
-            attachment: true,
+            table: 'itsm_',
+            attachment: false,
             deleted: false,
             tree: false,
             level: true,    // 是否分模块
             modal: false,
-            importData: false,
-            export: false,
-            packPath: 'eccrm.survey.questionbank',
+            importData: true,
+            export: true,
+            packPath: 'com.michael',
             author: 'Michael',
             fields: [
                 {
                     edit: true,
-                    condition: true,
                     length: "100",
                     list: true,
+                    condition: true,
                     name: "标题",
                     field: "title",
                     require: true,
                     type: "String",
-                    type2: "text2"
-                },
-                {
-                    edit: true,
-                    condition: false,
-                    length: "1000",
-                    list: false,
-                    field: "description",
-                    name: "描述",
-                    type: "String",
-                    type2: "textarea"
-                },
-                {
-                    edit: true,
-                    field: "content",
-                    condition: false,
-                    length: "1000",
-                    list: false,
-                    name: "内容",
-                    require: true,
-                    type: "String",
-                    type2: "textarea"
+                    type2: "text"
                 }
             ]
         };

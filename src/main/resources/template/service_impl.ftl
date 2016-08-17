@@ -24,6 +24,7 @@ import eccrm.base.attachment.AttachmentProvider;
 import eccrm.base.attachment.utils.AttachmentHolder;
 import eccrm.base.attachment.vo.AttachmentVo;
 import eccrm.utils.BeanCopyUtils;
+import eccrm.base.parameter.service.ParameterContainer;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -139,6 +140,16 @@ public class ${entity}ServiceImpl implements ${entity}Service, BeanWrapCallback<
             ${entity?uncap_first}.setDeleted(true);
         }
     }
+
+    @Override
+    public List<${entity}> queryValid(${entity}Bo bo) {
+        if (bo == null) {
+            bo = new ${entity}Bo();
+        }
+        bo.setDeleted(false);
+        return ${entity?uncap_first}Dao.query(bo);
+    }
+
 </#if>
 
 <#if importData>
@@ -197,5 +208,14 @@ public class ${entity}ServiceImpl implements ${entity}Service, BeanWrapCallback<
 </#if>
     @Override
     public void doCallback(${entity} ${entity?uncap_first}, ${entity}Vo vo) {
+            ParameterContainer container = ParameterContainer.getInstance();
+        <#list fields as attr>
+            <#if attr.param??>
+
+                // ${attr.name}
+            vo.set${attr.field?cap_first}Name(container.getSystemName("${attr.param}", ${entity?uncap_first}.get${attr.field?cap_first}()));
+            </#if>
+        </#list>
+
     }
 }
