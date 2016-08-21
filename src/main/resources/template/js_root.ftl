@@ -11,7 +11,7 @@
     ]);
 
     app.service('${entity}Service', function (CommonUtils, $resource) {
-        return $resource(CommonUtils.contextPathURL('/${module}/<#if module2??>${module2}/</#if>${entity?uncap_first}/:method'), {}, {
+        return $resource(CommonUtils.contextPathURL('/${module}/${module2}/${entity?uncap_first}/:method'), {}, {
             // 保存
             save: {method: 'POST', params: {method: 'save'<#if attachment!false>,attachmentIds:'@attachmentIds'</#if>}, isArray: false},
 
@@ -71,10 +71,10 @@
 </#if>
         };
 <#list fields as attr>
-    <#if attr.param??>
+    <#if attr.param?has_content>
 
         // ${attr.name}
-        o[${attr.field}] = function(callback){
+        o['${attr.field}'] = function(callback){
             ParameterLoader.loadSysParam('${attr.param}', callback);
         };
 

@@ -20,7 +20,7 @@
         };
 
     <#list fields as attr>
-        <#if attr.param??>
+        <#if attr.param?has_content>
 
         // 参数：${attr.name}
         $scope.${attr.field}s = [{name:'全部'}];

@@ -41,7 +41,7 @@ import com.michael.tree.TreeBuilder;
 import java.util.List;
 import javax.annotation.Resource;
 /**
- * <#if author??>@author ${author}</#if>
+ * <#if author?has_content>@author ${author}</#if>
  */
 @Service("${entity?uncap_first}Service")
 public class ${entity}ServiceImpl implements ${entity}Service, BeanWrapCallback<${entity}, ${entity}Vo> {
@@ -85,7 +85,7 @@ public class ${entity}ServiceImpl implements ${entity}Service, BeanWrapCallback<
         Long total = ${entity?uncap_first}Dao.getTotal(bo);
         vo.setTotal(total);
         if (total==null || total == 0) return vo;
-        List<${entity}> ${entity?uncap_first}List = ${entity?uncap_first}Dao.query(bo);
+        List<${entity}> ${entity?uncap_first}List = ${entity?uncap_first}Dao.pageQuery(bo);
         List<${entity}Vo> vos = BeanWrapBuilder.newInstance()
             .setCallback(this)
             .wrapList(${entity?uncap_first}List,${entity}Vo.class);
@@ -112,7 +112,6 @@ public class ${entity}ServiceImpl implements ${entity}Service, BeanWrapCallback<
     @Override
     public List<${entity}Vo> query(${entity}Bo bo) {
         List<${entity}> ${entity?uncap_first}List = ${entity?uncap_first}Dao.query(bo);
-        Pager.clear();
         List<${entity}Vo> vos = BeanWrapBuilder.newInstance()
             .setCallback(this)
             .wrapList(${entity?uncap_first}List,${entity}Vo.class);
@@ -198,7 +197,7 @@ public class ${entity}ServiceImpl implements ${entity}Service, BeanWrapCallback<
             try {
                 engine.execute();
             } catch (Exception e) {
-                Assert.isTrue(false, String.format("数据异常!发生在第%d行,%d列!原因:%s", RuntimeContext.get().getRowIndex() + 1, RuntimeContext.get().getCellIndex() + 1, e.getMessage()));
+                Assert.isTrue(false, String.format("数据异常!发生在第%d行,%d列!原因:%s", RuntimeContext.get().getRowIndex(), RuntimeContext.get().getCellIndex(), e.getCause() == null ? e.getMessage() : e.getCause().getMessage()));
             }
             logger.info(String.format("导入数据成功,用时(%d)s....", (System.currentTimeMillis() - start) / 1000));
             new File(newFilePath).delete();
@@ -210,7 +209,7 @@ public class ${entity}ServiceImpl implements ${entity}Service, BeanWrapCallback<
     public void doCallback(${entity} ${entity?uncap_first}, ${entity}Vo vo) {
             ParameterContainer container = ParameterContainer.getInstance();
         <#list fields as attr>
-            <#if attr.param??>
+            <#if attr.param?has_content>
 
                 // ${attr.name}
             vo.set${attr.field?cap_first}Name(container.getSystemName("${attr.param}", ${entity?uncap_first}.get${attr.field?cap_first}()));

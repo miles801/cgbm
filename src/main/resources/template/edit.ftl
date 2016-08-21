@@ -116,40 +116,40 @@
                                 <div class="form-label w100">
                                     <label>${name}:</label>
                                 </div>
-                                <label class="w200">
-                                    <input type="text" ng-model="${bname}.${field.field}" eccrm-my97="{}" readonly placeholder="点击选择日期"/>
+                                <div class="w200 pr">
+                                    <input type="text" class="w200" ng-model="${bname}.${field.field}" eccrm-my97="{}" readonly placeholder="点击选择日期"/>
                                     <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除日期"></i></span>
-                                </label>
+                                </div>
                             </div>
                         <#elseif type == 'time'>
                             <div class="item w300">
                                 <div class="form-label w100">
                                     <label>${name}:</label>
                                 </div>
-                                <label class="w200">
-                                    <input type="text" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'HH:mm:ss'}" readonly placeholder="点击选择时间"/>
+                                <div class="w200 pr">
+                                    <input type="text" class="w200" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'HH:mm:ss'}" readonly placeholder="点击选择时间"/>
                                     <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除时间"></i></span>
-                                </label>
+                                </div>
                             </div>
                         <#elseif type == 'datetime'>
                             <div class="item w300">
                                 <div class="form-label w100">
                                     <label>${name}:</label>
                                 </div>
-                                <label class="w200">
-                                    <input type="text" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'yyyy-MM-dd HH:mm:ss'}" readonly placeholder="点击选择时间"/>
-                                    <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除时间"></i></span>
-                                </label>
+                                <div class="w200 pr">
+                                    <input type="text" class="w200" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'yyyy-MM-dd HH:mm:ss'}" readonly placeholder="点击选择时间"/>
+                                    <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除"></i></span>
+                                </div>
                             </div>
                         <#elseif type == 'tree'>
                             <div class="item w300">
                                 <div class="form-label w100">
                                     <label>${name}:</label>
                                 </div>
-                                <label class="w200">
-                                    <input type="text" ng-model="${bname}.${field.field}" ztree-single="${field.field}Tree" readonly placeholder="点击选择"/>
-                                    <span class="add-on"><i class="icons icon clock" ng-click="clear${field.field?cap_first}();" title="点击清除时间"></i></span>
-                                </label>
+                                <div class="w200 pr">
+                                    <input type="text" class="w200" ng-model="${bname}.${field.field}" ztree-single="${field.field}Tree" readonly placeholder="点击选择"/>
+                                    <span class="add-on"><i class="icons icon fork" ng-click="clear${field.field?cap_first}();" title="点击清除"></i></span>
+                                </div>
                             </div>
                         </#if>
                     </#if>
@@ -201,6 +201,6 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="<%=contextPath%>/app/${module}/<#if module2??>${module2}/</#if>${entity?uncap_first}/${entity?uncap_first}.js" ></script>
-<script type="text/javascript" src="<%=contextPath%>/app/${module}/<#if module2??>${module2}/</#if>${entity?uncap_first}/${entity?uncap_first}_edit.js" ></script>
+<script type="text/javascript" src="<%=contextPath%>/app/${module}/${module2}/${entity?uncap_first}/${entity?uncap_first}.js" ></script>
+<script type="text/javascript" src="<%=contextPath%>/app/${module}/${module2}/${entity?uncap_first}/${entity?uncap_first}_edit.js" ></script>
 </html>

@@ -6,7 +6,7 @@ import ${packPath}.domain.${entity};
 import ${packPath}.vo.${entity}Vo;
 import java.util.List;
 /**
- * <#if author??>@author ${author}</#if>
+ * <#if author?has_content>@author ${author}</#if>
  */
 public interface ${entity}Service {
 

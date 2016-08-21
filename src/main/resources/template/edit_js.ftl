@@ -28,7 +28,7 @@
 
 <#-- 参数 -->
     <#list fields as attr>
-        <#if attr.param??>
+        <#if attr.param?has_content>
 
         // 参数：${attr.name}
         $scope.${attr.field}s = [{name:'请选择...'}];
@@ -44,13 +44,13 @@
 
     // 树：${field.name}
     $scope.${field.field}Tree = ${entity}Param.${field.field}Tree(function (o) {
-        $scope.beans.${field.field} = o.id;
-        $scope.beans.${field.field?substring(0,field.field?length-2)}Name = o.name;
+        $scope.beans.${field.field?substring(0,field.field?length-4)}Id = o.id;
+        $scope.beans.${field.field} = o.name;
     });
     // 清除数据
     $scope.clear${field.field?cap_first} = function () {
+        $scope.beans.${field.field?substring(0,field.field?length-4)}Id = null;
         $scope.beans.${field.field} = null;
-        $scope.beans.${field.field?substring(0,field.field?length-2)}Name = null;
     };
     </#if>
 </#list>
@@ -61,13 +61,14 @@
         $scope.uploadOptions = {
             showLabel:false,
             bid : id ,
-            btype : '${module}.${module2}.${entity}'
+            btype : '${module}.${module2}.${entity}',
+            readonly: pageType == 'detail'
         };
         </#if>
         // 保存
         $scope.save = function (createNew) {
 <#if attachment>
-            $scope.beans.attachmentIds = $scope.uploadOptions.getAttachmentIds().join(',');
+            $scope.beans.attachmentIds = $scope.uploadOptions.getAttachment().join(',');
 </#if>
             var promise = ${entity}Service.save($scope.beans, function (data) {
                 AlertFactory.success('保存成功!');
@@ -86,7 +87,7 @@
         // 更新
         $scope.update = function () {
 <#if attachment>
-            $scope.beans.attachmentIds = $scope.uploadOptions.getAttachmentIds().join(',');
+            $scope.beans.attachmentIds = $scope.uploadOptions.getAttachment().join(',');
 </#if>
             var promise = ${entity}Service.update($scope.beans, function (data) {
                 AlertFactory.success('更新成功!');

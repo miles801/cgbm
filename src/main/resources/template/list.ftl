@@ -43,92 +43,76 @@
                 <#assign labelText="${field.name!''}"/>
                 <#if field.condition>
                     <#if type == "text" >
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label>${labelText}:</label>
+                        <div class="item w300">
+                            <div class="form-label w100">
+                                <label>${name}:</label>
                             </div>
-                            <input type="text" class="w120"  ng-model="${bname}.${field.field}"  maxlength="${field.length!40}"/>
-                        </div>
-                    <#elseif type == "text2" >
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label>${labelText}:</label>
-                            </div>
-                            <input type="text" class="w120"  ng-model="${bname}.${field.field}"  maxlength="${field.length!40}"/>
+                            <input type="text" class="w200"  ng-model="${bname}.${field.field}"  maxlength="${field.length!40}"/>
                         </div>
                     <#elseif type == 'checkbox'>
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label>${labelText}:</label>
+                        <div class="item w300">
+                            <div class="form-label w100">
+                                <label>${name}:</label>
                             </div>
-                            <label class="w120">
-                                <input type="checkbox" ng-model="${bname}.${field.field}" /> <span style="margin-left:5px;">${labelText}</span>
+                            <label class="w200">
+                                <input type="checkbox" ng-model="${bname}.${field.field}" /> <span style="margin-left:5px;">${name}</span>
                             </label>
                         </div>
                     <#elseif type == 'radio'>
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label>${labelText}:</label>
+                        <div class="item w300">
+                            <div class="form-label w100">
+                                <label>${name}:</label>
                             </div>
-                            <label class="w120" ng-repeat="foo in ${field.field}s" style="margin-left:$index==0?'0':'12px';">
-                                <input type="radio" ng-model="${bname}.${field.field}" /> <span style="margin-left:5px;">${labelText}</span>
+                            <label class="w200" ng-repeat="foo in ${field.field}s" style="margin-left:$index==0?'0':'12px';">
+                                <input type="radio" ng-model="${bname}.${field.field}" /> <span style="margin-left:5px;">${name}</span>
                             </label>
-                        </div>
-                    <#elseif type == 'textarea'>
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label>${labelText}:</label>
-                            </div>
-                            <textarea class="w120" rows="4" ng-model="${bname}.${field.field}" maxlength="1000" ></textarea >
                         </div>
                     <#elseif type =='select'>
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label validate-error="form.${field.field}">${labelText}:</label>
+                        <div class="item w300">
+                            <div class="form-label w100">
+                                <label >${name}:</label>
                             </div>
-                            <select  class="w120" ng-model="${bname}.${field.field}" name="${field.field}"
-                                     ng-options="foo.value as foo.name for foo in ${field.field}s">
-                            </select >
+                            <select  class="w200" ng-model="${bname}.${field.field}" ng-options="foo.value as foo.name for foo in ${field.field}s" ng-change="query();"> </select>
                         </div>
                     <#elseif type == 'date'>
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label>${labelText}:</label>
+                        <div class="item w300">
+                            <div class="form-label w100">
+                                <label>${name}:</label>
                             </div>
-                            <label class="w120">
-                                <input type="text" ng-model="${bname}.${field.field}" eccrm-my97="{}" readonly placeholder="点击选择日期"/>
+                            <div class="w200 pr">
+                                <input type="text" class="w200" ng-model="${bname}.${field.field}" eccrm-my97="{}" readonly placeholder="点击选择日期"/>
                                 <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除日期"></i></span>
-                            </label>
+                            </div>
                         </div>
                     <#elseif type == 'time'>
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label>${labelText}:</label>
+                        <div class="item w300">
+                            <div class="form-label w100">
+                                <label>${name}:</label>
                             </div>
-                            <label class="w120">
-                                <input type="text" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'HH:mm:ss'}" readonly placeholder="点击选择时间"/>
+                            <div class="w200 pr">
+                                <input type="text" class="w200" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'HH:mm:ss'}" readonly placeholder="点击选择时间"/>
                                 <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除时间"></i></span>
-                            </label>
+                            </div>
                         </div>
                     <#elseif type == 'datetime'>
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label>${labelText}:</label>
+                        <div class="item w300">
+                            <div class="form-label w100">
+                                <label>${name}:</label>
                             </div>
-                            <label class="w120">
-                                <input type="text" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'yyyy-MM-dd HH:mm:ss'}" readonly placeholder="点击选择时间"/>
-                                <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除时间"></i></span>
-                            </label>
+                            <div class="w200 pr">
+                                <input type="text" class="w200" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'yyyy-MM-dd HH:mm:ss'}" readonly placeholder="点击选择时间"/>
+                                <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除"></i></span>
+                            </div>
                         </div>
                     <#elseif type == 'tree'>
-                        <div class="item w200">
-                            <div class="form-label w80">
-                                <label>${labelText}:</label>
+                        <div class="item w300">
+                            <div class="form-label w100">
+                                <label>${name}:</label>
                             </div>
-                            <label class="w120">
-                                <input type="text" ng-model="${bname}.${field.field}" ztree-single="${field.field}Tree" readonly placeholder="点击选择"/>
-                                <span class="add-on"><i class="icons icon clock" ng-click="clear${field.field?cap_first}();" title="点击清除时间"></i></span>
-                            </label>
+                            <div class="w200 pr">
+                                <input type="text" class="w200" ng-model="${bname}.${field.field}" ztree-single="${field.field}Tree" readonly placeholder="点击选择"/>
+                                <span class="add-on"><i class="icons icon fork" ng-click="clear${field.field?cap_first}();" title="点击清除"></i></span>
+                            </div>
                         </div>
                     </#if>
                 </#if>
@@ -180,7 +164,11 @@
                                         <td><input type="checkbox" ng-model="foo.isSelected"/></td>
                                         <#list fields as field>
                                             <#if field.list>
+                                                <#if field.param?has_content>
+                                                <td bo-text="foo.${field.field}Name"></td>
+                                                <#else >
                                                 <td bo-text="foo.${field.field}"></td>
+                                                </#if>
                                             </#if>
                                         </#list>
                                         <td class="text-left">
@@ -205,6 +193,6 @@
     </#if>
     </div>
     </body>
-    <script type="text/javascript" src="<%=contextPath%>/app/${module}/<#if module2??>${module2}/</#if>${entity?uncap_first}/${entity?uncap_first}.js"></script>
-    <script type="text/javascript" src="<%=contextPath%>/app/${module}/<#if module2??>${module2}/</#if>${entity?uncap_first}/${entity?uncap_first}_list.js"></script>
+    <script type="text/javascript" src="<%=contextPath%>/app/${module}/${module2}/${entity?uncap_first}/${entity?uncap_first}.js"></script>
+    <script type="text/javascript" src="<%=contextPath%>/app/${module}/${module2}/${entity?uncap_first}/${entity?uncap_first}_list.js"></script>
 </html>

@@ -14,7 +14,7 @@ import java.util.Date;
 </#if>
 
 /**
- * <#if author??>@author ${author}</#if>
+ * <#if author?has_content>@author ${author}</#if>
  */
 public class ${entity}Bo implements BO{
 <#if fields?? >

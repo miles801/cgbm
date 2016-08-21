@@ -15,7 +15,7 @@ import eccrm.base.attachment.AttachmentSymbol;
 </#if>
 /**
  * ${name}
- * <#if author??>@author ${author}</#if>
+ * <#if author?has_content>@author ${author}</#if>
  */
 @Entity
 @Table(name = "${table}")
@@ -24,7 +24,7 @@ public class ${entity} extends CommonDomain <#if tree>implements Tree</#if><#if 
 <#-- 字段定义 -->
 <#list fields as attr>
     <#assign type=(attr.type!'string')>
-    @ApiField(value="${attr.name}"<#if attr.param??>,desc="参数:${attr.param}"</#if>)
+    @ApiField(value="${attr.name}"<#if attr.param?has_content>,desc="参数:${attr.param}"</#if>)
     <#if attr.require>
     @NotNull
     </#if>

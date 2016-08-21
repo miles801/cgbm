@@ -5,7 +5,7 @@ import com.michael.poi.annotation.Col;
 import com.michael.poi.annotation.ImportConfig;
 import com.michael.poi.core.DTO;
 /**
- * <#if author??>@author ${author}</#if>
+ * <#if author?has_content>@author ${author}</#if>
  */
 @ImportConfig(file = "", startRow = 1)
 public class ${entity}DTO implements DTO {

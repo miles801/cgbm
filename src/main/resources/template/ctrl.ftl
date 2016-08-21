@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * <#if author??>@author ${author}</#if>
+ * <#if author?has_content>@author ${author}</#if>
  */
 @Controller
 @RequestMapping(value = {"/${module}/${module2}/${entity?uncap_first}"})
@@ -160,7 +160,9 @@ public class ${entity}Ctrl extends BaseController {
         response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-disposition", disposition);
         try {
-            new ExportEngine().export(response.getOutputStream(), this.getClass().getClassLoader().getResourceAsStream("export_${entity?uncap_first}.xlsx"), o);
+            InputStream inputStream = ${entity}Ctrl.class.getClassLoader().getResourceAsStream("export_${entity?uncap_first}.xlsx");
+            Assert.notNull(inputStream, "数据导出失败!模板文件不存在，请与管理员联系!");
+            new ExportEngine().export(response.getOutputStream(), inputStream, o);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -6,7 +6,7 @@ import ${packPath}.vo.${entity}Vo;
 import java.util.List;
 
 /**
- * <#if author??>@author ${author}</#if>
+ * <#if author?has_content>@author ${author}</#if>
  */
 public interface ${entity}Dao {
 
@@ -15,9 +15,14 @@ public interface ${entity}Dao {
     void update(${entity} ${entity?uncap_first});
 
     /**
-     * 高级查询接口
+     * 高级查询接口，不使用分页
      */
     List<${entity}> query(${entity}Bo bo);
+
+    /**
+     * 高级查询接口，使用分页
+     */
+    List<${entity}> pageQuery(${entity}Bo bo);
 
     /**
      * 查询总记录数

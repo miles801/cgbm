@@ -15,7 +15,7 @@ import java.util.List;
 
 
 /**
- * <#if author??>@author ${author}</#if>
+ * <#if author?has_content>@author ${author}</#if>
  */
 @Repository("${entity?uncap_first}Dao")
 public class ${entity}DaoImpl extends HibernateDaoHelper implements ${entity}Dao {
@@ -34,6 +34,14 @@ public class ${entity}DaoImpl extends HibernateDaoHelper implements ${entity}Dao
     @SuppressWarnings("unchecked")
     public List<${entity}> query(${entity}Bo bo) {
         Criteria criteria = createCriteria(${entity}.class);
+        initCriteria(criteria, bo);
+        return criteria.list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<${entity}> pageQuery(${entity}Bo bo) {
+        Criteria criteria = createPagerCriteria(${entity}.class);
         initCriteria(criteria, bo);
         return criteria.list();
     }
