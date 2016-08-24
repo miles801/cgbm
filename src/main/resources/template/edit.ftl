@@ -25,8 +25,8 @@
 <#else >
     <#list fields as attr>
         <#if attr.type2=='tree'>
-            <link rel="stylesheet" type="text/css" href="<%=contextPath%>/vendor/zTree/css/ztree.css">
-            <script type="text/javascript" src="<%=contextPath%>/static/ycrl/javascript/angular-ztree-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=contextPath%>/vendor/zTree/css/ztree.css">
+    <script type="text/javascript" src="<%=contextPath%>/static/ycrl/javascript/angular-ztree-all.js"></script>
         <#break >
         </#if>
     </#list>
@@ -71,11 +71,11 @@
                                 <input type="text" class="w200"  ng-model="${bname}.${field.field}" <#if field.require!false>validate validate-required</#if> maxlength="${field.length!40}"/>
                             </div>
                         <#elseif type == "text2" >
-                            <div class="item w700">
+                            <div class="item w900 break">
                                 <div class="form-label w100">
                                     <label>${name}:</label>
                                 </div>
-                                <input type="text" class="w600"  ng-model="${bname}.${field.field}" <#if field.require!false>validate validate-required</#if> maxlength="${field.length!40}"/>
+                                <input type="text" class="w800"  ng-model="${bname}.${field.field}" <#if field.require!false>validate validate-required</#if> maxlength="${field.length!40}"/>
                             </div>
                         <#elseif type == 'checkbox'>
                             <div class="item w300">
@@ -96,7 +96,7 @@
                                 </label>
                             </div>
                         <#elseif type == 'textarea'>
-                            <div class="item w900">
+                            <div class="item w900 break">
                                 <div class="form-label w100">
                                     <label>${name}:</label>
                                 </div>

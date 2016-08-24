@@ -81,8 +81,8 @@ public class ${entity}ServiceImpl implements ${entity}Service, BeanWrapCallback<
         <#if field.unique>
 
         // 验证重复 - ${field.name}
-        boolean has${field.field?cap_first} = ${entity?uncap_first}Dao.has${field.field?cap_first}(${entity?uncap_first}.get${field.field?cap_first}, ${entity?uncap_first}.getId());
-        Assert.isTree(!has${field.field?cap_first},"操作失败!${field.name}["+${entity?uncap_first}.get${field.field?cap_first}+"]已经存在!");
+        boolean has${field.field?cap_first} = ${entity?uncap_first}Dao.has${field.field?cap_first}(${entity?uncap_first}.get${field.field?cap_first}(), ${entity?uncap_first}.getId());
+        Assert.isTrue(!has${field.field?cap_first},"操作失败!${field.name}["+ ${entity?uncap_first}.get${field.field?cap_first}() +"]已经存在!");
 
         </#if>
     </#list>

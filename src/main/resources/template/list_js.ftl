@@ -110,6 +110,38 @@
             });
         };
 
+    <#if deleted==false>
+        // 启用
+        $scope.enable = function (id) {
+            ModalFactory.confirm({
+                scope: $scope,
+                content: '<span class="text-success">是否启用，请确认!</span>',
+                callback: function () {
+                    var promise = ${entity}Service.enable({ids: id}, function(){
+                        AlertFactory.success('操作成功!');
+                        $scope.query();
+                    });
+                    CommonUtils.loading((promise));
+                }
+            });
+        };
+
+        // 禁用
+        $scope.disable = function (id) {
+            ModalFactory.confirm({
+                scope: $scope,
+                content: '<span class="text-danger">是否禁用，请确认!</span>',
+                callback: function () {
+                    var promise = ${entity}Service.disable({ids: id}, function(){
+                        AlertFactory.success('操作成功!');
+                        $scope.query();
+                    });
+                    CommonUtils.loading((promise));
+                }
+            });
+        };
+    </#if>
+
         // 导出数据
         $scope.exportData = function () {
             if ($scope.pager.total < 1) {
