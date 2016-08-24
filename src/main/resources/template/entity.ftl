@@ -48,8 +48,6 @@ public class ${entity} extends CommonDomain <#if tree>implements Tree</#if><#if 
 
     @ApiField(value = "层级", desc = "该值由后台自动设置,最小值为0，表示首层")
     @Column
-    @Min(value = 0)
-    @Max(value = 20)
     private Integer level;
 
 
