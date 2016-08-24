@@ -9,6 +9,9 @@ import ${packPath}.domain.${entity};
 import ${packPath}.service.${entity}Service;
 import ${packPath}.vo.${entity}Vo;
 import org.springframework.stereotype.Controller;
+<#if export>
+import org.springframework.util.Assert;
+</#if>
 import org.springframework.web.bind.annotation.*;
 <#if export>
 import com.google.gson.Gson;
