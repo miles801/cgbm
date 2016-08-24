@@ -76,7 +76,17 @@ public class ${entity}ServiceImpl implements ${entity}Service, BeanWrapCallback<
 
     private void validate(${entity} ${entity?uncap_first}) {
         ValidatorUtils.validate(${entity?uncap_first});
+<#if fields??>
+    <#list fields as field>
+        <#if field.unique>
 
+        // 验证重复 - ${field.name}
+        boolean has${field.field?cap_first} = ${entity?uncap_first}Dao.has${field.field?cap_first}(${entity?uncap_first}.get${field.field?cap_first}, ${entity?uncap_first}.getId());
+        Assert.isTree(!has${field.field?cap_first},"操作失败!${field.name}["+${entity?uncap_first}.get${field.field?cap_first}+"]已经存在!");
+
+        </#if>
+    </#list>
+</#if>
     }
 
     @Override
