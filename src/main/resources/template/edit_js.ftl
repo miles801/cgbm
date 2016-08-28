@@ -99,9 +99,10 @@
         };
 
         // 加载数据
-        $scope.load = function (id) {
+        $scope.load = function (id, callback) {
             var promise = ${entity}Service.get({id: id}, function (data) {
                 $scope.beans = data.data || {};
+                callback && callback();
             });
             CommonUtils.loading(promise, 'Loading...');
         };
@@ -114,6 +115,7 @@
         } else if (pageType == 'detail') {
             $scope.load(id);
             $('input,textarea,select').attr('disabled', 'disabled');
+            $('span.add-on>.icons').remove();
         } else {
             AlertFactory.error($scope, '错误的页面类型');
         }
