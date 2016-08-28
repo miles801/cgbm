@@ -191,17 +191,25 @@ String contextPath = request.getContextPath();
                             <tr bindonce ng-repeat="foo in beans.data" ng-cloak>
                                 <td><input type="checkbox" ng-model="foo.isSelected"/></td>
                             <#list fields as field>
-                                <#if field.list>
-                                    <#if field.param?has_content>
-                                        <td bo-text="foo.${field.field}Name"></td>
-                                    <#else >
-                                        <td bo-text="foo.${field.field}"></td>
-                                    </#if>
+                                <#if field.list && field_index==0>
+                                <td>
+                                    <a ng-click="view(foo.id)" bo-text="foo.${field.field}" class="cp" title="点击查看详情"></a>
+                                </td>
+                                </#if>
+                                <#if field.list && field_index gt 0>
+                                        <#if field.param?has_content>
+                                <td bo-text="foo.${field.field}Name"></td>
+                                        <#else >
+                                <td bo-text="foo.${field.field}"></td>
+                                        </#if>
                                 </#if>
                             </#list>
                             <#if deleted>
                             <#else >
-                                <td bo-text="foo.deleted?'禁用':'启用'"></td>
+                                <td>
+                                    <a ng-class="{'green':!foo.deleted,'red':foo.deleted}" bo-text="foo.deleted?'禁用':'启用'"
+                                       class="bgc"></a>
+                                </td>
                             </#if>
                                 <td class="text-left">
                                     <a class="btn-op blue" ng-click="modify(foo.id);">编辑</a>
