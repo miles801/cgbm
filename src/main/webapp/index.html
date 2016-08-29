@@ -168,8 +168,8 @@
                         <td>数据类型</td>
                         <td>页面类型</td>
                         <td>长度</td>
-                        <td>默认值</td>
                         <td>参数编号</td>
+                        <td>ID</td>
                         <td>是否作为条件</td>
                         <td>列表展示</td>
                         <td>可编辑</td>
@@ -201,8 +201,8 @@
                             <span style="color: #ff0000;margin-left:3px;" ng-if="!foo.type">*</span>
                         </td>
                         <td><input type="text" ng-model="foo.length"/></td>
-                        <td><input type="text" ng-model="foo.defaultValue"/></td>
                         <td><input type="text" ng-model="foo.param"/></td>
+                        <td><input type="checkbox" ng-model="foo.id" ng-click="foo.condition=!foo.id;foo.list =foo.id;foo.edit=foo.id"/></td>
                         <td><input type="checkbox" ng-model="foo.condition"/></td>
                         <td><input type="checkbox" ng-model="foo.list"/></td>
                         <td><input type="checkbox" ng-model="foo.edit"/></td>

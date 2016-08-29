@@ -28,7 +28,12 @@ public class ${entity} extends CommonDomain <#if tree>implements Tree</#if><#if 
     <#if attr.require>
     @NotNull
     </#if>
+    <#if attr.type2=='richtext'>
+    // 富文本
+    @Lob
+    <#else >
     @Column( name="${attr.field}"<#if attr.require>,nullable=false</#if> <#if attr.unique>,unique=true</#if> <#if attr.type=='String' && attr.length??> ,length=${attr.length}</#if>)
+    </#if>
     private ${attr.type} ${attr.field};
 
 </#list>

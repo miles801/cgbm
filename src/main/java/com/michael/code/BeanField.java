@@ -44,6 +44,17 @@ public class BeanField {
     // 参数编号！如果该属性有值，则表示为参数，值为参数类型的编号
     private String param;
 
+    // 是否是ID，如果是，则不会在列表页面展示
+    private boolean id;
+
+    public boolean isId() {
+        return id;
+    }
+
+    public void setId(boolean id) {
+        this.id = id;
+    }
+
     public String getParam() {
         return param;
     }

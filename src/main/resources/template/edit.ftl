@@ -31,6 +31,14 @@
         </#if>
     </#list>
 </#if>
+<#list fields as attr>
+    <#if attr.type2=='richtext'>
+        <%-- 富文本 --%>
+        <script type="text/javascript" src="<%=contextPath%>/vendor/kindeditor-4.1.10/kindeditor-min.js"></script>
+        <script type="text/javascript" src="<%=contextPath%>/vendor/kindeditor-4.1.10/lang/zh_CN.js"></script>
+        <#break>
+    </#if>
+</#list>
     <script>
         window.angular.contextPathURL = '<%=contextPath%>';
     </script>
@@ -102,6 +110,13 @@
                                 </div>
                                 <textarea class="w800" rows="4" ng-model="${bname}.${field.field}" maxlength="1000" <#if field.require!false>validate validate-required</#if>></textarea >
                             </div>
+                        <#elseif type == 'richtext'>
+                            <div class="item w900 break">
+                                <div class="form-label w100">
+                                    <label>${name}:</label>
+                                </div>
+                                <textarea class="w800" rows="16" id="${field.field}"></textarea >
+                            </div>
                         <#elseif type =='select'>
                             <div class="item w300">
                                 <div class="form-label w100">
@@ -157,11 +172,11 @@
                     </div>
                     <#if attachment>
                     <div class="row float break">
-                        <div class="item w1000">
+                        <div class="item w900">
                             <div class="form-label w100">
                                 <label>附件:</label>
                             </div>
-                            <div class="w900">
+                            <div class="w800">
                                 <div  eccrm-upload="uploadOptions"></div>
                             </div>
                         </div>

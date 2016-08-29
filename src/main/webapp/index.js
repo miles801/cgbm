@@ -12,11 +12,11 @@
             attachment: false,
             deleted: false,
             tree: false,
-            level: true,    // 是否分模块
+            level: false,    // 是否分模块
             modal: false,
             importData: true,
             export: true,
-            packPath: 'com.michael',
+            packPath: 'com.michael.',
             author: 'Michael',
             fields: [
                 {
@@ -28,6 +28,7 @@
                     field: "title",
                     require: true,
                     type: "String",
+                    id: false,
                     type2: "text"
                 }
             ]
@@ -52,7 +53,8 @@
             {name: '日期', value: "date"},
             {name: '时间', value: "time"},
             {name: '日期时间', value: "datetime"},
-            {name: '树', value: "tree"}
+            {name: '树', value: "tree"},
+            {name: '富文本', value: "richtext"}
         ];
 
         $scope.items = [

@@ -24,7 +24,7 @@
 
         // 参数：${attr.name}
         $scope.${attr.field}s = [{name:'全部'}];
-            ${entity}Param.${attr.field}(function(o) {
+        ${entity}Param.${attr.field}(function(o) {
             $scope.${attr.field}s.push.apply($scope.${attr.field}s, o);
         });
         </#if>

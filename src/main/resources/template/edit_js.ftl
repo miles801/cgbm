@@ -55,6 +55,20 @@
     </#if>
 </#list>
 
+<#list fields as field>
+    <#if field.type2=='richtext'>
+    // 初始化富文本编辑器
+    var attachmentIds = [];
+    var editor = KindEditor.create('#certify', {
+        uploadJson: CommonUtils.contextPathURL('/attachment/upload2?dataType=jsp'),
+        afterUpload: function (url, obj) {
+            $scope.$apply(function () {
+                attachmentIds.push(obj.id)
+            });
+        }
+    });
+    </#if>
+</#list>
         <#if attachment>
         <#-- 附件 -->
         // 附件上传
@@ -67,6 +81,16 @@
         </#if>
         // 保存
         $scope.save = function (createNew) {
+<#list fields as field>
+    <#if field.type2=='richtext'>
+        // 获取富文本内容
+        if (!editor.text()) {
+            AlertFactory.error('请输入内容!');
+            return;
+        }
+        $scope.beans.attachmentIds = attachmentIds.join(',');
+    </#if>
+</#list>
 <#if attachment>
             $scope.beans.attachmentIds = $scope.uploadOptions.getAttachment().join(',');
 </#if>
@@ -86,6 +110,16 @@
 
         // 更新
         $scope.update = function () {
+<#list fields as field>
+    <#if field.type2=='richtext'>
+            // 获取富文本内容
+            if (!editor.text()) {
+                AlertFactory.error('请输入内容!');
+                return;
+            }
+            $scope.beans.attachmentIds = attachmentIds.join(',');
+    </#if>
+</#list>
 <#if attachment>
             $scope.beans.attachmentIds = $scope.uploadOptions.getAttachment().join(',');
 </#if>

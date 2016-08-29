@@ -42,7 +42,8 @@ String contextPath = request.getContextPath();
                         <#assign type="${field.type2!'text'}"/>
                         <#assign labelText="${field.name!''}"/>
                         <#if field.condition>
-                            <#if type == "text" >
+                            <#if field.id>
+                            <#elseif type == "text" >
                                 <div class="item w300">
                                     <div class="form-label w100">
                                         <label>${labelText}:</label>
@@ -168,7 +169,7 @@ String contextPath = request.getContextPath();
                                 </td>
                             <#assign size=2/>
                             <#list fields as field>
-                                <#if field.list>
+                                <#if field.list && !field.id>
                                     <#assign size=size+1/>
                                     <td>${field.name}</td>
                                 </#if>
@@ -191,12 +192,12 @@ String contextPath = request.getContextPath();
                             <tr bindonce ng-repeat="foo in beans.data" ng-cloak>
                                 <td><input type="checkbox" ng-model="foo.isSelected"/></td>
                             <#list fields as field>
-                                <#if field.list && field_index==0>
+                                <#if field.id>
+                                <#elseif field.list && field_index==0>
                                 <td>
                                     <a ng-click="view(foo.id)" bo-text="foo.${field.field}" class="cp" title="点击查看详情"></a>
                                 </td>
-                                </#if>
-                                <#if field.list && field_index gt 0>
+                                <#elseif field.list && field_index gt 0>
                                         <#if field.param?has_content>
                                 <td bo-text="foo.${field.field}Name"></td>
                                         <#else >
