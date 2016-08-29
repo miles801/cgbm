@@ -1,9 +1,9 @@
 package ${packPath}.web;
 
-import com.ycrl.core.web.BaseController;
-import com.ycrl.base.common.JspAccessType;
-import com.ycrl.core.pager.PageVo;
-import com.ycrl.utils.gson.GsonUtils;
+import com.michael.core.web.BaseController;
+import com.michael.common.JspAccessType;
+import com.michael.core.pager.PageVo;
+import com.michael.utils.gson.GsonUtils;
 import ${packPath}.bo.${entity}Bo;
 import ${packPath}.domain.${entity};
 import ${packPath}.service.${entity}Service;
@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.ycrl.utils.gson.DateStringConverter;
+import com.michael.utils.gson.DateStringConverter;
 import com.michael.poi.exp.ExportEngine;
 import org.apache.commons.io.IOUtils;
 import java.io.IOException;

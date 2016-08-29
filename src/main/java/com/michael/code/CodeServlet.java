@@ -56,23 +56,23 @@ public class CodeServlet extends HttpServlet {
 
         // 后台部分
         if ("entity".equals(type)) {
-            path += "/eccrm-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/domain/" + entity + ".java";
+            path += "/lrsoft-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/domain/" + entity + ".java";
         } else if ("bo".equals(type)) {
-            path += "/eccrm-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/bo/" + entity + "Bo.java";
+            path += "/lrsoft-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/bo/" + entity + "Bo.java";
         } else if ("vo".equals(type)) {
-            path += "/eccrm-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/vo/" + entity + "Vo.java";
+            path += "/lrsoft-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/vo/" + entity + "Vo.java";
         } else if ("dto".equals(type)) {
-            path += "/eccrm-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/dto/" + entity + "DTO.java";
+            path += "/lrsoft-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/dto/" + entity + "DTO.java";
         } else if ("dao".equals(type)) {
-            path += "/eccrm-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/dao/" + entity + "Dao.java";
+            path += "/lrsoft-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/dao/" + entity + "Dao.java";
         } else if ("dao_impl".equals(type)) {
-            path += "/eccrm-" + module + "/" + module + "-impl/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/dao/impl/" + entity + "DaoImpl.java";
+            path += "/lrsoft-" + module + "/" + module + "-impl/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/dao/impl/" + entity + "DaoImpl.java";
         } else if ("service".equals(type)) {
-            path += "/eccrm-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/service/" + entity + "Service.java";
+            path += "/lrsoft-" + module + "/" + module + "-api/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/service/" + entity + "Service.java";
         } else if ("service_impl".equals(type)) {
-            path += "/eccrm-" + module + "/" + module + "-impl/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/service/impl/" + entity + "ServiceImpl.java";
+            path += "/lrsoft-" + module + "/" + module + "-impl/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/service/impl/" + entity + "ServiceImpl.java";
         } else if ("ctrl".equals(type)) {
-            path += "/eccrm-" + module + "/" + module + "-web/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/web/" + entity + "Ctrl.java";
+            path += "/lrsoft-" + module + "/" + module + "-web/src/main/java/" + packagePath.replaceAll("\\.", "/") + "/web/" + entity + "Ctrl.java";
         } else {
             // 前台部分
             path += "/web/src/main/webapp/app/" + module + "/" + module2 + "/";

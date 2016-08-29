@@ -1,6 +1,6 @@
 package ${packPath}.service;
 
-import com.ycrl.core.pager.PageVo;
+import com.michael.core.pager.PageVo;
 import ${packPath}.bo.${entity}Bo;
 import ${packPath}.domain.${entity};
 import ${packPath}.vo.${entity}Vo;

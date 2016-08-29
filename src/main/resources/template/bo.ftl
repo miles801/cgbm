@@ -1,8 +1,8 @@
 package ${packPath}.bo;
 
-import com.ycrl.core.hibernate.criteria.BO;
+import com.michael.core.hibernate.criteria.BO;
 <#if fields??>
-import com.ycrl.core.hibernate.criteria.Condition;
+import com.michael.core.hibernate.criteria.Condition;
 </#if>
 <#if fields??>
     <#list fields as attr>

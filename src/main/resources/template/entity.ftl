@@ -1,6 +1,6 @@
 package ${packPath}.domain;
 
-import com.ycrl.base.common.CommonDomain;
+import com.michael.common.CommonDomain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -11,7 +11,7 @@ import com.michael.docs.annotations.ApiField;
 import com.michael.tree.Tree;
 </#if>
 <#if attachment>
-import eccrm.base.attachment.AttachmentSymbol;
+import com.michael.base.attachment.AttachmentSymbol;
 </#if>
 /**
  * ${name}
