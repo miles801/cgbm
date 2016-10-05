@@ -17,7 +17,7 @@ public class CodeEngine {
 
     /**
      * @param template     模板文件
-     * @param data         数据文件
+     * @param data         数据对象
      * @param outputStream 输出流
      */
     public void generate(String template, Object data, OutputStream outputStream) {

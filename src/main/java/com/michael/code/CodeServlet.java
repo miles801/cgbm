@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.michael.utils.StringUtils;
 import com.michael.utils.TemplateUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
@@ -26,8 +27,10 @@ import java.util.*;
 @WebServlet(name = "code", urlPatterns = "/code")
 public class CodeServlet extends HttpServlet {
 
+    private Logger logger = Logger.getLogger(CodeServlet.class);
+    
     public CodeServlet() {
-        System.out.println("代码生成器Servlet初始化成功!。。。。。。。。。。。");
+        logger.info("代码生成器Servlet初始化成功!。。。。。。。。。。。");
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,7 +47,7 @@ public class CodeServlet extends HttpServlet {
             // entity
             engine.generate(TemplateUtils.loadTemplate("template/" + item + ".ftl"), beanConfig, getFile(beanConfig, item));
         }
-        System.out.println("文件生成完毕.....");
+        logger.info("文件生成完毕.....");
     }
 
     private FileOutputStream getFile(BeanConfig config, String type) throws FileNotFoundException {
@@ -104,12 +107,12 @@ public class CodeServlet extends HttpServlet {
                     parent.mkdirs();
                 }
                 boolean result = file.createNewFile();
-                System.out.println("创建文件:" + path + "-->" + result);
+                logger.info("创建文件:" + path + "-->" + result);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("覆盖文件:" + path);
+            logger.info("覆盖文件:" + path);
         }
         return new FileOutputStream(file);
     }
