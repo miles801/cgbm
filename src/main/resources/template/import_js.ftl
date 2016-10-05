@@ -39,7 +39,8 @@
                 });
             },
             swfOption: {
-                fileTypeExts: '*.xls;*.xlsx'
+                fileType: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                fileTypeExts: '*.xls;*.xlsx;'
             }
         };
 
