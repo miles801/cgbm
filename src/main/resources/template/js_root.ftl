@@ -5,8 +5,8 @@
 (function (angular) {
     var app = angular.module('${module}.${module2}.${entity?uncap_first}', [
         'ngResource',
+        'base.param',
         'eccrm.angular',
-        'eccrm.base.param',
         'eccrm.angularstrap'
     ]);
 
