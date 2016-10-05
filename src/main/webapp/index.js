@@ -125,6 +125,7 @@
             $scope.beans.items = items;
             var names = {};
             var error = false;
+            var date = false;
             angular.forEach(fields, function (o) {
                 if (names[o.field]) {
                     AlertFactory.error('字段重复!' + o.name + (o.field));
@@ -132,7 +133,12 @@
                 } else {
                     names[o.field] = o.field;
                 }
+                // 是否包含时间
+                if (o.type == 'Date') {
+                    date = true;
+                }
             });
+            $scope.beans.date = date;
             if (error) {
                 return;
             }
