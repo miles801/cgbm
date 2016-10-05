@@ -26,14 +26,17 @@
         <div class="block-content">
             <div class="content-wrap">
                 <form name="form" class="form-horizontal" role="form">
+                    <div class="row dn">
+                        <div class="col-1-half form-label"><label >公司:</label></div>
+                        <input ng-model="owner" class="col-2-half" />
+                    </div>
                     <div class="row" eccrm-upload="fileUpload"></div>
-                    <div class="row" style="margin-left: 10.5%;margin-top:8px;">
-                        <p style="font-size: 14px;font-weight: 700;">注意：</p>
+                    <div class="row" style="padding: 10px 2.16% 15px 10.33333332%">
+                        <div class="box-info">
+                            <p style="font-size: 14px;font-weight: 700;">注意：</p>
 
-                        <p>1. 附件不支持多页签(只会读取sheet1的数据)!</p>
-
-                        <p>2. 如果数据不正确，将会全部失败!</p>
-
+                            <p>1. 如果有一条数据不正确，都将会全部失败！</p>
+                        </div>
                     </div>
                     <div class="button-row">
                         <a class="btn" ng-href="<%=contextPath%>/${module}/${module2}/${entity?uncap_first}/template" target="_blank"
