@@ -44,50 +44,50 @@ String contextPath = request.getContextPath();
                         <#if field.condition>
                             <#if field.id>
                             <#elseif type == "text" >
-                                <div class="item w300">
-                                    <div class="form-label w100">
+                                <div class="item w200">
+                                    <div class="form-label w80">
                                         <label>${labelText}:</label>
                                     </div>
-                                    <input type="text" class="w200" ng-model="${bname}.${field.field}"
+                                    <input type="text" class="w120" ng-model="${bname}.${field.field}"
                                            maxlength="${field.length!40}"/>
                                 </div>
                             <#elseif type == 'checkbox'>
-                                <div class="item w300">
-                                    <div class="form-label w100">
+                                <div class="item w200">
+                                    <div class="form-label w80">
                                         <label>${labelText}:</label>
                                     </div>
-                                    <label class="w200">
+                                    <label class="w120">
                                         <input type="checkbox" ng-model="${bname}.${field.field}"/> <span
                                             style="margin-left:5px;">${name}</span>
                                     </label>
                                 </div>
                             <#elseif type == 'radio'>
-                                <div class="item w300">
-                                    <div class="form-label w100">
+                                <div class="item w200">
+                                    <div class="form-label w80">
                                         <label>${labelText}:</label>
                                     </div>
-                                    <label class="w200" ng-repeat="foo in ${field.field}s"
+                                    <label class="w120" ng-repeat="foo in ${field.field}s"
                                            style="margin-left:$index==0?'0':'12px';">
                                         <input type="radio" ng-model="${bname}.${field.field}"/> <span
                                             style="margin-left:5px;">${name}</span>
                                     </label>
                                 </div>
                             <#elseif type =='select'>
-                                <div class="item w300">
-                                    <div class="form-label w100">
+                                <div class="item w200">
+                                    <div class="form-label w80">
                                         <label>${labelText}:</label>
                                     </div>
-                                    <select class="w200" ng-model="${bname}.${field.field}"
+                                    <select class="w120" ng-model="${bname}.${field.field}"
                                             ng-options="foo.value as foo.name for foo in ${field.field}s"
                                             ng-change="query();"> </select>
                                 </div>
                             <#elseif type == 'date'>
-                                <div class="item w300">
-                                    <div class="form-label w100">
+                                <div class="item w200">
+                                    <div class="form-label w80">
                                         <label>${labelText}:</label>
                                     </div>
-                                    <div class="w200 pr">
-                                        <input type="text" class="w200" ng-model="${bname}.${field.field}"
+                                    <div class="w120 pr">
+                                        <input type="text" class="w120" ng-model="${bname}.${field.field}"
                                                eccrm-my97="{}" readonly placeholder="点击选择日期"/>
                                         <span class="add-on"><i class="icons icon clock"
                                                                 ng-click="${bname}.${field.field}=null"
@@ -95,12 +95,12 @@ String contextPath = request.getContextPath();
                                     </div>
                                 </div>
                             <#elseif type == 'time'>
-                                <div class="item w300">
-                                    <div class="form-label w100">
+                                <div class="item w200">
+                                    <div class="form-label w80">
                                         <label>${labelText}:</label>
                                     </div>
-                                    <div class="w200 pr">
-                                        <input type="text" class="w200" ng-model="${bname}.${field.field}"
+                                    <div class="w120 pr">
+                                        <input type="text" class="w120" ng-model="${bname}.${field.field}"
                                                eccrm-my97="{dateFmt:'HH:mm:ss'}" readonly placeholder="点击选择时间"/>
                                         <span class="add-on"><i class="icons icon clock"
                                                                 ng-click="${bname}.${field.field}=null"
@@ -108,12 +108,12 @@ String contextPath = request.getContextPath();
                                     </div>
                                 </div>
                             <#elseif type == 'datetime'>
-                                <div class="item w300">
-                                    <div class="form-label w100">
+                                <div class="item w200">
+                                    <div class="form-label w80">
                                         <label>${labelText}:</label>
                                     </div>
-                                    <div class="w200 pr">
-                                        <input type="text" class="w200" ng-model="${bname}.${field.field}"
+                                    <div class="w120 pr">
+                                        <input type="text" class="w120" ng-model="${bname}.${field.field}"
                                                eccrm-my97="{dateFmt:'yyyy-MM-dd HH:mm:ss'}" readonly
                                                placeholder="点击选择时间"/>
                                         <span class="add-on"><i class="icons icon clock"
@@ -122,12 +122,12 @@ String contextPath = request.getContextPath();
                                     </div>
                                 </div>
                             <#elseif type == 'tree'>
-                                <div class="item w300">
-                                    <div class="form-label w100">
+                                <div class="item w200">
+                                    <div class="form-label w80">
                                         <label>${labelText}:</label>
                                     </div>
-                                    <div class="w200 pr">
-                                        <input type="text" class="w200" ng-model="${bname}.${field.field}"
+                                    <div class="w120 pr">
+                                        <input type="text" class="w120" ng-model="${bname}.${field.field}"
                                                ztree-single="${field.field}Tree" readonly placeholder="点击选择"/>
                                         <span class="add-on"><i class="icons icon fork"
                                                                 ng-click="clear${field.field?cap_first}();"
@@ -167,6 +167,7 @@ String contextPath = request.getContextPath();
                                     <div select-all-checkbox checkboxes="beans.data" selected-items="items"
                                          anyone-selected="anyone"></div>
                                 </td>
+                                <td style="width: 20px;">序号</td>
                             <#assign size=2/>
                             <#list fields as field>
                                 <#if field.list && !field.id>
@@ -184,13 +185,14 @@ String contextPath = request.getContextPath();
                             <tbody class="table-body">
                             <tr ng-show="!beans || !beans.total">
                                 <#if deleted>
-                                <td colspan="${size}" class="text-center">没有查询到数据！</td>
-                                <#else >
                                 <td colspan="${size+1}" class="text-center">没有查询到数据！</td>
+                                <#else >
+                                <td colspan="${size+2}" class="text-center">没有查询到数据！</td>
                                 </#if>
                             </tr>
                             <tr bindonce ng-repeat="foo in beans.data" ng-cloak>
                                 <td><input type="checkbox" ng-model="foo.isSelected"/></td>
+                                <td bo-text="pager.start+$index+1"></td>
                             <#list fields as field>
                                 <#if field.id>
                                 <#elseif field.list && field_index==0>
@@ -200,7 +202,9 @@ String contextPath = request.getContextPath();
                                 <#elseif field.list && field_index gt 0>
                                         <#if field.param?has_content>
                                 <td bo-text="foo.${field.field}Name"></td>
-                                        <#else >
+                                        <#elseif field.date??>
+                                <td bo-text="foo.${field.field}|eccrmDatetime"></td>
+                                        <#else>
                                 <td bo-text="foo.${field.field}"></td>
                                         </#if>
                                 </#if>
@@ -234,8 +238,6 @@ String contextPath = request.getContextPath();
 </#if>
 </div>
 </body>
-<script type="text/javascript"
-        src="<%=contextPath%>/app/${module}/${module2}/${entity?uncap_first}/${entity?uncap_first}.js"></script>
-<script type="text/javascript"
-        src="<%=contextPath%>/app/${module}/${module2}/${entity?uncap_first}/${entity?uncap_first}_list.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/app/${module}/${module2}/${entity?uncap_first}/${entity?uncap_first}.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/app/${module}/${module2}/${entity?uncap_first}/${entity?uncap_first}_list.js"></script>
 </html>

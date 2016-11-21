@@ -204,9 +204,10 @@ public class ${entity}Ctrl extends BaseController {
 
     // 执行导入
     @ResponseBody
-    @RequestMapping(value = "/import", params = {"attachmentIds"}, method = RequestMethod.POST)
-    public void importData(@RequestParam String attachmentIds, HttpServletResponse response) {
-        ${entity?uncap_first}Service.importData(attachmentIds.split(","));
+    @RequestMapping(value = "/import", method = RequestMethod.POST)
+    public void importData(HttpServletRequest request, HttpServletResponse response) {
+        String[] o = GsonUtils.wrapDataToEntity(request, String[].class);
+        ${entity?uncap_first}Service.importData(o);
         GsonUtils.printSuccess(response);
     }
     </#if>

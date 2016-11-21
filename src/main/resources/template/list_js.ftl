@@ -121,7 +121,7 @@
                         AlertFactory.success('操作成功!');
                         $scope.query();
                     });
-                    CommonUtils.loading((promise));
+                    CommonUtils.loading(promise);
                 }
             });
         };
@@ -136,7 +136,7 @@
                         AlertFactory.success('操作成功!');
                         $scope.query();
                     });
-                    CommonUtils.loading((promise));
+                    CommonUtils.loading(promise);
                 }
             });
         };

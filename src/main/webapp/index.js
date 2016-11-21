@@ -136,6 +136,13 @@
                 // 是否包含时间
                 if (o.type == 'Date') {
                     date = true;
+                    o.length = 0;
+                }
+
+                // 如果填写了参数，则自动为下拉框
+                if (o.param) {
+                    o.type2 = 'select';
+                    o.length = 40;
                 }
             });
             $scope.beans.date = date;

@@ -33,7 +33,7 @@
 </#if>
 <#if importData>
             // 导入数据
-            importData: {method: 'POST', params: {method: 'import', attachmentIds: '@attachmentIds'}, isArray: false},
+            importData: {method: 'POST', params: {method: 'import'}, isArray: false},
 
 </#if>
             // 根据id查询信息
