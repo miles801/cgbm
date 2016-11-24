@@ -122,8 +122,7 @@
                                 <div class="form-label w100">
                                     <label validate-error="form.${field.field}">${name}:</label>
                                 </div>
-                                <select  class="w200" ng-model="${bname}.${field.field}" name="${field.field}" <#if field.require!false>validate validate-required</#if>
-                                         ng-options="foo.value as foo.name for foo in ${field.field}s">
+                                <select  class="w200" ng-model="${bname}.${field.field}" name="${field.field}" <#if field.require!false>validate validate-required</#if> ng-options="foo.value as foo.name for foo in ${field.field}s">
                                 </select >
                             </div>
                         <#elseif type == 'date'>
@@ -133,7 +132,9 @@
                                 </div>
                                 <div class="w200 pr">
                                     <input type="text" class="w200" ng-model="${bname}.${field.field}" eccrm-my97="{}" readonly placeholder="点击选择日期"/>
-                                    <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除日期"></i></span>
+                                    <span class="add-on">
+                                        <i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除日期"></i>
+                                    </span>
                                 </div>
                             </div>
                         <#elseif type == 'time'>
@@ -143,7 +144,9 @@
                                 </div>
                                 <div class="w200 pr">
                                     <input type="text" class="w200" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'HH:mm:ss'}" readonly placeholder="点击选择时间"/>
-                                    <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除时间"></i></span>
+                                    <span class="add-on">
+                                        <i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除时间"></i>
+                                    </span>
                                 </div>
                             </div>
                         <#elseif type == 'datetime'>
@@ -153,7 +156,9 @@
                                 </div>
                                 <div class="w200 pr">
                                     <input type="text" class="w200" ng-model="${bname}.${field.field}" eccrm-my97="{dateFmt:'yyyy-MM-dd HH:mm:ss'}" readonly placeholder="点击选择时间"/>
-                                    <span class="add-on"><i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除"></i></span>
+                                    <span class="add-on">
+                                        <i class="icons icon clock" ng-click="${bname}.${field.field}=null" title="点击清除"></i>
+                                    </span>
                                 </div>
                             </div>
                         <#elseif type == 'tree'>

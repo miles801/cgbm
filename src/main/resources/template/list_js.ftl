@@ -45,7 +45,7 @@
         };
         $scope.pager = {
             fetch: function () {
-                var param = angular.extend({}, {start: this.start, limit: this.limit}, $scope.condition);
+                var param = angular.extend({start: this.start, limit: this.limit}, $scope.condition);
                 $scope.beans = [];
                 return CommonUtils.promise(function(defer){
                     var promise = ${entity}Service.pageQuery(param, function(data){
